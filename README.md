@@ -23,10 +23,20 @@ development.
 
 ### steps
 
+#### create
+
+Makes a new repository at the current location with the given name and runs
+init.
+
 #### init
 
 Removes everything except for src and then generates 'gen/dev' and 'gen/release'
 from scratch.
+
+#### install / uninstall module
+
+Installs a module as either save or save-dev in the 'gen/dev' folder and copies
+the package.json into the 'src' folder.
 
 #### build
 
@@ -34,10 +44,11 @@ Any files added / removed / edited from 'src' have those changes applied to
 'gen/[dev|release]/src'. Those changes are then pushed through other build
 processes. This step should throw up any compilation errors.
 
-#### test dev
+#### test
 
 Runs unit tests for either dev or release. If a path is given, only the tests in
-that file are run.
+that file are run. If the --show-all or -s flag is given, the output of passing
+tests is also shown.
 
 #### status
 

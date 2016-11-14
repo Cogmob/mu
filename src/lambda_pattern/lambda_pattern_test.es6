@@ -1,14 +1,39 @@
 const test = require('tape');
-const func = require('./func');
+const lambda_pattern = require('./lambda_pattern');
 
-test('test pass', t => {
-    t.plan(1);
-    const res = func();
-    t.deepEqual([1, 2], res);
+test.only('create', t => {
+    console.log('creating');
+    process.chdir('src/lambda_pattern');
+    process.argv = ['create'];
+    lambda_pattern((res) => {
+        t.equals(res, '');
+        t.end();
+    });
+    process.chdir('..');
 });
 
-test('test fail', t => {
-    t.plan(1);
-    const res = func();
-    t.deepEqual({a:[1, 3]}, {a:res});
+test('init', t => {
+    //t.ok(true);
+    console.log('initialising');
+    t.end();
+});
+
+test('build dev', t => {
+    t.end();
+});
+
+test('test dev', t => {
+    t.end();
+});
+
+test('build release', t => {
+    t.end();
+});
+
+test('test release', t => {
+    t.end();
+});
+
+test('publish', t => {
+    t.end();
 });

@@ -35,5 +35,9 @@
     "tap": true,
     "verbose": true,
     "powerAssert": true
+  },
+  "dependencies": {
+    "git-clone": "^0.1.0",
+    "simple-git": "^1.62.0"
   }
 }
