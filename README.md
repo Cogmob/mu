@@ -39,6 +39,12 @@ processes. This step should throw up any compilation errors.
 Runs unit tests for either dev or release. If a path is given, only the tests in
 that file are run.
 
+#### status
+
+Gives a report on the currents state of the repo. This includes the build status
+of dev and release, whether the tests passed since the last build and whether
+the template information has been filled in.
+
 #### publish
 
 Increments the verson number and pushes to npm.

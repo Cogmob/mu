@@ -1,8 +1,8 @@
 {
-  "name": "[[replace - name]]",
+  "name": "lambda_pattern",
   "version": "0.0.0",
-  "description": "[[replace - description]]",
-  "main": "[[replace - src/name/name.js]]",
+  "description": "module used for automating the lambda pattern of development",
+  "main": "src/lambda_pattern/lambda_pattern",
   "scripts": {
     "test": "ava"
   },
