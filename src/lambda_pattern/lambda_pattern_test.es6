@@ -4,7 +4,7 @@ const lambda_pattern = require('./lambda_pattern');
 test.only('create', t => {
     console.log('creating');
     process.chdir('src/lambda_pattern');
-    process.argv = ['create'];
+    process.argv = ['create', 'test_project'];
     lambda_pattern((res) => {
         t.equals(res, '');
         t.end();
