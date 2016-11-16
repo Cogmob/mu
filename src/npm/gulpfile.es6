@@ -3,6 +3,7 @@ const sequence = require('gulp-sequence')
 const babel = require('gulp-babel');
 const del = require('del');
 const debug = require('gulp-debug');
+const continuation = require('gulp-continuation');
 
 gulp.task('delete_src', ()=>{
     return del(['src']);});
@@ -15,6 +16,7 @@ gulp.task('copy_src', ()=>{
 gulp.task('es6', ()=>{
     return gulp.src('src/**/*.es6')
             .pipe(babel({ presets: ['es2015'] }))
+            .pipe(continuation())
             .pipe(gulp.dest('src'));});
 
 gulp.task('copy_gulpfile_1', ()=>{

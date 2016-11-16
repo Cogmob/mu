@@ -5,6 +5,7 @@ var sequence = require('gulp-sequence');
 var babel = require('gulp-babel');
 var del = require('del');
 var debug = require('gulp-debug');
+var continuation = require('gulp-continuation');
 
 gulp.task('delete_src', function () {
     return del(['src']);
@@ -15,7 +16,7 @@ gulp.task('copy_src', function () {
 });
 
 gulp.task('es6', function () {
-    return gulp.src('src/**/*.es6').pipe(babel({ presets: ['es2015'] })).pipe(gulp.dest('src'));
+    return gulp.src('src/**/*.es6').pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('src'));
 });
 
 gulp.task('copy_gulpfile_1', function () {

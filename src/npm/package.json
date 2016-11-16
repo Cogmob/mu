@@ -19,9 +19,11 @@
     "ava": "^0.16.0",
     "babel-cli": "^6.16.0",
     "babel-preset-es2015": "^6.16.0",
+    "continuation": "^0.1.7",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-continuation": "^1.1.1",
     "gulp-debug": "^2.1.2",
     "gulp-sequence": "^0.4.6",
     "ls": "^0.2.1",
@@ -38,6 +40,7 @@
     "powerAssert": true
   },
   "dependencies": {
+    "continuation": "^0.1.7",
     "git-clone": "^0.1.0",
     "simple-git": "^1.62.0"
   }

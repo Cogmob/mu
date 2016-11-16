@@ -59,3 +59,7 @@ the template information has been filled in.
 #### publish
 
 Increments the verson number and pushes to npm.
+
+#### todo
+
+Adds or removes todo items, or set the order.
