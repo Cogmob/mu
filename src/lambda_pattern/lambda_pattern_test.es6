@@ -1,15 +1,14 @@
 const test = require('tape');
+const path = require('path');
 const lambda_pattern = require('./lambda_pattern');
 
 test.only('create', t => {
-    console.log('creating');
-    process.chdir('src/lambda_pattern');
+    process.chdir(path.resolve('src', 'lambda_pattern'));
     process.argv = ['create', 'test_project'];
-    lambda_pattern((res) => {
-        t.equals(res, '');
-        t.end();
-    });
-    process.chdir('..');
+    lambda_pattern(cont(res));
+    t.equals(res, '');
+    t.end();
+    process.chdir('../..');
 });
 
 test('init', t => {
