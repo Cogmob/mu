@@ -25,6 +25,8 @@
     "gulp-babel": "^6.1.2",
     "gulp-continuation": "^1.1.1",
     "gulp-debug": "^2.1.2",
+    "gulp-inject-string": "^1.1.0",
+    "gulp-insert-lines": "0.0.4",
     "gulp-sequence": "^0.4.6",
     "ls": "^0.2.1",
     "tap": "^7.1.2",

@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var insert_lines = require('gulp-insert-lines');
+var inject = require('gulp-inject-string');
 var sequence = require('gulp-sequence');
 var babel = require('gulp-babel');
 var del = require('del');
@@ -17,9 +17,9 @@ gulp.task('copy_src', function () {
 });
 
 gulp.task('es6', function () {
-    return gulp.src('src/**/*.es6').pipe(insert_lines({
-        after: /cont\(err/,
-        lineAfter: '    if (err) {return cb(err);}' })).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('src'));
+    return gulp.src('src/**/*.es6')
+    //.pipe(inject.after(/cont\(err.*\).*;/, ' if (err) {return cb(err);}'))
+    .pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('src'));
 });
 
 gulp.task('copy_gulpfile_1', function () {

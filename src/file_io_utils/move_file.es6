@@ -1,9 +1,9 @@
 const path = require('path');
 const fs = require('fs-extra');
 
-const move_file = (root_path, before_path, after_path, cb) => {
-    before = path.resolve(root_path, before_path);
-    after = path.resolve(root_path, after_path);
+const move_file = (before_path, after_path, cb) => {
+    before = path.resolve(...before_path);
+    after = path.resolve(...after_path);
     fs.move(before, after, cont(err));
     cb();};
 

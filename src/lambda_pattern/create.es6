@@ -27,33 +27,29 @@ const clone = (root_path, project_name, cb) => {
     cb();};
 
 const remove_git_folder = (project_path, cb) => {
-    git_path = path.resolve(project_path, '.git');
-    fs.remove(git_path, cont(err));
+    fs.remove(path.resolve(project_path, '.git'), cont(err));
     cb();};
 
 const rename_licence = (project_path, cb) => {
     const year = date.format(new Date(), 'YYYY');
-    replace_in_file(project_path, 'LICENCE.md', 'yyyy', year, cont(err));
+    replace_in_file([project_path, 'LICENCE.md'], 'yyyy', year, cont(err));
     cb();};
 
 const rename_to_project_name = (project_path, project_name, cb) => {
     console.log(project_path);
     move_file(
-        project_path,
-        path.join('src', 'module'),
-        path.join('src', project_name),
+        [project_path, 'src', 'module'],
+        [project_path, 'src', project_name],
         cont(err));
 
     move_file(
-        project_path,
-        path.join('src', project_name, 'func.es6'),
-        path.join('src', project_name, project_name + '.es6'),
+        [project_path, 'src', project_name, 'func.es6'],
+        [project_path, 'src', project_name, project_name + '.es6'],
         cont(err));
 
     move_file(
-        project_path,
-        path.join('src', project_name, 'func_test.es6'),
-        path.join('src', project_name, project_name + '_test.es6'),
+        [project_path, 'src', project_name, 'func_test.es6'],
+        [project_path, 'src', project_name, project_name + '_test.es6'],
         cont(err));
 
     cb();};

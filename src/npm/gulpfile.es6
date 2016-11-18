@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const insert_lines = require('gulp-insert-lines');
+const inject = require('gulp-inject-string');
 const sequence = require('gulp-sequence')
 const babel = require('gulp-babel');
 const del = require('del');
@@ -16,9 +16,7 @@ gulp.task('copy_src', ()=>{
 
 gulp.task('es6', ()=>{
     return gulp.src('src/**/*.es6')
-        .pipe(insert_lines({
-            after: /cont\(err/,
-            lineAfter: '    if (err) {return cb(err);}'}))
+        //.pipe(inject.after(/cont\(err.*\).*;/, ' if (err) {return cb(err);}'))
         .pipe(babel({ presets: ['es2015'] }))
         .pipe(continuation())
         .pipe(gulp.dest('src'));});
