@@ -38,6 +38,7 @@
     "powerAssert": true
   },
   "dependencies": {
+    "fs-extra": "^1.0.0",
     "git-clone": "^0.1.0",
     "simple-git": "^1.62.0"
   }
