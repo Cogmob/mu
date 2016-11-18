@@ -1,10 +1,10 @@
 const gulp = require('gulp');
+const insert_lines = require('gulp-insert-lines');
 const sequence = require('gulp-sequence')
 const babel = require('gulp-babel');
 const del = require('del');
 const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
-const replace = require('gulp-replace');
 
 gulp.task('delete_src', ()=>{
     return del(['src']);});
@@ -16,10 +16,12 @@ gulp.task('copy_src', ()=>{
 
 gulp.task('es6', ()=>{
     return gulp.src('src/**/*.es6')
-            .pipe(babel({ presets: ['es2015'] }))
-            .pipe(continuation())
-            .pipe(replace(/cont\(err\)\);/g, 'cont(err)); if (err) {return cb(err);}'))
-            .pipe(gulp.dest('src'));});
+        .pipe(insert_lines({
+            after: /cont\(err/,
+            lineAfter: '    if (err) {return cb(err);}'}))
+        .pipe(babel({ presets: ['es2015'] }))
+        .pipe(continuation())
+        .pipe(gulp.dest('src'));});
 
 gulp.task('copy_gulpfile_1', ()=>{
     return gulp.src('src/npm/gulpfile.js')

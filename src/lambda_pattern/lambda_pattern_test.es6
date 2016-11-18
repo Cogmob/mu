@@ -6,8 +6,6 @@ test.only('create', t => {
     process.chdir(path.resolve('src', 'lambda_pattern'));
     process.argv = ['create', 'test_project'];
     lambda_pattern(cont(res));
-    console.log('res:');
-    console.log(res);
     t.equals(res, '');
     t.end();
     process.chdir('../..');
