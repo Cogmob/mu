@@ -33,6 +33,11 @@ init.
 Removes everything except for src and then generates 'gen/dev' and 'gen/release'
 from scratch.
 
+#### store
+
+Opens the page needed to create a repo on github / bitbucket and then sets the
+origin and pushes the repo.
+
 #### install / uninstall module
 
 Installs a module as either save or save-dev in the 'gen/dev' folder and copies

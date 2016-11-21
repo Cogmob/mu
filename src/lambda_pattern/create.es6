@@ -8,35 +8,34 @@ const replace_in_file = require('../file_io_utils/replace_in_file');
 const move_file = require('../file_io_utils/move_file');
 
 const create = (root_path, project_name, cb) => {
-    clone(root_path, project_name, cont());
     project_path = path.resolve(root_path, project_name);
-    remove_git_folder(project_path, cont(err));
-    rename_licence(project_path, cont(err));
-    rename_to_project_name(project_path, project_name, cont(err));
-    /*
-    git_init(project_path, cont(err));
-   */
+    const year = date.format(new Date(), 'YYYY');
 
-    cb('');};
+    fs.remove(path.resolve(root_path, project_name), cont(err));
 
-const clone = (root_path, project_name, cb) => {
+    console.log('a');
     git(root_path).clone(
         'git@bitbucket.org:Cogbot/node_base.git',
         project_name,
         cont());
-    cb();};
+    console.log('b');
 
-const remove_git_folder = (project_path, cb) => {
     fs.remove(path.resolve(project_path, '.git'), cont(err));
-    cb();};
 
-const rename_licence = (project_path, cb) => {
-    const year = date.format(new Date(), 'YYYY');
     replace_in_file([project_path, 'LICENCE.md'], 'yyyy', year, cont(err));
-    cb();};
+
+    rename_to_project_name(project_path, project_name, cont(err));
+
+    git_init(project_path, cont(err));
+
+    fs.writeFile(
+        path.resolve(project_path, '.git', 'info', 'exclude'),
+        '.lvimrc',
+        cont(err));
+
+    cb('');};
 
 const rename_to_project_name = (project_path, project_name, cb) => {
-    console.log(project_path);
     move_file(
         [project_path, 'src', 'module'],
         [project_path, 'src', project_name],
@@ -52,6 +51,12 @@ const rename_to_project_name = (project_path, project_name, cb) => {
         [project_path, 'src', project_name, project_name + '_test.es6'],
         cont(err));
 
+    cb();};
+
+const git_init = (path, cb) => {
+    git(path).init(cont(err));
+    git(path).add(['*'], cont(err));
+    git(path).commit('set up project structure', cont(err));
     cb();};
 
 module.exports = create;
