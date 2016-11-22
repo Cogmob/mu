@@ -46,4 +46,4 @@ gulp.task('copy_gulpfile_2', ()=>{
             .pipe(gulp.dest('.'));});
 
 gulp.task('build_dev', sequence('copy_src', 'es6', 'main_file', 'copy_gulpfile_1', 'copy_gulpfile_2'));
-gulp.task('build_release',sequence('copy_src', 'es6'));
+gulp.task('build_release',sequence('copy_src', 'es6', 'main_file'));

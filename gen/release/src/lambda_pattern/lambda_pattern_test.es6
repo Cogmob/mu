@@ -12,7 +12,8 @@ test.only('full process', t => {
 
     // create
     process.chdir(path.resolve('test_project'));
-    process.argv = ['store', 'bitbucket'];
+    process.argv[2] = 'store';
+    process.argv[3] = 'bitbucket';
     lambda_pattern(cont(res));
     t.equals(res, '');
 

@@ -6,10 +6,8 @@ lambda_pattern = require('./lambda_pattern');
 test.only('full process', function (t) {
   var res;
   process.chdir(path.resolve('test_project'));
-  process.argv = [
-    'store',
-    'bitbucket'
-  ];
+  process.argv[2] = 'store';
+  process.argv[3] = 'bitbucket';
   lambda_pattern(function (arguments, _$param0) {
     res = _$param0;
     t.equals(res, '');
