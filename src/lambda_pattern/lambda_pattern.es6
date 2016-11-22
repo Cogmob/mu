@@ -1,4 +1,5 @@
 const create = require('./create');
+const store = require('./store');
 const path = require('path');
 
 const lambda_pattern = (cb) => {

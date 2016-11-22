@@ -13,12 +13,10 @@ const create = (root_path, project_name, cb) => {
 
     fs.remove(path.resolve(root_path, project_name), cont(err));
 
-    console.log('a');
     git(root_path).clone(
         'git@bitbucket.org:Cogbot/node_base.git',
         project_name,
         cont());
-    console.log('b');
 
     fs.remove(path.resolve(project_path, '.git'), cont(err));
 
