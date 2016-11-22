@@ -17,7 +17,7 @@ var lambda_pattern = function lambda_pattern(cb) {
         return store_fn(cb);
     }
 
-    cb('command not found ... help text ...');
+    cb('command \'' + command + '\' not found ... help text ...');
 };
 
 var create_fn = function create_fn(cb) {
