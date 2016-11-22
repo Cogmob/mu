@@ -21,6 +21,6 @@ const create_fn = (cb) => {
 const store_fn = (cb) => {
     if (!process.argv[1]) {
         return cb('please specify either bitbucket or github');}
-    store(process.cwd(), process.argv[1], cb);};
+    store(process.cwd(), process.argv[1], false, {is_ready: 'yes'}, cb);};
 
 module.exports = lambda_pattern;

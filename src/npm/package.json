@@ -27,11 +27,13 @@
     "gulp-debug": "^2.1.2",
     "gulp-inject-string": "^1.1.0",
     "gulp-insert-lines": "0.0.4",
+    "gulp-replace": "^0.5.4",
     "gulp-sequence": "^0.4.6",
     "ls": "^0.2.1",
     "tap": "^7.1.2",
     "tap-difflet": "^0.7.0",
-    "tape": "^4.6.2"
+    "tape": "^4.6.2",
+    "vargs-callback": "^0.2.4"
   },
   "ava": {
     "files": [
@@ -42,12 +44,16 @@
     "powerAssert": true
   },
   "dependencies": {
-    "fs-extra": "^1.0.0",
     "continuation": "^0.1.7",
     "date-and-time": "^0.4.0",
+    "fs-extra": "^1.0.0",
     "git-clone": "^0.1.0",
     "gulp-insert-lines": "0.0.4",
     "gulp-replace": "^0.5.4",
-    "simple-git": "^1.62.0"
+    "inquirer": "^1.2.3",
+    "open": "0.0.5",
+    "prompt": "^1.0.0",
+    "simple-git": "^1.62.0",
+    "vargs-callback": "^0.2.4"
   }
 }

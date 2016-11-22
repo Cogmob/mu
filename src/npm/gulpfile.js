@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var inject = require('gulp-inject-string');
+var replace = require('gulp-replace');
 var sequence = require('gulp-sequence');
 var babel = require('gulp-babel');
 var del = require('del');
@@ -17,9 +17,7 @@ gulp.task('copy_src', function () {
 });
 
 gulp.task('es6', function () {
-    return gulp.src('src/**/*.es6')
-    //.pipe(inject.after(/cont\(err.*\).*;/, ' if (err) {return cb(err);}'))
-    .pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('src'));
+    return gulp.src('src/**/*.es6').pipe(replace(/cont\(.*err.*\).*;/g, '$& if (err) {return cb(err);};')).pipe(gulp.dest('src')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('src'));
 });
 
 gulp.task('copy_gulpfile_1', function () {
