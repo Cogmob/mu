@@ -1,6 +1,6 @@
 {
   "name": "lambda_pattern",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "module used for automating the lambda pattern of development",
   "main": "src/lambda_pattern/lambda_pattern",
   "bin": {
@@ -54,6 +54,7 @@
     "gulp-insert-lines": "0.0.4",
     "gulp-replace": "^0.5.4",
     "inquirer": "^1.2.3",
+    "ls": "^0.2.1",
     "open": "0.0.5",
     "prompt": "^1.0.0",
     "simple-git": "^1.62.0",
