@@ -11,7 +11,7 @@ const lambda_pattern = (cb) => {
     if (command === 'store') {
         return store_fn(cb);}
     
-    cb('command \'' + command + '\' not found ... help text ...');
+    cb('command \'' + command + '\' not found ... help text ...');};
 
 const create_fn = (cb) => {
     if (!process.argv[1]) {
@@ -24,8 +24,3 @@ const store_fn = (cb) => {
     store(process.cwd(), process.argv[1], false, {is_ready: 'yes'}, cb);};
 
 module.exports = lambda_pattern;
-
-if (!module.parent) {
-    lambda_pattern((er) => {
-        if (er) {
-            console.log(er.toString());}});}

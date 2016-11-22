@@ -1,6 +1,6 @@
 {
   "name": "lambda_pattern",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "module used for automating the lambda pattern of development",
   "main": "src/lambda_pattern/lambda_pattern",
   "bin": {
@@ -28,10 +28,13 @@
     "gulp-babel": "^6.1.2",
     "gulp-continuation": "^1.1.1",
     "gulp-debug": "^2.1.2",
+    "gulp-footer": "^1.0.5",
+    "gulp-header": "^1.8.8",
     "gulp-inject-string": "^1.1.0",
     "gulp-insert-lines": "0.0.4",
     "gulp-replace": "^0.5.4",
     "gulp-sequence": "^0.4.6",
+    "ls": "^0.2.1",
     "tap": "^7.1.2",
     "tap-difflet": "^0.7.0",
     "tape": "^4.6.2",

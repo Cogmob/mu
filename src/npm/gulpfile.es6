@@ -1,3 +1,5 @@
+const header = require('gulp-header');
+const footer = require('gulp-footer');
 const gulp = require('gulp');
 const replace = require('gulp-replace');
 const sequence = require('gulp-sequence')
@@ -11,11 +13,24 @@ gulp.task('delete_src', ()=>{
 
 gulp.task('copy_src', ()=>{
     return gulp.src('../../src/**/*')
-            .pipe(debug())
             .pipe(gulp.dest('src'))});
+
+gulp.task('main_file', ()=>{
+    return gulp.src('src/[project_name]/[project_name].js')
+        .pipe(header('#!/usr/bin/env node\n\n'))
+        .pipe(footer(`
+if (!module.parent) {
+    lambda_pattern(function (er) {
+        if (er) {
+           console.log(er.toString());
+        }
+    });
+}`))
+        .pipe(gulp.dest('src/[project_name]'));});
 
 gulp.task('es6', ()=>{
     return gulp.src('src/**/*.es6')
+        .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
         .pipe(replace(/cont\(.*err.*\).*;/g, '$& if (err) {return cb(err);};'))
         .pipe(gulp.dest('src'))
         .pipe(babel({ presets: ['es2015'] }))
@@ -30,5 +45,5 @@ gulp.task('copy_gulpfile_2', ()=>{
     return gulp.src('src/npm/gulpfile.js')
             .pipe(gulp.dest('.'));});
 
-gulp.task('build_dev', sequence('copy_src', 'es6', 'copy_gulpfile_1', 'copy_gulpfile_2'));
+gulp.task('build_dev', sequence('copy_src', 'es6', 'main_file', 'copy_gulpfile_1', 'copy_gulpfile_2'));
 gulp.task('build_release',sequence('copy_src', 'es6'));
