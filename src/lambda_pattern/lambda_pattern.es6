@@ -28,4 +28,4 @@ module.exports = lambda_pattern;
 if (!module.parent) {
     lambda_pattern((er) => {
         if (er) {
-            console.log(err.toString());}});}
+            console.log(er.toString());}});}
