@@ -11,7 +11,7 @@ const lambda_pattern = (cb) => {
     if (command === 'store') {
         return store_fn(cb);}
     
-    cb('command not found ... help text ...');};
+    cb('command \'' + command + '\' not found ... help text ...');
 
 const create_fn = (cb) => {
     if (!process.argv[1]) {
