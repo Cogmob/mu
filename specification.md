@@ -46,7 +46,12 @@ root
 │   │   │── [project_name.es6]
 │   │   └── [project_name_test.es6]
 │   └── lambda
+│       ├─── build_test_data
+│       │    ├── after1
+│       │    ├── before1
+│       │    └── dependency
 │       ├─── tools.es6
+│       ├─── tools_tests.es6
 │       ├─── metadata
 │       ├─── npm_dependencies
 │       └─── npm_dev_dependencies
@@ -74,13 +79,27 @@ at a particular revision number. Each change to the lambda state is stored along
 with a record of the revision number when most recently a full dev / release
 test was completely successful.
 
-### steps
+## commands
+
+### managing projects
 
 #### create [name]
 
 * create a folder called [name]
 * set up the skeleton inside the folder
 * check out the updatables repo into gen/.updatables
+* add the project path to the ~/.lambda file
+
+#### get [name]
+
+* attempts to check out the project from github, otherwise bitbucket
+* runs build dev on the project
+
+#### close [name]
+
+* deletes the named repo and removes it from the ~/.lambda file
+
+### building and testing
 
 before each of the following steps:
 * make sure the gen/.updatables folder exists and fits the expected version
@@ -88,26 +107,36 @@ before each of the following steps:
     gen/tools.js
 
 #### build dev
-* run the tools.build.dev(path) function by requiring gen/tools.js, passing the root
-    folder as a parameter
+
+* run the tools.build.dev(path) function by requiring gen/tools.js, passing the
+    root folder as a parameter
     * deletes the folder gen/dev/src
     * copies from src to gen/dev/src
+    * installs npm modules
     * compiles all the source files in place in gen/dev/src
 
 #### build single dev
-* similar to build dev but only acts on a single file
+
+* similar to build dev but only acts on a single file (map from globs to
+    functions)
 
 #### build release
+
 * run the tools.build.release(path) function by requiring gen/tools.js, passing
     the root folder as a parameter
     * deletes the folder gen/release/src
     * copies from src to gen/release/src
+    * installs npm modules
     * compiles all source in place in gen/release/src and cleans up
+    * copies the licence and readme from root into gen/release
 
 #### build single release
-* similar to build release but only acts on a single file
+
+* similar to build release but only acts on a single file (map from globs to
+    functions)
 
 #### test dev
+
 * run the tools.test.dev(path) function by requiring gen/tools.js, passing the
     root folder as a paramter
     * run all files which end with \_test.js in the gen/dev folder
@@ -115,10 +144,19 @@ before each of the following steps:
     * if the tests have zero fails, write the current version number into the
         correct gen/lambda_state_history entry
 
+#### test tools
+
+* run the tools.test.tools(path) function by requiring gen/tools.js, passing the
+    root folder as a paramter
+    * run the gen/dev/lambda/tools_tests.js file
+    * if the tests have zero fails, write the current version number into the
+        correct gen/lambda_state_history entry
+
 #### test single dev
 * similar to test dev but only acts on tests in the folder of a given file
 
 #### test release
+
 * run the tools.test.dev(path) function by requiring gen/tools.js, passing the
     root folder as a paramter
     * run all files which end with \_test.js but not \_dev_test.js in the
@@ -128,9 +166,11 @@ before each of the following steps:
         correct gen/lambda_state_history entry
 
 #### test single release
+
 * similar to test release but only acts on tests in the folder of a given file
 
 #### publish
+
 * updates the version number
 * performs a commit and push
 * publishes the new repo to the package manager database
@@ -138,11 +178,13 @@ before each of the following steps:
 ### other commands
 
 #### update updatables
+
 * performs a git pull on the gen/.updatables directory
 * if a specific revision number is given, performs a checkout of that revision
 * creates a new lambda state history entry
 
 #### overwrite tools
+
 * moves the gen/stored/tools_scripts/current.js file to the same folder but
     with the current lambda state number as the filename
 * concats all js files in the gen/dev/lambda folder, using the tools.js file as
@@ -151,8 +193,26 @@ before each of the following steps:
 * create a new lambda state history entry
 
 #### set lambda state
+
 * perform a checkout of the correct updatables version
 * move the gen/stored/tools_scripts/current.js file to the same folder but with
     the current lambda state number as the filename
 * move the gen/stored/tools_scripts/??.js file to the same folder but with the
     filename current.js
+
+#### name lambda state
+
+* sets the name of the current lambda state
+
+### lambda demon (lambdad)
+
+#### start
+
+* if it is not already running, starts the lambda demon
+* begins watching all of the repos in ~/.lambda for changes
+* when changes occur, runs build single dev, build single release, test single dev,
+    test single release
+
+#### stop
+
+* kills the lambda demon
