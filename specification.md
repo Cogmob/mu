@@ -3,6 +3,9 @@
 The purpose of this document is to specify exactly the requirements and
 behaviours of a project using the lambda pattern.
 
+This specification has been written with some details specifically pertaining to
+javascript development.
+
 ## jargon
 
 ### lambda pattern
@@ -34,15 +37,16 @@ root
 ├── gen
 │   ├── release
 │   ├── stored
-│   │   └── working_build_scripts
+│   │   └── tools_scripts
 │   │       └── current.js
-│   └── .gitignore
+│   ├── .gitignore
+│   └── lambda_state_history
 ├── src
 │   ├── [project name]
 │   │   │── [project_name.es6]
 │   │   └── [project_name_test.es6]
 │   └── lambda
-│       ├─── build.es6
+│       ├─── tools.es6
 │       ├─── metadata
 │       ├─── npm_dependencies
 │       └─── npm_dev_dependencies
@@ -61,16 +65,94 @@ es6') and the updatables version number is a revision number for that repo. Most
 of the behavior of the lambda pattern tool for building is specified in the
 updatables repo, so that old lambda pattern projects don't break.
 
+### lambda state
+
+The lambda state is the details of how the project tools operate. Modifying the
+lambda state will potentially prevent the project from building correctly. The
+lambda state comprises two pieces: the tools.js file and the updatables folder
+at a particular revision number. Each change to the lambda state is stored along
+with a record of the revision number when most recently a full dev / release
+test was completely successful.
+
 ## steps
 
 ### create [name]
 
 * create a folder called [name]
 * set up the skeleton inside the folder
+* check out the updatables repo into gen/.updatables
+
+before each of the following steps:
+* make sure the gen/.updatables folder exists and fits the expected version
+* make a symlink from gen/stored/tools_scripts/current.js to
+    gen/tools.js
 
 ### build dev
+* run the tools.build.dev(path) function by requiring gen/tools.js, passing the root
+    folder as a parameter
+    * deletes the folder gen/dev/src
+    * copies from src to gen/dev/src
+    * compiles all the source files in place in gen/dev/src
 
-* make sure the gen/.updatables folder exists and fits the expected version
-* make a symlink from gen/stored/working_build_scripts/current.js to
-    gen/build.js
-* run the build.dev(path) function, passing the gen folder as a parameter
+### build single dev
+* similar to build dev but only acts on a single file
+
+### build release
+* run the tools.build.release(path) function by requiring gen/tools.js, passing
+    the root folder as a parameter
+    * deletes the folder gen/release/src
+    * copies from src to gen/release/src
+    * compiles all source in place in gen/release/src and cleans up
+
+### build single release
+* similar to build release but only acts on a single file
+
+### test dev
+* run the tools.test.dev(path) function by requiring gen/tools.js, passing the
+    root folder as a paramter
+    * run all files which end with \_test.js in the gen/dev folder
+    * write the results into gen/dev/test_results
+    * if the tests have zero fails, write the current version number into the
+        correct gen/lambda_state_history entry
+
+### test single dev
+* similar to test dev but only acts on tests in the folder of a given file
+
+### test release
+* run the tools.test.dev(path) function by requiring gen/tools.js, passing the
+    root folder as a paramter
+    * run all files which end with \_test.js but not \_dev_test.js in the
+        gen/release folder
+    * write the results into gen/dev/test_results
+    * if the tests have zero fails, write the current version number into the
+        correct gen/lambda_state_history entry
+
+### test single release
+* similar to test release but only acts on tests in the folder of a given file
+
+### publish
+* updates the version number
+* performs a commit and push
+* publishes the new repo to the package manager database
+
+## other commands
+
+### update updatables
+* performs a git pull on the gen/.updatables directory
+* if a specific revision number is given, performs a checkout of that revision
+* creates a new lambda state history entry
+
+### overwrite tools
+* moves the gen/stored/tools_scripts/current.js file to the same folder but
+    with the current lambda state number as the filename
+* concats all js files in the gen/dev/lambda folder, using the tools.js file as
+    an entry point
+* writes this file to gen/stored/tools_scripts/current.js
+* create a new lambda state history entry
+
+### set lambda state
+* perform a checkout of the correct updatables version
+* move the gen/stored/tools_scripts/current.js file to the same folder but with
+    the current lambda state number as the filename
+* move the gen/stored/tools_scripts/??.js file to the same folder but with the
+    filename current.js
