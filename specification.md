@@ -46,15 +46,15 @@ root
 │   │   │── [project_name.es6]
 │   │   └── [project_name_test.es6]
 │   └── lambda
-│       ├─── build_test_data
-│       │    ├── after1
-│       │    ├── before1
-│       │    └── dependency
-│       ├─── tools.es6
-│       ├─── tools_tests.es6
-│       ├─── metadata
-│       ├─── npm_dependencies
-│       └─── npm_dev_dependencies
+│       ├── build_test_data
+│       │   ├── after1
+│       │   ├── before1
+│       │   └── dependency
+│       ├── tools.es6
+│       ├── tools_tests.es6
+│       ├── metadata
+│       ├── npm_dependencies
+│       └── npm_dev_dependencies
 ├── LICENCE.md
 └── README.md
 ```
@@ -172,6 +172,7 @@ before each of the following steps:
 #### publish
 
 * updates the version number
+* performs a release build
 * performs a commit and push
 * publishes the new repo to the package manager database
 
