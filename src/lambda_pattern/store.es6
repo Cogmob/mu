@@ -27,7 +27,9 @@ const store = vargs((full_path, host, should_prompt, prompt_res, cb) => {
             choices: ['yes', 'no']}]).then(cont(prompt_res));}
 
     if (prompt_res.is_ready === 'yes'){
-        git(full_path).removeRemote('origin', cont(err));
+        git(full_path).removeRemote('origin', cont(er));
+        if (er && er !== 'fatal: No such remote: origin\n') {
+            return cb(er);}
         git(full_path).addRemote('origin', remote_path, cont(er));
         if (er && er !== 'fatal: remote origin already exists.\n') {
             return cb(er);}
