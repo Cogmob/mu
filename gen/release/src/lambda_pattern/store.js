@@ -6,7 +6,7 @@ inquirer = require('inquirer');
 open = require('open');
 git = require('simple-git');
 store = vargs(function (full_path, host, should_prompt, prompt_res, cb) {
-  var project_name, remote_path, url, prompt_res, err, er;
+  var project_name, remote_path, url, prompt_res, er, err;
   project_name = path.basename(full_path);
   remote_path = 'git@bitbucket.org:Cogbot/' + project_name + '.git';
   url = 'https://bitbucket.org/repo/create';
@@ -41,9 +41,9 @@ store = vargs(function (full_path, host, should_prompt, prompt_res, cb) {
     (function (_$cont) {
       if (prompt_res.is_ready === 'yes') {
         git(full_path).removeRemote('origin', function (arguments, _$param1) {
-          err = _$param1;
-          if (err) {
-            return cb(err);
+          er = _$param1;
+          if (er && er !== 'fatal: No such remote: origin\n') {
+            return cb(er);
           }
           git(full_path).addRemote('origin', remote_path, function (arguments, _$param2) {
             er = _$param2;

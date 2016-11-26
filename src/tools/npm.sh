@@ -1,4 +1,4 @@
 #!/bin/bash
 cd ../../gen/dev
-npm install $1 $2
+npm $1 $2 $3 $4 $5
 cp package.json ../../src/npm

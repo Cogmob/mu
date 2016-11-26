@@ -45,5 +45,9 @@ gulp.task('copy_gulpfile_2', ()=>{
     return gulp.src('src/npm/gulpfile.js')
             .pipe(gulp.dest('.'));});
 
+gulp.task('make_updatables', () => {
+    return gulp.src('src/create/updatables/*')
+        .pipe(gulp.dest('updatables'));});
+
 gulp.task('build_dev', sequence('copy_src', 'es6', 'main_file', 'copy_gulpfile_1', 'copy_gulpfile_2'));
-gulp.task('build_release',sequence('copy_src', 'es6', 'main_file'));
+gulp.task('build_release',sequence('copy_src', 'es6', 'main_file', 'make_updatables'));

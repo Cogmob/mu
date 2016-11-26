@@ -1,6 +1,6 @@
 {
   "name": "lambda_pattern",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "module used for automating the lambda pattern of development",
   "main": "src/lambda_pattern/lambda_pattern",
   "bin": {
@@ -35,6 +35,7 @@
     "gulp-replace": "^0.5.4",
     "gulp-sequence": "^0.4.6",
     "ls": "^0.2.1",
+    "serialfs": "0.0.10",
     "tap": "^7.1.2",
     "tap-difflet": "^0.7.0",
     "tape": "^4.6.2",
@@ -49,6 +50,7 @@
     "powerAssert": true
   },
   "dependencies": {
+    "app-root-path": "^2.0.1",
     "continuation": "^0.1.7",
     "date-and-time": "^0.4.0",
     "fs-extra": "^1.0.0",
