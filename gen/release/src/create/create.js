@@ -1,37 +1,63 @@
-var fs, path, git, create, ensure_subrepo_exists;
+var fs, yaml, path, git, create, ensure_subrepo_exists;
 'use strict';
 fs = require('fs-extra');
+yaml = require('js-yaml');
 path = require('path');
 git = require('simple-git');
 create = function create(root, parent_path, project_name, cb) {
-  var err, subrepo_path;
-  fs.remove(path.resolve(parent_path, project_name), function (arguments, _$param0) {
+  var project_path, err, subrepo_path, managed_path, dotfile;
+  project_path = path.resolve(parent_path, project_name);
+  fs.remove(project_path, function (arguments, _$param0) {
     err = _$param0;
     if (err) {
       return cb(err);
     }
-    fs.copy(path.resolve(root, 'src', 'create', 'skeleton'), path.resolve(parent_path, project_name), function (arguments, _$param1) {
+    fs.copy(path.resolve(root, 'src', 'create', 'skeleton'), project_path, function (arguments, _$param1) {
       err = _$param1;
       if (err) {
         return cb(err);
       }
-      subrepo_path = path.resolve(root, 'subrepo_for_updatables');
+      subrepo_path = path.resolve(root, 'cached', 'subrepo_for_updatables');
       ensure_subrepo_exists(subrepo_path, function (arguments, _$param2) {
         err = _$param2;
         if (err) {
           return cb(err);
         }
+        console.log('before');
+        console.log(subrepo_path);
         git(subrepo_path).checkout('master', function (arguments, _$param3) {
           err = _$param3;
           if (err) {
             return cb(err);
           }
-          fs.copy(path.resolve(subrepo_path, 'gen', 'release', 'updatables'), path.resolve(parent_path, project_name, 'gen', '.updatables'), function (arguments, _$param4) {
+          console.log('after');
+          fs.copy(path.resolve(subrepo_path, 'gen', 'release', 'updatables'), path.resolve(project_path, 'gen', 'updatables'), function (arguments, _$param4) {
             err = _$param4;
             if (err) {
               return cb(err);
             }
-            cb(null);
+            managed_path = path.resolve(root, 'cached', 'current_managed_projects');
+            fs.ensureFile(managed_path, function (arguments, _$param5) {
+              err = _$param5;
+              if (err) {
+                return cb(err);
+              }
+              fs.readFile(managed_path, 'utf8', function (arguments, _$param6, _$param7) {
+                err = _$param6;
+                dotfile = _$param7;
+                if (err) {
+                  return cb(err);
+                }
+                dotfile = yaml.load(dotfile);
+                if (!(dotfile instanceof Array)) {
+                  dotfile = [];
+                }
+                if (dotfile.indexOf(project_name) === -1) {
+                  dotfile.push(project_name);
+                }
+                fs.writeFile(managed_path, yaml.dump(dotfile), cb);
+              }.bind(this, arguments));
+            }.bind(this, arguments));
           }.bind(this, arguments));
         }.bind(this, arguments));
       }.bind(this, arguments));
@@ -40,11 +66,12 @@ create = function create(root, parent_path, project_name, cb) {
 };
 ensure_subrepo_exists = function ensure_subrepo_exists(subrepo_path, cb) {
   var subrepo_exists;
-  fs.exists(subrepo_path, function (arguments, _$param5) {
-    subrepo_exists = _$param5;
+  fs.exists(subrepo_path, function (arguments, _$param8) {
+    subrepo_exists = _$param8;
     if (subrepo_exists) {
       return cb(null);
     }
+    fs.ensureDir(subrepo_path);
     git('.').clone('git@github.com:Cogmob/lambda_pattern_es6.git', subrepo_path, cb);
   }.bind(this, arguments));
 };

@@ -9,7 +9,7 @@ test('create skeleton', function (t) {
   var cb, err, root_path, created;
   t.plan(1);
   cb = function cb(err, expected, actual) {
-    t.equal(expected, actual);
+    t.equal(null, err);
   };
   create(root, path.resolve('.', 'src', 'create'), 'test_project', function (arguments, _$param0) {
     err = _$param0;
@@ -23,7 +23,7 @@ test('create skeleton', function (t) {
       if (err) {
         return cb(err);
       }
-      console.log(created);
+      cb(null);
     }.bind(this, arguments));
   }.bind(this, arguments));
 });

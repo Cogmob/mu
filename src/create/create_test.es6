@@ -7,9 +7,10 @@ const root = require('app-root-path').toString();
 test('create skeleton', t => {
     t.plan(1);
     const cb = (err, expected, actual) => {
-        t.equal(expected, actual);};
+        t.equal(null, err);};
 
     create(root, path.resolve('.', 'src', 'create'), 'test_project', cont(err));
     const root_path = path.resolve('.', 'src', 'create', 'test_project');
     serialfs.obj(root_path, {contents: false}, cont(err, created));
-    console.log(created);});
+    cb(null);
+});
