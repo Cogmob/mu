@@ -6,8 +6,8 @@ const root = require('app-root-path').toString();
 
 test('create skeleton', t => {
     t.plan(1);
-    const cb = (err, expected, actual) => {
-        t.equal(null, err);};
+    const cb = (err) => {
+        t.notOk(err);};
 
     create(root, path.resolve('.', 'src', 'create'), 'test_project', cont(err));
     const root_path = path.resolve('.', 'src', 'create', 'test_project');
