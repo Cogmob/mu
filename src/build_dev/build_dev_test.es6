@@ -10,5 +10,7 @@ test('build_dev', t => {
     const cb = (err) => {
         console.log('done');
         t.notOk(err);};
-    create(root, path.resolve('.', 'src', 'build_dev'), 'test_project', cb);
-    build_dev(root, path.resolve('.', 'src', 'build_dev', 'test_project'));});
+    var full_path = path.resolve('.', 'src', 'build_dev');
+    create(root, full_path, 'test_project', cont(err));
+    full_path = path.resolve(full_path, 'test_project');
+    build_dev(root, full_path, cb);});

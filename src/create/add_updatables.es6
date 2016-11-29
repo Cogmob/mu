@@ -12,7 +12,7 @@ const add_updatables = (root, project_path, cb) => {
 
     fs.copy(
         path.resolve(subrepo_path, 'gen', 'release', 'updatables'),
-        path.resolve(project_path, 'gen', 'updatables'),
+        path.resolve(project_path, 'gen', '.updatables'),
         cb);};
 
 module.exports = add_updatables;
