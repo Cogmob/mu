@@ -12,5 +12,4 @@ test('create skeleton', t => {
     create(root, path.resolve('.', 'src', 'create'), 'test_project', cont(err));
     const root_path = path.resolve('.', 'src', 'create', 'test_project');
     serialfs.obj(root_path, {contents: false}, cont(err, created));
-    cb(null);
-});
+    cb(null);});

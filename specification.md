@@ -144,13 +144,11 @@ before each of the following steps:
     * if the tests have zero fails, write the current version number into the
         correct gen/lambda_state_history entry
 
-#### test tools
+#### update tools
 
-* run the tools.test.tools(path) function by requiring gen/tools.js, passing the
-    root folder as a paramter
-    * run the gen/dev/lambda/tools_tests.js file
-    * if the tests have zero fails, write the current version number into the
-        correct gen/lambda_state_history entry
+* copy the tools.js file from the src/lambda folder to
+    gen/stored/build_tools/current
+* write a new version number into gen/lambda_state_history
 
 #### test single dev
 * similar to test dev but only acts on tests in the folder of a given file
