@@ -34,6 +34,10 @@ gulp.task('copy_gulpfile_2', function () {
     return gulp.src('src/npm/gulpfile.js').pipe(gulp.dest('.'));
 });
 
+gulp.task('copy_tools', function () {
+    return gulp.src('src/tools/tools.js').pipe(gulp.dest('../stored/tools_scripts/current.es6'));
+});
+
 gulp.task('make_updatables', function () {
     return gulp.src('src/create/updatables/*').pipe(gulp.dest('updatables'));
 });

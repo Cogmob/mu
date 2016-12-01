@@ -43,7 +43,11 @@ gulp.task('copy_gulpfile_1', ()=>{
 
 gulp.task('copy_gulpfile_2', ()=>{
     return gulp.src('src/npm/gulpfile.js')
-            .pipe(gulp.dest('.'));});
+        .pipe(gulp.dest('.'));});
+
+gulp.task('copy_tools', ()=>{
+    return gulp.src('src/tools/tools.js')
+        .pipe(gulp.dest('../stored/tools_scripts/current.es6'));});
 
 gulp.task('make_updatables', () => {
     return gulp.src('src/create/updatables/*')
