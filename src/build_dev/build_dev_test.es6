@@ -8,7 +8,6 @@ const build_dev = require('./build_dev');
 test('build_dev', t => {
     t.plan(1);
     const cb = (err) => {
-        console.log('done');
         t.notOk(err);};
     var full_path = path.resolve('.', 'src', 'build_dev');
     create(root, full_path, 'test_project', cont(err));
