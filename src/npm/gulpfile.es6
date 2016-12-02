@@ -1,3 +1,4 @@
+const webpack = require('webpack-stream');
 const header = require('gulp-header');
 const footer = require('gulp-footer');
 const gulp = require('gulp');
@@ -53,5 +54,10 @@ gulp.task('make_updatables', () => {
     return gulp.src('src/create/updatables/*')
         .pipe(gulp.dest('updatables'));});
 
-gulp.task('build_dev', sequence('copy_src', 'es6', 'main_file', 'copy_gulpfile_1', 'copy_gulpfile_2'));
+gulp.task('build_tools', () => {
+    return gulp.src('src/build_dev/lambda_shared_tools.js')
+        .pipe(webpack({target: 'node', output: {filename: 'built_tools.js'}}))
+        .pipe(gulp.dest('src/tools'));});
+
+gulp.task('build_dev', sequence('copy_src', 'es6', 'main_file', 'copy_gulpfile_1', 'copy_gulpfile_2', 'build_tools'));
 gulp.task('build_release',sequence('copy_src', 'es6', 'main_file', 'make_updatables'));

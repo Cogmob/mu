@@ -1,4 +1,6 @@
+const build_dev = require('../build_dev/build_dev');
+const modify_tools = require('../lambda/tools.es6');
+
 module.exports = {
-    build_dev: (root, project_path, cb) => {
-        console.log('add build instructions here');
-        cb();}};
+    build_dev,
+    build_release};
