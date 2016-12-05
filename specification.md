@@ -20,6 +20,10 @@ lambda pattern tool.
 
 A lambda pattern project follows the lambda pattern.
 
+#### lambda source
+
+The lambda source is the src folder inside a lambda pattern project.
+
 #### lambda pattern tool
 
 A command line tool which is used for creating and maintaining a lambda pattern
@@ -37,24 +41,25 @@ root
 ├── gen
 │   ├── release
 │   ├── stored
-│   │   └── tools_scripts
-│   │       └── current.js
+│   │   └── old_tools
 │   ├── .gitignore
-│   └── lambda_state_history
+│   ├── lambda_state_history
+│   └── tools.js
 ├── src
 │   ├── [project name]
 │   │   │── [project_name.es6]
-│   │   └── [project_name_test.es6]
-│   └── lambda
+│   │   ├── [project_name_test.es6]
+│   │   ├── npm_dependencies
+│   │   └── npm_dev_dependencies
+│   └── tools
 │       ├── build_test_data
 │       │   ├── after1
 │       │   ├── before1
 │       │   └── dependency
-│       ├── tools.es6
+│       ├── modify_tools.es6
 │       ├── tools_tests.es6
 │       ├── metadata
-│       ├── npm_dependencies
-│       └── npm_dev_dependencies
+│       └── tools_npm_dev_dependencies
 ├── LICENCE.md
 └── README.md
 ```

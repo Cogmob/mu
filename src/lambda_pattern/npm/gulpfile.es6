@@ -9,9 +9,6 @@ const del = require('del');
 const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
 
-gulp.task('delete_src', ()=>{
-    return del(['src']);});
-
 gulp.task('copy_src', ()=>{
     return gulp.src('../../src/**/*')
             .pipe(gulp.dest('src'))});
@@ -38,26 +35,14 @@ gulp.task('es6', ()=>{
         .pipe(continuation())
         .pipe(gulp.dest('src'));});
 
-gulp.task('copy_gulpfile_1', ()=>{
-    return gulp.src('src/npm/gulpfile.js')
-            .pipe(gulp.dest('../../src/npm'));});
-
-gulp.task('copy_gulpfile_2', ()=>{
-    return gulp.src('src/npm/gulpfile.js')
-        .pipe(gulp.dest('.'));});
-
-gulp.task('copy_tools', ()=>{
-    return gulp.src('src/tools/tools.js')
-        .pipe(gulp.dest('../stored/tools_scripts/current.es6'));});
-
-gulp.task('make_updatables', () => {
-    return gulp.src('src/create/updatables/*')
-        .pipe(gulp.dest('updatables'));});
+gulp.task('backup_gulpfile', ()=>{
+    return gulp.src('src/[project_name]/npm/gulpfile.js')
+            .pipe(gulp.dest('../../src/[project_name]/npm'));});
 
 gulp.task('build_tools', () => {
     return gulp.src('src/tools/tools.js')
         .pipe(webpack({target: 'node', output: {filename: 'built_tools.js'}}))
         .pipe(gulp.dest('src/tools'));});
 
-gulp.task('build_dev', sequence('copy_src', 'es6', 'main_file', 'copy_gulpfile_1', 'copy_gulpfile_2', 'build_tools'));
-gulp.task('build_release',sequence('copy_src', 'es6', 'main_file', 'make_updatables'));
+gulp.task('build_dev', sequence('copy_src', 'es6', 'main_file', 'backup_gulpfile', 'build_tools'));
+gulp.task('build_release',sequence('copy_src', 'es6', 'main_file'));
