@@ -55,7 +55,7 @@ gulp.task('make_updatables', () => {
         .pipe(gulp.dest('updatables'));});
 
 gulp.task('build_tools', () => {
-    return gulp.src('src/build_dev/lambda_shared_tools.js')
+    return gulp.src('src/tools/tools.js')
         .pipe(webpack({target: 'node', output: {filename: 'built_tools.js'}}))
         .pipe(gulp.dest('src/tools'));});
 

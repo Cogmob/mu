@@ -19,7 +19,7 @@ const build_code = (project_path, cb) => {
         .pipe(gulp.dest('src'))
         .pipe(babel({ presets: ['es2015'] }))
         .pipe(continuation())
-        .pipe(gulp.dest('src')
+        .pipe(gulp.dest('src'))
         .on('end', cont(err));
 
     gulp.src('src/[project_name]/[project_name].js')
@@ -32,7 +32,7 @@ if (!module.parent) {
         }
     });
 }`))
-        .pipe(gulp.dest('src/[project_name]'));})
+        .pipe(gulp.dest('src/[project_name]'))
         .on('end', cont(err));
 
-    project_tools.after_processing(project_path, cb);});
+    project_tools.after_processing(project_path, cb);};

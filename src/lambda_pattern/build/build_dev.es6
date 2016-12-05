@@ -4,7 +4,7 @@ const gulp = require('gulp');
 const project_tools = require('../lambda/tools.es6');
 
 const build_dev = (project_path, modify_tools, cb) => {
-    project_tools.before_build_release(project_path, cb);};
+    project_tools.before_build_release(project_path, cb);
 
     build_code(project_path, cont(err));
 
@@ -16,7 +16,7 @@ const build_dev = (project_path, modify_tools, cb) => {
         .pipe(gulp.dest('.'))
         .on('end', cont(err));
 
-    gulp.src('src/build_dev/lambda_shared_tools.js')
+    gulp.src('src/tools/tools.js')
         .pipe(webpack({target: 'node', output: {filename: 'built_tools.js'}}))
         .pipe(gulp.dest('src/tools'))
         .on('end', cont(err));
