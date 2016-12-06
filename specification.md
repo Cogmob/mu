@@ -6,6 +6,7 @@ behaviours of a project using the lambda pattern.
 This specification has been written with some details specifically pertaining to
 javascript development.
 
+
 ### jargon
 
 #### lambda pattern
@@ -124,6 +125,7 @@ at a particular revision number. Each change to the lambda state is stored along
 with a record of the revision number when most recently a full dev / release
 test was completely successful.
 
+
 ## commands
 
 ### managing projects
@@ -219,6 +221,7 @@ before each of the following steps:
 * performs a commit and push
 * publishes the new repo to the package manager database
 
+
 ### other commands
 
 #### update updatables
@@ -252,6 +255,7 @@ before each of the following steps:
 
 * adds a new folder with the given name into gen/stored/[project name]
 * add an es6 file and \_test.es6 file into this folder with default contents
+
 
 ### lambda demon (lambdad)
 
