@@ -1,7 +1,7 @@
 #!/bin/bash
-cp ../npm/gulpfile.js ../../gen/release
+cp ../lambda_pattern/npm/gulpfile.js ../../gen/release
 cd ../../gen/release
-cp ../../src/npm/package.json .
+cp ../../src/lambda_pattern/npm/package.json .
 cp ../../README.md .
 npm install
 rm -rf src

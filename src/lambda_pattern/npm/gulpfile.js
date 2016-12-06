@@ -28,7 +28,7 @@ gulp.task('backup_gulpfile', function () {
 });
 
 gulp.task('build_tools', function () {
-    return gulp.src('src/tools/tools.js').pipe(debug()).pipe(webpack({ target: 'node', output: { filename: 'built_tools.js' } })).pipe(gulp.dest('src/tools'));
+    return gulp.src('src/tools/tools.js').pipe(webpack({ target: 'node', output: { filename: 'built_tools.js' } })).pipe(gulp.dest('src/tools'));
 });
 
 gulp.task('build_dev', sequence('copy_src', 'es6', 'main_file', 'backup_gulpfile', 'build_tools'));

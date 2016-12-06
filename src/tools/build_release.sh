@@ -1,8 +1,12 @@
 #!/bin/bash
-cp ../npm/gulpfile.js ../../gen/release
-cd ../../gen/release
-cp ../../src/npm/package.json .
-cp ../../README.md .
+cd ../..
+mv gen/release/cached gen
+rm -rf gen/release
+cp src/skeleton/release gen
+cp src/lambda_pattern/npm/gulpfile.js gen/release
+cp src/lambda_pattern/npm/package.json gen/release/cached
+cp README.md gen/release
+cd gen/release/cached
 npm install
 rm -rf src
 clear
