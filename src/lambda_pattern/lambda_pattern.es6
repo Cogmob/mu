@@ -1,17 +1,25 @@
 const create = require('./create');
 const store = require('./store');
 const path = require('path');
+const is_function = require('is-function');
 
 const lambda_pattern = (cb) => {
-    const command = process.argv[2];
+    const commands = {
+        'create': create_fn(cb),
+        'store': store_fn(cb),
+        'overwrite': {
+            'tools': store_fn(cb)}}
 
-    if (command === 'create') {
-        return create_fn(cb);}
-    
-    if (command === 'store') {
-        return store_fn(cb);}
-    
-    cb('command \'' + command + '\' not found ... help text ...');};
+    get_command(process.argv, 2, commands)(cb);}
+
+const get_command = (args, index, commands) => {
+    const key = args[index];
+    if (key in commands) {
+        if (is_function(commands[key])) {
+            return commands[key];}
+        return get_command(args, index+1, commands[key]);}
+    return (cb) => {
+        cb('command \'' + command + '\' not found ... help text ...');};}
 
 const create_fn = (cb) => {
     if (!process.argv[3]) {

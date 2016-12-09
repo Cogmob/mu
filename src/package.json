@@ -1,0 +1,27 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "dependencies for the tools used for developing the lambda pattern repo",
+  "main": "tools.js",
+  "scripts": {
+    "test": "tools_test.js"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-continuation": "^1.1.1",
+    "gulp-debug": "^2.1.2",
+    "gulp-footer": "^1.0.5",
+    "gulp-header": "^1.8.8",
+    "gulp-include": "^2.3.1",
+    "gulp-inject-string": "^1.1.0",
+    "gulp-insert-lines": "0.0.4",
+    "gulp-replace": "^0.5.4",
+    "gulp-sequence": "^0.4.6",
+    "webpack-stream": "^3.2.0"
+
+  },
+  "author": "",
+  "license": "ISC"
+}
