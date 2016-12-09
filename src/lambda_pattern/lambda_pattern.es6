@@ -1,5 +1,5 @@
-const create = require('./create');
-const store = require('./store');
+const create = require('./create/create');
+const store = require('./store/store');
 const path = require('path');
 const is_function = require('is-function');
 
