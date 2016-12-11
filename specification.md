@@ -34,6 +34,9 @@ The lambda source is the src folder inside a lambda pattern project.
 A command line tool which is used for creating and maintaining a lambda pattern
 project.
 
+The source code for the lambda pattern tool is a lambda pattern project
+itself.
+
 #### lambda pattern skeleton
 
 The basic outline of the project which is not updated by the lambda pattern
@@ -198,6 +201,7 @@ before each of the following steps:
 * write a new version number into gen/lambda_state_history
 
 #### test single dev
+
 * similar to test dev but only acts on tests in the folder of a given file
 
 #### test release
@@ -223,6 +227,11 @@ before each of the following steps:
 
 
 ### other commands
+
+#### npm
+
+* sends npm commands in both receive and dev
+* backs up the package.json from gen/dev to src
 
 #### update updatables
 

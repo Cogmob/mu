@@ -3,14 +3,14 @@ const store = require('./store/store');
 const path = require('path');
 const is_function = require('is-function');
 
-const lambda_pattern = (cb) => {
+const lambda_pattern = (path=process.cwd(), cb) => {
     const commands = {
         'create': create_fn(cb),
         'store': store_fn(cb),
         'overwrite': {
             'tools': store_fn(cb)}}
 
-    get_command(process.argv, 2, commands)(cb);}
+    get_command(process.argv, 2, commands)(path, cb);}
 
 const get_command = (args, index, commands) => {
     const key = args[index];
