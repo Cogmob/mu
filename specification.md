@@ -192,13 +192,13 @@ before each of the following steps:
     * run all files which end with \_test.js in the gen/dev folder
     * write the results into gen/dev/test_results
     * if the tests have zero fails, write the current version number into the
-        correct gen/lambda_state_history entry
+        correct gen/stored/lambda_state_history.yaml entry
 
 #### update tools
 
-* copy the tools.js file from the src/lambda folder to
-    gen/stored/build_tools/current
-* write a new version number into gen/lambda_state_history
+* copy the gen/tools.js file from the to
+    gen/stored/tools/version_number.js
+* write a new version number into gen/stored/lambda_state_history.yaml
 
 #### test single dev
 
@@ -212,7 +212,7 @@ before each of the following steps:
         gen/release folder
     * write the results into gen/dev/test_results
     * if the tests have zero fails, write the current version number into the
-        correct gen/lambda_state_history entry
+        correct gen/stored/lambda_state_history.yaml entry
 
 #### test single release
 

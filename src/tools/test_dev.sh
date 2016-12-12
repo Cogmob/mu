@@ -1,4 +1,4 @@
 #!/bin/bash
-cd ../../gen/dev
+cd ../../gen/dev/src
 clear
-node_modules/.bin/tape src/**/*$1 | node_modules/.bin/tap-difflet
+node_modules/.bin/tape lambda_pattern/**/*$1 | node_modules/.bin/tap-difflet

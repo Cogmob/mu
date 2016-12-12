@@ -1,9 +1,8 @@
 const gulp = require('gulp');
 
-// include project specific instructions
-const project_tools = require('../lambda/tools.es6');
+const build_dev = (path, cb) => {
+    const project_tools = require(path.resolve(path, '../lambda/tools.es6'));
 
-const build_dev = (project_path, modify_tools, cb) => {
     project_tools.before_build_release(project_path, cb);
 
     build_code(project_path, cont(err));

@@ -27,8 +27,6 @@
     "json-loader": "^0.5.4",
     "ls": "^0.2.1",
     "serialfs": "0.0.10",
-    "tap": "^7.1.2",
-    "tap-difflet": "^0.7.0",
     "tape": "^4.6.2",
     "vargs-callback": "^0.2.4",
     "vinyl-transform": "^1.0.0"
@@ -50,6 +48,7 @@
     "homedir": "^0.6.0",
     "inquirer": "^1.2.3",
     "is-function": "^1.0.1",
+    "js-yaml": "^3.7.0",
     "ls": "^0.2.1",
     "open": "0.0.5",
     "osenv": "^0.1.3",

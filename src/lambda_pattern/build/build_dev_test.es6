@@ -5,7 +5,7 @@ const path = require('path');
 const create = require('../create/create');
 const build_dev = require('./build_dev');
   
-test.only('build_dev', t => {
+test('build_dev', t => {
     t.plan(1);
     const cb = (err) => {
         t.notOk(err);};
