@@ -1,9 +1,9 @@
 const test = require('tape');
 const path = require('path');
 const serialfs = require('serialfs');
-const overwrite_tools = require('./overwrite_tools');
+const overwrite_tools = require('./set_lambda_version');
 
-test('overwrite', (t) => {
+test.only('set lambda version', (t) => {
     const cb = (err, generated, expected) => {
         t.error(err);
         t.deepEqual(expected, generated);

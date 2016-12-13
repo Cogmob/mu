@@ -1,0 +1,12 @@
+current_state: 12345
+state_order:
+- 12345
+states:
+  '12345':
+    name: old
+    lambda_version: 4342434
+    dev_built: true
+    dev_tests_passed: true
+    release_built: true
+    release_tests_passed: true
+    notes: working
