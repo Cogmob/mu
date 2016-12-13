@@ -1,5 +1,5 @@
 const webpack = require('webpack-stream');
-const header = require('gulp-header');
+const insert = require('gulp-insert');
 const footer = require('gulp-footer');
 const gulp = require('gulp');
 const replace = require('gulp-replace');
@@ -11,9 +11,15 @@ const continuation = require('gulp-continuation');
 const path = require('path');
 
 gulp.task('es6', ()=>{
-    return gulp.src('**/*.es6')
+    return gulp.src(['**/*.es6', '!**/node_modules/**'])
+        .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
-        .pipe(replace(/cont\(.*err.*\).*;/g, '$& if (err) {return cb(err);};'))
+        .pipe(replace(
+            /cont\(.*err.*\).*;/g,
+            `$&
+            if (ERR(err, cb)) {
+                return;}
+                `))
         .pipe(gulp.dest('.'))
         .pipe(babel({ presets: ['es2015'] }))
         .pipe(continuation())

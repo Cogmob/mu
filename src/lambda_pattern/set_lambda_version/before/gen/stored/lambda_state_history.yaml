@@ -1,6 +1,7 @@
-current_state: 12345
+current_state: 12346
 state_order:
-- 12345
+  - 12345
+  - 12346
 states:
   '12345':
     name: old
@@ -10,3 +11,10 @@ states:
     release_built: true
     release_tests_passed: true
     notes: working
+  '12346':
+    name: state
+    lambda_version: version
+    dev_built: false
+    dev_tests_passed: false
+    release_built: false
+    release_tests_passed: false

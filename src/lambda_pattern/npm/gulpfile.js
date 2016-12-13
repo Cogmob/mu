@@ -1,7 +1,8 @@
 'use strict';
 
+var ERR = require('async-stacktrace');
 var webpack = require('webpack-stream');
-var header = require('gulp-header');
+var insert = require('gulp-insert');
 var footer = require('gulp-footer');
 var gulp = require('gulp');
 var replace = require('gulp-replace');
@@ -13,7 +14,7 @@ var continuation = require('gulp-continuation');
 var path = require('path');
 
 gulp.task('es6', function () {
-    return gulp.src('**/*.es6').pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$& if (err) {return cb(err);};')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('.'));
+    return gulp.src(['**/*.es6', '!**/node_modules/**']).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('.'));
 });
 
 gulp.task('main_file', function () {
