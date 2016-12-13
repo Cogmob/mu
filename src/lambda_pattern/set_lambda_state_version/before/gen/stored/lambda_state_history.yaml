@@ -1,11 +1,12 @@
-current_state: 12346
-state_order:
+current_state_version: 12346
+newest_state_version: 12346
+state_version_order:
   - 12345
   - 12346
 states:
   '12345':
     name: old
-    lambda_version: 4342434
+    state_version: 4342434
     dev_built: true
     dev_tests_passed: true
     release_built: true
@@ -13,7 +14,7 @@ states:
     notes: working
   '12346':
     name: state
-    lambda_version: version
+    state_version: version
     dev_built: false
     dev_tests_passed: false
     release_built: false

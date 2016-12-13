@@ -7,7 +7,7 @@ const overwrite_tools = (root, cb) => {
     fs.readFile(
         path.resolve(root, 'gen/.updatables/version'),
         'utf8',
-        cont(err, version));
+        cont(err, updatables_version));
 
     fs.readFile(
         path.resolve(root, 'gen/stored/lambda_state_history.yaml'),
@@ -18,7 +18,10 @@ const overwrite_tools = (root, cb) => {
 
     fs.move(
         path.resolve(root, 'gen/tools.js'),
-        path.resolve(root, 'gen/stored/tools', history['current_state']+'.js'),
+        path.resolve(
+            root,
+            'gen/stored/tools',
+            history['current_state_version']+'.js'),
         cont(err));
 
     fs.copy(
@@ -26,11 +29,13 @@ const overwrite_tools = (root, cb) => {
         path.resolve(root, 'gen/tools.js'),
         cont(err));
 
-    history['current_state']++;
-    history['state_order'].push(history['current_state']);
-    history['states'][history['current_state']] = {
+    const state_version = history['newest_state_version'] + 1;
+    history['current_state_version'] = state_version;
+    history['newest_state_version'] = state_version;
+    history['state_version_order'].push(state_version);
+    history['states'][state_version] = {
         name: 'state',
-        lambda_version: version.replace('\n',''),
+        state_version: updatables_version.replace(/\n/g, ''),
         dev_built: false,
         dev_tests_passed: false,
         release_built: false,

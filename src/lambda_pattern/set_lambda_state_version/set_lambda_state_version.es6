@@ -3,7 +3,7 @@ const lambda_state_history = require('../shared/lambda_state_history');
 const path = require('path');
 const yaml = require('js-yaml');
 
-const set_lambda_version = (root, version_number, cb) => {
+const set_lambda_state_version = (root, version_number, cb) => {
     fs.readFile(
         path.resolve(root, 'gen/stored/lambda_state_history.yaml'),
         'utf8',
@@ -16,13 +16,13 @@ const set_lambda_version = (root, version_number, cb) => {
         cb('have not yet written code to update updatables');}
     fs.writeFile(
         path.resolve(root, 'gen/.updatables/version'),
-        history['states'][version_number]['lambda_version'] + '\n',
+        history['states'][version_number]['state_version'] + '\n',
         'utf8',
         cont(err, version));
 
     fs.move(
         path.resolve(root, 'gen/tools.js'),
-        path.resolve(root, 'gen/stored/tools', history['current_state']+'.js'),
+        path.resolve(root, 'gen/stored/tools', history['current_state_version']+'.js'),
         cont(err));
 
     fs.move(
@@ -30,7 +30,7 @@ const set_lambda_version = (root, version_number, cb) => {
         path.resolve(root, 'gen/tools.js'),
         cont(err));
 
-    history['current_state'] = version_number;
+    history['current_state_version'] = version_number;
     fs.writeFile(
         path.resolve(root, 'gen/stored/lambda_state_history.yaml'),
         yaml.safeDump(history),
@@ -39,4 +39,4 @@ const set_lambda_version = (root, version_number, cb) => {
 
     cb();}
 
-module.exports = set_lambda_version;
+module.exports = set_lambda_state_version;

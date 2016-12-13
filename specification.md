@@ -248,7 +248,7 @@ before each of the following steps:
 * writes this file to gen/stored/tools_scripts/current.js
 * create a new lambda state history entry
 
-#### set lambda state
+#### set lambda state version
 
 * perform a checkout of the correct updatables version
 * move the gen/stored/tools_scripts/current.js file to the same folder but with

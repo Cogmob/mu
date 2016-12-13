@@ -3,7 +3,7 @@ const path = require('path');
 const serialfs = require('serialfs');
 const overwrite_tools = require('./overwrite_tools');
 
-test('overwrite', (t) => {
+test.only('overwrite', (t) => {
     const cb = (err, generated, expected) => {
         t.error(err);
         t.deepEqual(expected, generated);
