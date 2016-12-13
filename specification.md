@@ -228,11 +228,6 @@ before each of the following steps:
 
 ### other commands
 
-#### npm
-
-* sends npm commands in both receive and dev
-* backs up the package.json from gen/dev to src
-
 #### update updatables
 
 * performs a git pull on the gen/.updatables directory
