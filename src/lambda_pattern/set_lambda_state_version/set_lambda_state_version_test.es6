@@ -1,4 +1,3 @@
-const word_wrap = require('word-wrap');
 const test = require('tape');
 const path = require('path');
 const serialfs = require('serialfs');

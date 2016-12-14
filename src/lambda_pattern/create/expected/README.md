@@ -1,4 +1,4 @@
-# [[project_name]]
+# test_project
 
 [[replace - short description]]
 
@@ -19,5 +19,5 @@ const [[replace - name]] = require('[[replace - name]]');
 
 ## instalation
 ```shell
-npm install --save [[project_name]]
+npm install --save test_project
 ```

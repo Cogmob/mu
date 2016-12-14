@@ -1,60 +1,25 @@
 const fs = require('fs-extra');
-const date = require('date-and-time');
-const ls = require('ls');
-const path = require('path');
-const git = require('simple-git');
 
-const replace_in_file = require('../file_io_utils/replace_in_file');
-const move_file = require('../file_io_utils/move_file');
+const create = (root_path, project_name, year, cb) => {
+    const skel_path = __dirname + '/../../skeleton';
+    const gen_path = root_path + '/' + project_name;
+    fs.copy(skel_path, gen_path, cont(err));
 
-const create = (root_path, project_name, cb) => {
-    project_path = path.resolve(root_path, project_name);
-    const year = date.format(new Date(), 'YYYY');
+    const temp_module_path = gen_path + '/src/project_name';
+    const module_path = gen_path + '/src/' + project_name;
+    fs.move(temp_module_path, module_path, cont(err));
 
-    fs.remove(path.resolve(root_path, project_name), cont(err));
+    const temp_index_path = module_path + '/project_name.es6';
+    const index_path = module_path + '/' + project_name + '.es6';
+    fs.move(temp_index_path, index_path, cont(err));
 
-    git(root_path).clone(
-        'git@bitbucket.org:Cogbot/node_base.git',
-        project_name,
-        cont());
+    const temp_test_path = module_path + '/project_name_test.es6';
+    const test_path = module_path + '/' + project_name + '_test.es6';
+    fs.move(temp_test_path, test_path, cont(err));
 
-    fs.remove(path.resolve(project_path, '.git'), cont(err));
-
-    replace_in_file([project_path, 'LICENCE.md'], 'yyyy', year, cont(err));
-
-    rename_to_project_name(project_path, project_name, cont(err));
-
-    git_init(project_path, cont(err));
-
-    fs.writeFile(
-        path.resolve(project_path, '.git', 'info', 'exclude'),
-        '.lvimrc',
-        cont(err));
-
-    cb('');};
-
-const rename_to_project_name = (project_path, project_name, cb) => {
-    move_file(
-        [project_path, 'src', 'module'],
-        [project_path, 'src', project_name],
-        cont(err));
-
-    move_file(
-        [project_path, 'src', project_name, 'func.es6'],
-        [project_path, 'src', project_name, project_name + '.es6'],
-        cont(err));
-
-    move_file(
-        [project_path, 'src', project_name, 'func_test.es6'],
-        [project_path, 'src', project_name, project_name + '_test.es6'],
-        cont(err));
-
-    cb();};
-
-const git_init = (path, cb) => {
-    git(path).init(cont(err));
-    git(path).add(['*'], cont(err));
-    git(path).commit('set up project structure', cont(err));
-    cb();};
+    fs.readFile(gen_path + '/README.md', 'utf8', cont(err, readme));
+    readme = readme.replace(/\[\[project_name\]\]/g, project_name);
+    fs.writeFile(gen_path + '/README.md', readme, cont(err, readme));
+    cb(null);};
 
 module.exports = create;

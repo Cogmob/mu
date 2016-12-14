@@ -10,8 +10,9 @@ const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
 const path = require('path');
 
-gulp.task('es6', ()=>{
-    return gulp.src(['**/*.es6', '!**/node_modules/**'])
+gulp.task('tools_es6', ()=>{
+    return gulp.src(['tools/*.es6', '!**/node_modules/**', '!**/expected/**'])
+        .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
         .pipe(replace(
@@ -21,8 +22,8 @@ gulp.task('es6', ()=>{
                 return;}
                 `))
         .pipe(replace(
-            /const cb = \(err, generated, expected\) \=> \{/g,
-            `const cb = (err, generated, expected) => {
+            /const cb = \(err.*\) \=> \{/g,
+            `$&
         if (err) {
             console.log(word_wrap(err.stack.replace(/\\\\/g, '\\\\ '), {
                 trim: true,
@@ -40,6 +41,40 @@ gulp.task('es6', ()=>{
         .pipe(continuation())
         .pipe(gulp.dest('.'));});
 
+gulp.task('es6', ()=>{
+    return gulp.src([
+            '[project_name]/**/*.es6',
+            '!**/expected/**',
+            '!**/node_modules/**'])
+        .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
+        .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
+        .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
+        .pipe(replace(
+            /cont\(.*err.*\).*;/g,
+            `$&
+            if (ERR(err, cb)) {
+                return;}
+                `))
+        .pipe(replace(
+            /const cb = \(err.*\) \=> \{/g,
+            `$&
+        if (err) {
+            console.log(word_wrap(err.stack.replace(/\\\\/g, '\\\\ '), {
+                trim: true,
+                width: 80})
+            .split('\\n').forEach((stack_line) => {
+                console.log(stack_line
+                    .replace(/\\\\ /g, '\\\\')
+                    .replace(/ at/g, '\\nat')
+                    .replace(/Error:/g, '\\nError:'));}));
+            t.fail();
+            return t.end();}
+        `)) 
+        .pipe(gulp.dest('[project_name]'))
+        .pipe(babel({ presets: ['es2015'] }))
+        .pipe(continuation())
+        .pipe(gulp.dest('[project_name]'));});
+
 gulp.task('main_file', ()=>{
     return gulp.src('[project_name]/[project_name].js')
         .pipe(footer(`
@@ -50,7 +85,7 @@ if (!module.parent) {
         }
     });
 }`))
-        .pipe(gulp.dest('[project_name]'));});
+        .pipe(gulp.dest('.'));});
 
 gulp.task('backup_gulpfile', ()=>{
     return gulp.src('[project_name]/npm/gulpfile.js')
@@ -72,6 +107,7 @@ gulp.task('build_lambda_pattern_tool', () => {
 
 gulp.task('build_dev', sequence(
     'es6',
+    'tools_es6',
     'main_file',
     'backup_gulpfile',
     'build_tools',

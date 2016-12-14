@@ -1,6 +1,7 @@
 'use strict';
 
 var ERR = require('async-stacktrace');
+var word_wrap = require('word-wrap');
 var webpack = require('webpack-stream');
 var insert = require('gulp-insert');
 var footer = require('gulp-footer');
@@ -13,12 +14,16 @@ var debug = require('gulp-debug');
 var continuation = require('gulp-continuation');
 var path = require('path');
 
+gulp.task('tools_es6', function () {
+    return gulp.src(['tools/*.es6', '!**/node_modules/**', '!**/expected/**']).pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('.'));
+});
+
 gulp.task('es6', function () {
-    return gulp.src(['**/*.es6', '!**/node_modules/**']).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err, generated, expected\) \=> \{/g, 'const cb = (err, generated, expected) => {\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\/g, \'\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\ /g, \'\\\')\n                    .replace(/ at/g, \'\nat\')\n                    .replace(/Error:/g, \'\nError:\'));}));\n            t.fail();\n            return t.end();}\n        \n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('.'));
+    return gulp.src(['lambda_pattern/**/*.es6', '!**/expected/**', '!**/node_modules/**']).pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('lambda_pattern')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('lambda_pattern'));
 });
 
 gulp.task('main_file', function () {
-    return gulp.src('lambda_pattern/lambda_pattern.js').pipe(footer('\nif (!module.parent) {\n    lambda_pattern(function (er) {\n        if (er) {\n           console.log(er.toString());\n        }\n    });\n}')).pipe(gulp.dest('lambda_pattern'));
+    return gulp.src('lambda_pattern/lambda_pattern.js').pipe(footer('\nif (!module.parent) {\n    lambda_pattern(function (er) {\n        if (er) {\n           console.log(er.toString());\n        }\n    });\n}')).pipe(gulp.dest('.'));
 });
 
 gulp.task('backup_gulpfile', function () {
@@ -37,7 +42,7 @@ gulp.task('build_lambda_pattern_tool', function () {
             filename: 'lambda_pattern_tool_built.js' } })).pipe(gulp.dest('lambda_pattern'));
 });
 
-gulp.task('build_dev', sequence('es6', 'main_file', 'backup_gulpfile', 'build_tools', 'build_lambda_pattern_tool'));
+gulp.task('build_dev', sequence('es6', 'tools_es6', 'main_file', 'backup_gulpfile', 'build_tools', 'build_lambda_pattern_tool'));
 
 gulp.task('build_release', sequence('copy_src', 'es6', 'main_file'));
 /* Generated by Continuation.js v0.1.7 */
