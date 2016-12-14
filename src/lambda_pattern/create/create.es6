@@ -19,7 +19,16 @@ const create = (root_path, project_name, year, cb) => {
 
     fs.readFile(gen_path + '/README.md', 'utf8', cont(err, readme));
     readme = readme.replace(/\[\[project_name\]\]/g, project_name);
-    fs.writeFile(gen_path + '/README.md', readme, cont(err, readme));
+    fs.writeFile(gen_path + '/README.md', readme, cont(err));
+
+    fs.readFile(index_path, 'utf8', cont(err, index));
+    index = index.replace(/\[\[project_name\]\]/g, project_name);
+    fs.writeFile(index_path, index, cont(err));
+
+    fs.readFile(test_path, 'utf8', cont(err, test_file));
+    test_file = test_file.replace(/\[\[project_name\]\]/g, project_name);
+    fs.writeFile(test_path, test_file, cont(err));
+
     cb(null);};
 
 module.exports = create;

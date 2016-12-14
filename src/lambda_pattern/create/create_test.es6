@@ -7,7 +7,7 @@ const create = require('./create');
 test('create', {timeout: 400}, t => {
     const cb = (err, generated, expected) => {
         for (const key in generated) {
-            t.deepEqual(generated[key], expected[key]);};
+            t.deepEqual(generated[key], expected[key], key);};
         t.end();};
 
     create(resolve(__dirname), 'test_project', 2000, cont(err));
@@ -23,4 +23,9 @@ test('create', {timeout: 400}, t => {
 const get_results = (root, cb) => {
     serialfs.obj(root + '/.', {contents: false},  cont(err, tree));
     fs.readFile(root + '/README.md', 'utf8', cont(err, readme));
-    cb(null, {tree, readme});};
+    fs.readFile(root + '/LICENCE.md', 'utf8', cont(err, licence));
+    fs.readFile(root + '/src/test_project/test_project.es6',
+        'utf8', cont(err, index));
+    fs.readFile(root + '/src/test_project/test_project_test.es6',
+        'utf8', cont(err, test_file));
+    cb(null, {tree, readme, index, test_file});};

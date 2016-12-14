@@ -21,3 +21,6 @@ const [[replace - name]] = require('[[replace - name]]');
 ```shell
 npm install --save test_project
 ```
+
+This is a lambda pattern project.
+https://github.com/Cogmob/lambda_pattern_es6
