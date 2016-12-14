@@ -1,7 +1,6 @@
 'use strict';
 
-var get_stack = require('get-stack');
-var word_wrap = require('word-wrap');
+var ERR = require('async-stacktrace');
 var webpack = require('webpack-stream');
 var insert = require('gulp-insert');
 var footer = require('gulp-footer');
@@ -15,9 +14,7 @@ var continuation = require('gulp-continuation');
 var path = require('path');
 
 gulp.task('es6', function () {
-    return gulp.src(['**/*.es6', '!**/node_modules/**']).pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(insert.prepend('const get_stack = require(\'get-stack\');\n'))
-    //.pipe(insert.prepend('require(\'superstack\');\n'))
-    .pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (err) {\n                err.stack.split("\\n").forEach((stack_line) => {\n                    console.log(\' \');\n                    console.log(__filename + \'stack: \');\n                    console.log(get_stack(4));\n                    console.log(\'end of stack\');\n                    console.log(\' \');\n                    //console.log(wrap(\n                    //    stack_line.replace(/\\\\/g, "\\\\ "),\n                    //    {width: 80, trim: true}).replace(/\\\\ /g, "\\\\"));\n                });\n                return cb(err);}\n                ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('.'));
+    return gulp.src(['**/*.es6', '!**/node_modules/**']).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err, generated, expected\) \=> \{/g, 'const cb = (err, generated, expected) => {\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\/g, \'\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\ /g, \'\\\')\n                    .replace(/ at/g, \'\nat\')\n                    .replace(/Error:/g, \'\nError:\'));}));\n            t.fail();\n            return t.end();}\n        \n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('.'));
 });
 
 gulp.task('main_file', function () {

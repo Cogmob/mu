@@ -6,18 +6,6 @@ const set_lambda_state_version = require('./set_lambda_state_version');
 
 test('set lambda state version', (t) => {
     const cb = (err, generated, expected) => {
-        if (err) {
-            console.log(word_wrap(err.stack.replace(/\\/g, '\\ '), {
-                trim: true,
-                width: 80})
-            .split('\n').forEach((stack_line) => {
-                console.log(stack_line
-                    .replace(/\\ /g, '\\')
-                    .replace(/ at/g, '\nat')
-                    .replace(/Error:/g, '\nError:'));}));
-            t.fail();
-            return t.end();}
-
         t.deepEqual(expected, generated);
         t.end();}
 

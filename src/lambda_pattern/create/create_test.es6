@@ -4,8 +4,7 @@ const path = require('path');
 const create = require('./create');
 const root = require('app-root-path').toString();
 
-/*
-test('create skeleton', t => {
+test('create', t => {
     t.plan(1);
     const cb = (err) => {
         t.notOk(err);};
@@ -14,4 +13,3 @@ test('create skeleton', t => {
     const root_path = path.resolve('.', 'src', 'create', 'test_project');
     serialfs.obj(root_path, {contents: false}, cont(err, created));
     cb(null);});
-   */

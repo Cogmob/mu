@@ -20,6 +20,21 @@ gulp.task('es6', ()=>{
             if (ERR(err, cb)) {
                 return;}
                 `))
+        .pipe(replace(
+            /const cb = \(err, generated, expected\) \=> \{/g,
+            `const cb = (err, generated, expected) => {
+        if (err) {
+            console.log(word_wrap(err.stack.replace(/\\\\/g, '\\\\ '), {
+                trim: true,
+                width: 80})
+            .split('\\n').forEach((stack_line) => {
+                console.log(stack_line
+                    .replace(/\\\\ /g, '\\\\')
+                    .replace(/ at/g, '\\nat')
+                    .replace(/Error:/g, '\\nError:'));}));
+            t.fail();
+            return t.end();}
+        `)) 
         .pipe(gulp.dest('.'))
         .pipe(babel({ presets: ['es2015'] }))
         .pipe(continuation())
