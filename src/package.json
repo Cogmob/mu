@@ -34,5 +34,8 @@
     "word-wrap": "^1.1.0"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "git-download-archive": "^0.1.0"
+  }
 }

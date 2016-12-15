@@ -1,4 +1,6 @@
 const fs = require('fs-extra');
+const extract = require('tarball-extract').extractTarball;
+const archive = require('git-download-archive');
 
 const create = (root_path, project_name, year, cb) => {
     const skel_path = __dirname + '/../../skeleton';
@@ -34,6 +36,27 @@ const create = (root_path, project_name, year, cb) => {
     meta = meta.replace(/\[\[project_name\]\]/g, project_name);
     fs.writeFile(meta_path, meta, cont(err));
 
+    download_updatables(gen_path + '/gen/updatables.tar', cont(err));
+    extract(
+        gen_path + '/gen/updatables.tar',
+        gen_path + '/gen/updatables',
+        cont(err));
+    fs.move(
+        gen_path + '/gen/updatables/repo/gen/release/updatables',
+        gen_path + '/gen/.updatables',
+        cont(err));
+    fs.remove(gen_path + '/gen/updatables.tar', cont(err));
+    fs.remove(gen_path + '/gen/updatables', cont(err));
+
+
     cb(null);};
+
+const download_updatables = (path, cb) => {
+    archive(__dirname + '/../../../../../.git', {
+        rev: 'HEAD',
+        format: 'tar'})
+    .on('end', () => cb())
+    .on('error', (err) => cb(err))
+    .pipe(fs.createWriteStream(path));};
 
 module.exports = create;

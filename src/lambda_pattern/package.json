@@ -59,6 +59,7 @@
     "prompt": "^1.0.0",
     "simple-git": "^1.62.0",
     "superstack": "0.0.4",
+    "tarball-extract": "0.0.3",
     "try-thread-sleep": "^1.0.0",
     "user-home": "^2.0.0",
     "vargs-callback": "^0.2.4",

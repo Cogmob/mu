@@ -4,7 +4,7 @@ const test = require('tape');
 const resolve = require('path').resolve;
 const create = require('./create');
 
-test('create', {timeout: 400}, t => {
+test('create', {timeout: 3000}, t => {
     const cb = (err, generated, expected) => {
         for (const key in generated) {
             t.deepEqual(generated[key], expected[key], key);};
