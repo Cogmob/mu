@@ -47,6 +47,10 @@ This is the skeleton for an es6 lambda pattern project:
 ```
 root
 ├── gen
+│   ├── dev
+│   │   └── lambda_updatables
+│   │       ├── ...
+│   │       '
 │   ├── stored
 │   │   ├── lambda_state_history.yaml
 │   │   └── tools.js
@@ -83,6 +87,9 @@ root
 │   │   │   ├── [project name.js]
 │   │   │   ├── [project name_test.js]
 │   │   │   └── package.json
+│   │   └── lambda_updatables
+│   │       ├── ...
+│   │       '
 │   ├── stored
 │   │   ├── lambda_state_history.yaml
 │   │   └── tools.js

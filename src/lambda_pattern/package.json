@@ -48,6 +48,7 @@
     "get-stack": "^1.0.2",
     "git-archive": "^0.1.4",
     "git-clone": "^0.1.0",
+    "git-download-archive": "^0.1.0",
     "homedir": "^0.6.0",
     "inquirer": "^1.2.3",
     "is-function": "^1.0.1",

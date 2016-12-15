@@ -36,17 +36,18 @@ const create = (root_path, project_name, year, cb) => {
     meta = meta.replace(/\[\[project_name\]\]/g, project_name);
     fs.writeFile(meta_path, meta, cont(err));
 
-    download_updatables(gen_path + '/gen/updatables.tar', cont(err));
+    fs.ensureDir(gen_path + '/gen/dev', cont(err));
+    download_updatables(gen_path + '/gen/dev/updatables.tar', cont(err));
     extract(
-        gen_path + '/gen/updatables.tar',
-        gen_path + '/gen/updatables',
+        gen_path + '/gen/dev/updatables.tar',
+        gen_path + '/gen/dev/updatables',
         cont(err));
     fs.move(
-        gen_path + '/gen/updatables/repo/gen/release/updatables',
-        gen_path + '/gen/.updatables',
+        gen_path + '/gen/dev/updatables/repo/gen/release/updatables',
+        gen_path + '/gen/dev/lambda_updatables',
         cont(err));
-    fs.remove(gen_path + '/gen/updatables.tar', cont(err));
-    fs.remove(gen_path + '/gen/updatables', cont(err));
+    fs.remove(gen_path + '/gen/dev/updatables.tar', cont(err));
+    fs.remove(gen_path + '/gen/dev/updatables', cont(err));
 
 
     cb(null);};
