@@ -1,2 +1,3 @@
-//temp
-console.log('working');
+module.exports = {
+    'build_dev': (cb) => {
+        console.log('working');}};
