@@ -72,7 +72,6 @@ root
 ```
 
 Here is an example of a project after being developed and built:
-
 ```
 root
 ├── gen

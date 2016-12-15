@@ -28,4 +28,6 @@ const get_results = (root, cb) => {
         'utf8', cont(err, index));
     fs.readFile(root + '/src/test_project/test_project_test.es6',
         'utf8', cont(err, test_file));
+    fs.readFile(root + '/src/test_project/metadata.yaml',
+        'utf8', cont(err, test_file));
     cb(null, {tree, readme, index, test_file});};
