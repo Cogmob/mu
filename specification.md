@@ -125,6 +125,12 @@ es6') and the updatables version number is a revision number for that repo. Most
 of the behavior of the lambda pattern tool for building is specified in the
 updatables repo, so that old lambda pattern projects don't break.
 
+#### lambda pattern tool foundation
+
+The javascript module used when developing the tools.js file for the lambda
+project. It creates an object which needs customisation before being re-exported
+as module.exports in the file src/tools/tools.es6.
+
 #### lambda state
 
 The lambda state is the details of how the project tools operate. Modifying the

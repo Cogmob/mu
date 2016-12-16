@@ -11,7 +11,7 @@ const continuation = require('gulp-continuation');
 const path = require('path');
 
 gulp.task('tools_es6', ()=>{
-    return gulp.src(['tools/*.es6', '!**/node_modules/**', '!**/expected/**'])
+    return gulp.src(['tools/*.es6'])
         .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
@@ -39,7 +39,7 @@ gulp.task('tools_es6', ()=>{
         .pipe(gulp.dest('.'))
         .pipe(babel({ presets: ['es2015'] }))
         .pipe(continuation())
-        .pipe(gulp.dest('.'));});
+        .pipe(gulp.dest('tools'));});
 
 gulp.task('es6', ()=>{
     return gulp.src([
@@ -95,7 +95,11 @@ gulp.task('build_tools', () => {
     return gulp.src('tools/tools.js')
         .pipe(webpack({
             target: 'node',
-            output: {filename: 'built_tools.js'},
+            entry: './tools.js',
+            output: {
+                library: 'library_name',
+                libraryTarget: 'commonjs2',
+                filename: 'tool_foundation.js'},
             context: path.join(process.cwd(), 'tools')}))
         .pipe(gulp.dest('tools'));});
 
@@ -105,12 +109,19 @@ gulp.task('build_lambda_pattern_tool', () => {
             filename: 'lambda_pattern_tool_built.js'}}))
         .pipe(gulp.dest('[project_name]'));});
 
+gulp.task('send_built_tools_to_release', () => {
+    return gulp.src('tools/tool_foundation.js')
+        .pipe(gulp.dest('../lambda_updatables'))
+        .pipe(gulp.dest('../../release/updatables'));});
+
 gulp.task('build_dev', sequence(
     'es6',
+    'tools_es6',
     'tools_es6',
     'main_file',
     'backup_gulpfile',
     'build_tools',
-    'build_lambda_pattern_tool'));
+    'build_lambda_pattern_tool',
+    'send_built_tools_to_release'));
 
 gulp.task('build_release',sequence('copy_src', 'es6', 'main_file'));
