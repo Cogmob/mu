@@ -4,6 +4,7 @@ const test = require('tape');
 const resolve = require('path').resolve;
 const create = require('../create/create');
 const build_dev = require('./build_dev');
+const set_updatables_version = require('../set_updatables_version/set_updatables_version');
 
 test('build dev', {timeout: 3000}, t => {
     const cb = (err, generated, expected) => {
@@ -12,6 +13,8 @@ test('build dev', {timeout: 3000}, t => {
         t.end();};
 
     create(resolve(__dirname), 'test_project', 2000, cont(err));
+    const commit = 'a447481209c32be0bcc84f1b418ad08c301df8f6';
+    set_updatables_version(__dirname + '/test_project', commit, cont(err));
 
     const generated = get_results(
         __dirname + '/test_project',

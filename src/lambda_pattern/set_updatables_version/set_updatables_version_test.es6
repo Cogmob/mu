@@ -2,15 +2,18 @@ const fs = require('fs-extra');
 const serialfs = require('serialfs');
 const test = require('tape');
 const resolve = require('path').resolve;
-const create = require('./create');
+const create = require('../create/create');
+const set_updatables_version = require('../set_updatables_version/set_updatables_version');
 
-test('create', {timeout: 3000}, t => {
+test.only('create and set updatables version', {timeout: 3000}, t => {
     const cb = (err, generated, expected) => {
         for (const key in generated) {
             t.deepEqual(generated[key], expected[key], key);};
         t.end();};
 
-    create(resolve(__dirname), 'test_project', 2000, cont(err));
+    create(__dirname, 'test_project', 2000, cont(err));
+    const commit = 'a447481209c32be0bcc84f1b418ad08c301df8f6';
+    //set_updatables_version(__dirname + '/test_project', commit, cont(err));
 
     const generated = get_results(
         __dirname + '/test_project',
