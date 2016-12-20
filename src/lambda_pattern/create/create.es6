@@ -36,7 +36,7 @@ const create = (root_path, project_name, year, cb) => {
     fs.writeFile(meta_path, meta, cont(err));
 
     fs.ensureDir(gen_path + '/gen/dev', cont(err));
-    download_updatables(gen_path, cont(err));
+    download_updatables(gen_path, 'HEAD', cont(err));
 
 
     cb(null);};
