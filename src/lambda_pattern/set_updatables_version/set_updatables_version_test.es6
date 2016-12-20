@@ -14,7 +14,13 @@ test.only('create and set updatables version', {timeout: 3000}, t => {
     const commit = 'df3c86442b5e9a05e471e0e90f9188bd372f7e48';
     set_updatables_version(__dirname + '/test_project', commit, cont(err));
 
-    const contents = {gen: {stored: {'lambda_state_history.yaml': true}}};
+    const contents = {
+        gen: {
+            dev: {lambda_updatables: {
+                example_version: true,
+                'LICENCE.md': true}},
+            stored: {'lambda_state_history.yaml': true}}};
+
     const generated = serialfs.obj(
         __dirname + '/test_project', contents,
         cont(err, generated));
