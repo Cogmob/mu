@@ -11,11 +11,11 @@ const set_lambda_state_version = (root, version_number, cb) => {
     history = yaml.safeLoad(history);
 
 
-    fs.exists(path.resolve(root, 'gen/.updatables/test'), cont(is_test));
+    fs.exists(path.resolve(root, 'gen/dev/lambda_updatables/test'), cont(is_test));
     if (!is_test) {
         return cb('have not yet written code to update updatables');}
     fs.writeFile(
-        path.resolve(root, 'gen/.updatables/version'),
+        path.resolve(root, 'gen/dev/lambda_updatables/version'),
         history['states'][version_number]['state_version'] + '\n',
         'utf8',
         cont(err, version));

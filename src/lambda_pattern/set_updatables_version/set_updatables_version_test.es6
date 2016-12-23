@@ -5,7 +5,7 @@ const resolve = require('path').resolve;
 const create = require('../create/create');
 const set_updatables_version = require('../set_updatables_version/set_updatables_version');
 
-test.only('create and set updatables version', {timeout: 3000}, t => {
+test('create and set updatables version', {timeout: 3000}, t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};
@@ -16,6 +16,7 @@ test.only('create and set updatables version', {timeout: 3000}, t => {
 
     const contents = {
         gen: {
+            '.gitignore': true,
             dev: {lambda_updatables: {
                 example_version: true,
                 'LICENCE.md': true}},
