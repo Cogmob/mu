@@ -45,7 +45,8 @@ gulp.task('es6', ()=>{
     return gulp.src([
             '[project_name]/**/*.es6',
             '!**/expected/**',
-            '!**/node_modules/**'])
+            '!**/node_modules/**',
+            '!**/*_data/*'])
         .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
@@ -116,7 +117,6 @@ gulp.task('send_built_tools_to_release', () => {
 
 gulp.task('build_dev', sequence(
     'es6',
-    'tools_es6',
     'tools_es6',
     'main_file',
     'backup_gulpfile',
