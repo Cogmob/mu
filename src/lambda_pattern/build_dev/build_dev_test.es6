@@ -29,8 +29,8 @@ test('build dev', {timeout: 9000}, t => {
                     example_version: true,
                     'LICENCE.md': true},
                 src: {test_project: {
-                    'test_project_test.es6': true,
-                    'test_project_test.js': true,
+                    'test_project_test.es6': false,
+                    'test_project_test.js': false,
                     'test_project.es6': false,
                     'test_project.js': false,
                     'metadata.yaml': false }}},
