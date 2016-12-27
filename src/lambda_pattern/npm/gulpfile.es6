@@ -46,7 +46,7 @@ gulp.task('es6', ()=>{
             '[project_name]/**/*.es6',
             '!**/expected/**',
             '!**/node_modules/**',
-            '!**/*_data/*'])
+            '!**/*_data/**/*'])
         .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))

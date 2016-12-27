@@ -6,7 +6,7 @@ const create = require('../create/create');
 const build_dev = require('./build_dev');
 const set_updatables_version = require('../set_updatables_version/set_updatables_version');
 
-test('build dev', {timeout: 3000}, t => {
+test('build dev', {timeout: 9000}, t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};
@@ -15,7 +15,7 @@ test('build dev', {timeout: 3000}, t => {
     const commit = 'df3c86442b5e9a05e471e0e90f9188bd372f7e48';
     set_updatables_version(__dirname + '/test_project', commit, cont(err));
     fs.copy(__dirname + '/test_module_data',
-            __dirname + '/test_project/src/test_module',
+            __dirname + '/test_project/src/test_project/test_module',
             cont(err));
     build_dev(__dirname + '/test_project', 'test_project', cont(err));
 
