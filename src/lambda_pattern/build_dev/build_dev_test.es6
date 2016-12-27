@@ -19,12 +19,21 @@ test('build dev', {timeout: 9000}, t => {
             cont(err));
     build_dev(__dirname + '/test_project', 'test_project', cont(err));
 
+    // TODO: add extra comparisons for content
+    // TODO: create deep equal function which doesn't hang on fail
     const contents = {
         gen: {
             '.gitignore': true,
-            dev: {lambda_updatables: {
-                example_version: true,
-                'LICENCE.md': true}},
+            dev: {
+                lambda_updatables: {
+                    example_version: true,
+                    'LICENCE.md': true},
+                src: {test_project: {
+                    'test_project_test.es6': true,
+                    'test_project_test.js': true,
+                    'test_project.es6': false,
+                    'test_project.js': false,
+                    'metadata.yaml': false }}},
             stored: {'lambda_state_history.yaml': true}}};
 
     const generated = serialfs.obj(
