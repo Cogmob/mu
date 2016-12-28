@@ -3,8 +3,9 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 const get_info = (root, cb) => {
+    console.log(root);
     fs.readFile(
-        path.resolve(root, 'gen/.updatables/version'),
+        path.resolve(root, 'gen/dev/lambda_updatables/version'),
         'utf8',
         cont(err, updatables_version));
 

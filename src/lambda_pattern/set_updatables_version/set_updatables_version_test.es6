@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const serialfs = require('serialfs');
 const test = require('tape');
-const resolve = require('path').resolve;
+
 const create = require('../create/create');
 const set_updatables_version = require('../set_updatables_version/set_updatables_version');
 
