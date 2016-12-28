@@ -167,12 +167,12 @@ test was completely successful.
 before each of the following steps:
 * make sure the gen/.updatables folder exists and fits the expected version
 * make a symlink from gen/stored/tools_scripts/current.js to
-    gen/tools.js
+    gen/stored/tools.js
 
 #### build dev
 
-* run the tools.build.dev(path) function by requiring gen/tools.js, passing the
-    root folder as a parameter
+* run the tools.build.dev(path) function by requiring gen/stored/tools.js,
+    passing the root folder as a parameter
     * deletes the folder gen/dev/src
     * copies from src to gen/dev/src
     * installs npm modules
@@ -185,8 +185,8 @@ before each of the following steps:
 
 #### build release
 
-* run the tools.build.release(path) function by requiring gen/tools.js, passing
-    the root folder as a parameter
+* run the tools.build.release(path) function by requiring gen/stored/tools.js,
+    passing the root folder as a parameter
     * deletes the folder gen/release/src
     * copies from src to gen/release/src
     * installs npm modules
@@ -200,8 +200,8 @@ before each of the following steps:
 
 #### test dev
 
-* run the tools.test.dev(path) function by requiring gen/tools.js, passing the
-    root folder as a paramter
+* run the tools.test.dev(path) function by requiring gen/stored/tools.js,
+    passing the root folder as a paramter
     * run all files which end with \_test.js in the gen/dev folder
     * write the results into gen/dev/test_results
     * if the tests have zero fails, write the current version number into the
@@ -209,7 +209,7 @@ before each of the following steps:
 
 #### update tools
 
-* copy the gen/tools.js file from the to
+* copy the gen/stored/tools.js file from the to
     gen/stored/tools/version_number.js
 * write a new version number into gen/stored/lambda_state_history.yaml
 
@@ -219,8 +219,8 @@ before each of the following steps:
 
 #### test release
 
-* run the tools.test.dev(path) function by requiring gen/tools.js, passing the
-    root folder as a paramter
+* run the tools.test.dev(path) function by requiring gen/stored/tools.js,
+    passing the root folder as a paramter
     * run all files which end with \_test.js but not \_dev_test.js in the
         gen/release folder
     * write the results into gen/dev/test_results
@@ -249,11 +249,11 @@ before each of the following steps:
 
 #### overwrite tools
 
-* moves the gen/stored/tools_scripts/current.js file to the same folder but
+* moves the gen/stored/tools.js file to the same folder but
     with the current lambda state number as the filename
-* concats all js files in the gen/dev/lambda folder, using the tools.js file as
+* concats all js files in the gen/dev/lambda folder, using the lambda.js file as
     an entry point
-* writes this file to gen/stored/tools_scripts/current.js
+* writes this file to gen/stored/tools.js
 * create a new lambda state history entry
 
 #### set lambda state version
