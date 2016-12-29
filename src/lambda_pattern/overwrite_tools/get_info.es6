@@ -3,7 +3,6 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 const get_info = (root, cb) => {
-    console.log(root);
     fs.readFile(
         path.resolve(root, 'gen/dev/lambda_updatables/version'),
         'utf8',
@@ -16,6 +15,6 @@ const get_info = (root, cb) => {
 
     history = yaml.safeLoad(history);
 
-    cb(updatables_version, history);}
+    cb(null, updatables_version, history);}
 
 module.exports = get_info;

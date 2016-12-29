@@ -4,13 +4,15 @@ const serialfs = require('serialfs');
 
 const overwrite_tools = require('./overwrite_tools');
 const create = require('../create/create');
+const build_dev = require('../build_dev/build_dev');
 
 test('overwrite tools', (t) => {
     const cb = (err, generated, expected) => {
         t.deepEqual(expected, generated);
         t.end();}
     create(__dirname, 'test_project', 2000, cont(err));
+    build_dev(__dirname + '/test_project', 'test_project', cont(err));
     overwrite_tools(rsv(__dirname, 'test_project'), cont(err));
-    serialfs.obj(rsv(__dirname, 'before'), cont(err, generated));
-    serialfs.obj(rsv(__dirname, 'expected'), cont(err, expected));
+    serialfs.obj(rsv(__dirname, 'test_project'), false, cont(err, generated));
+    serialfs.obj(rsv(__dirname, 'expected'), false, cont(err, expected));
     cb(null, generated, expected);});

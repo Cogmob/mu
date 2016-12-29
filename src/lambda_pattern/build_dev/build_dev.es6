@@ -1,9 +1,12 @@
 const fs = require('fs-extra');
+const rsv = require('path').resolve;
+
 const move_if_exists = require('../shared/move_if_exists');
+
 const modify_es6 = require('./modify_es6');
 const convert_es6 = require('./convert_es6');
 const modify_main_file = require('./modify_main_file');
-const rsv = require('path').resolve;
+const build_tools = require('./build_tools');
 
 const build_dev = (root_path, project_name, cb) => {
     // TODO: handle errors without leaving node_modules in wrong place
@@ -43,6 +46,8 @@ const build_dev = (root_path, project_name, cb) => {
     const tool_path = rsv(root_path, 'gen/dev/src/tools');
     modify_es6(tool_path, project_name, cont(err));
     convert_es6(tool_path, project_name, cont(err));
+
+    build_tools(tool_path, cont(err));
 
     cb(null);};
 

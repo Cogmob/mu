@@ -136,8 +136,8 @@ module.exports =
 	 * Copyright (c) 2014-2015, Jon Schlinkert.
 	 * Licensed under the MIT License.
 	 *
-	 * Adapted from http://james.padolsey.com/javascript/wordwrap-for-javascript/
 	 * @attribution
+	 * Adapted from http://james.padolsey.com/javascript/wordwrap-for-javascript/
 	 */
 
 	module.exports = function(str, options) {
@@ -152,21 +152,33 @@ module.exports =
 	    : '  ';
 
 	  var newline = options.newline || '\n' + indent;
+	  var escape = typeof options.escape === 'function'
+	    ? options.escape
+	    : identity;
 
-	  var re = new RegExp('.{1,' + width + '}(\\s+|$)|\\S+?(\\s+|$)', 'g');
-
-	  if (options.cut) {
-	    re = new RegExp('.{1,' + width + '}', 'g');
+	  var regexString = '.{1,' + width + '}';
+	  if (options.cut !== true) {
+	    regexString += '([\\s\u200B]+|$)|[^\\s\u200B]+?([\\s\u200B]+|$)';
 	  }
 
+	  var re = new RegExp(regexString, 'g');
 	  var lines = str.match(re) || [];
-	  var res = indent + lines.join(newline);
+	  var result = indent + lines.map(function(line) {
+	    if (line.slice(-1) === '\n') {
+	      line = line.slice(0, line.length - 1);
+	    }
+	    return escape(line);
+	  }).join(newline);
 
 	  if (options.trim === true) {
-	    res = res.replace(/[ \t]*$/gm, '');
+	    result = result.replace(/[ \t]*$/gm, '');
 	  }
-	  return res;
+	  return result;
 	};
+
+	function identity(str) {
+	  return str;
+	}
 
 
 /***/ }

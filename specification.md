@@ -66,7 +66,7 @@ root
 │       │   ├── after1
 │       │   ├── before1
 │       │   └── dependency
-│       ├── modify_tools.es6
+│       ├── tools.es6
 │       ├── tools_tests.es6
 │       ├── metadata.yaml
 │       ├── paths.yaml // es6, cached, gitignore (...: dev: , release: )
@@ -107,7 +107,7 @@ root
 │       │   ├── after1
 │       │   ├── before1
 │       │   └── dependency
-│       ├── modify_tools.es6
+│       ├── tools.es6
 │       ├── tools_tests.es6
 │       ├── paths.yaml
 │       └── tools_npm_dev_dependencies.yaml
