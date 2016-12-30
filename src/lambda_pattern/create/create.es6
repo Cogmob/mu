@@ -1,9 +1,9 @@
 const fs = require('fs-extra');
 const download_updatables = require('../shared/download_updatables');
 
-const create = (root_path, project_name, year, cb) => {
-    const skel_path = __dirname + '/../../skeleton';
-    const gen_path = root_path + '/' + project_name;
+const create = (tool_root, root, project_name, year, cb) => {
+    const skel_path = tool_root + '/gen/release/skeleton';
+    const gen_path = root + '/' + project_name;
     fs.copy(skel_path, gen_path, cont(err));
 
     const temp_module_path = gen_path + '/src/project_name';
@@ -36,8 +36,7 @@ const create = (root_path, project_name, year, cb) => {
     fs.writeFile(meta_path, meta, cont(err));
 
     fs.ensureDir(gen_path + '/gen/dev', cont(err));
-    download_updatables(gen_path, 'HEAD', cont(err));
-
+    download_updatables(tool_root, gen_path, 'HEAD', cont(err));
 
     cb(null);};
 

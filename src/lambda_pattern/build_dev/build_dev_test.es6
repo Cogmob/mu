@@ -11,7 +11,13 @@ test('build dev', {timeout: 9000}, t => {
         t.deepEqual(generated, expected);
         t.end();};
 
-    create(resolve(__dirname), 'test_project', 2000, cont(err));
+    create(
+        __dirname + '/../../../../..',
+        __dirname,
+        'test_project',
+        2000,
+        cont(err));
+
     fs.copy(__dirname + '/test_module_data',
             __dirname + '/test_project/src/test_project/test_module',
             cont(err));

@@ -21,13 +21,14 @@ const set_lambda_state_version = (root, version_number, cb) => {
         cont(err, version));
 
     fs.move(
-        path.resolve(root, 'gen/tools.js'),
-        path.resolve(root, 'gen/stored/tools', history['current_state_version']+'.js'),
+        root + '/gen/tools.js',
+        root + '/gen/stored/tools' + '/'
+            + history['current_state_version'] + '.js',
         cont(err));
 
     fs.move(
-        path.resolve(root, 'gen/stored/tools', version_number+'.js'),
-        path.resolve(root, 'gen/tools.js'),
+        root + '/gen/stored/tools' + '/' + version_number + '.js',
+        root + '/gen/tools.js',
         cont(err));
 
     history['current_state_version'] = version_number;

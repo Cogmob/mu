@@ -10,7 +10,12 @@ test('overwrite tools', (t) => {
     const cb = (err, generated, expected) => {
         t.deepEqual(expected, generated);
         t.end();}
-    create(__dirname, 'test_project', 2000, cont(err));
+    create(
+        __dirname + '/../../../../..',
+        __dirname,
+        'test_project',
+        2000,
+        cont(err));
     build_dev(__dirname + '/test_project', 'test_project', cont(err));
     overwrite_tools(rsv(__dirname, 'test_project'), cont(err));
     const recurse = {gen: {dev: {lambda_updatables: false}}};

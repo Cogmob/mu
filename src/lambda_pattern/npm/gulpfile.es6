@@ -107,12 +107,12 @@ gulp.task('build_tools', () => {
 gulp.task('build_lambda_pattern_tool', () => {
     return gulp.src('[project_name]/[project_name].js')
         .pipe(webpack({target: 'node', output: {
-            filename: 'lambda_pattern_tool_built.js'}}))
+            filename: '[project_name]_tool_built.js'}}))
         .pipe(gulp.dest('[project_name]'));});
 
 gulp.task('send_built_tools_to_release', () => {
-    return gulp.src('tools/tool_foundation.js')
-        .pipe(gulp.dest('../lambda_updatables'))
+    return gulp.src('[project_name]/[project_name]_tool_built.js')
+        .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release/updatables'));});
 
 gulp.task('build_dev', sequence(

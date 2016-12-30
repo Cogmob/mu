@@ -47,7 +47,7 @@ gulp.task('build_lambda_pattern_tool', function () {
 });
 
 gulp.task('send_built_tools_to_release', function () {
-    return gulp.src('tools/tool_foundation.js').pipe(gulp.dest('../lambda_updatables')).pipe(gulp.dest('../../release/updatables'));
+    return gulp.src('lambda_pattern/lambda_pattern_tool_built.js').pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(gulp.dest('../../release/updatables'));
 });
 
 gulp.task('build_dev', sequence('es6', 'tools_es6', 'main_file', 'backup_gulpfile', 'build_tools', 'build_lambda_pattern_tool', 'send_built_tools_to_release'));
