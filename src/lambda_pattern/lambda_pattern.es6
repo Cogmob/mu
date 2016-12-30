@@ -2,33 +2,28 @@ const create = require('./create/create');
 const store = require('./store/store');
 const path = require('path');
 const is_function = require('is-function');
+const commander = require('commander');
 
-const lambda_pattern = (path=process.cwd(), cb) => {
-    const commands = {
-        'create': create_fn(cb),
-        'store': store_fn(cb),
-        'overwrite': {
-            'tools': store_fn(cb)}}
+commander
+    .command('test [test_name]')
+    .description('perform the test of the given name')
+    .option('-s, --silent', 'supress output')
+    .action((env, options) => {
+        console.log('test is running');
+        console.log('env:');
+        console.log(env);
+        console.log('options:');
+        console.log(options);});
 
-    get_command(process.argv, 2, commands)(path, cb);}
+commander
+    .command('create [project_name]')
+    .description('make a new lambda patern project')
+    .action((project_name) => {
+        create(process.cwd, project_name, 2000, (err) => console.log(err));})
 
-const get_command = (args, index, commands) => {
-    const key = args[index];
-    if (key in commands) {
-        if (is_function(commands[key])) {
-            return commands[key];}
-        return get_command(args, index+1, commands[key]);}
-    return (cb) => {
-        cb('command \'' + command + '\' not found ... help text ...');};}
+module.exports = {
+    commander,
+    run: () => commander.parse(process.argv)};
 
-const create_fn = (cb) => {
-    if (!process.argv[3]) {
-        return cb('no project name given');}
-    create(process.cwd(), process.argv[3], cb);};
-
-const store_fn = (cb) => {
-    if (!process.argv[3]) {
-        return cb('please specify either bitbucket or github');}
-    store(process.cwd(), process.argv[3], false, {is_ready: 'yes'}, cb);};
-
-module.exports = lambda_pattern;
+if (!module.parent) {
+    commander.parse(process.argv);}
