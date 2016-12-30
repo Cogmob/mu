@@ -13,6 +13,15 @@ test('overwrite tools', (t) => {
     create(__dirname, 'test_project', 2000, cont(err));
     build_dev(__dirname + '/test_project', 'test_project', cont(err));
     overwrite_tools(rsv(__dirname, 'test_project'), cont(err));
-    serialfs.obj(rsv(__dirname, 'test_project'), false, cont(err, generated));
-    serialfs.obj(rsv(__dirname, 'expected'), false, cont(err, expected));
+    const recurse = {gen: {dev: {lambda_updatables: false}}};
+    serialfs.obj(
+        rsv(__dirname, 'test_project'),
+        false,
+        recurse,
+        cont(err, generated));
+    serialfs.obj(
+        rsv(__dirname, 'expected'),
+        false,
+        recurse,
+        cont(err, expected));
     cb(null, generated, expected);});

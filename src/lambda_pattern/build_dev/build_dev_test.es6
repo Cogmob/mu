@@ -12,8 +12,6 @@ test('build dev', {timeout: 9000}, t => {
         t.end();};
 
     create(resolve(__dirname), 'test_project', 2000, cont(err));
-    const commit = 'df3c86442b5e9a05e471e0e90f9188bd372f7e48';
-    set_updatables_version(__dirname + '/test_project', commit, cont(err));
     fs.copy(__dirname + '/test_module_data',
             __dirname + '/test_project/src/test_project/test_module',
             cont(err));
@@ -36,10 +34,12 @@ test('build dev', {timeout: 9000}, t => {
                     'metadata.yaml': false }}},
             stored: {'lambda_state_history.yaml': true}}};
 
+    const recurse = {gen: {dev: {lambda_updatables: false}}};
+
     const generated = serialfs.obj(
-        __dirname + '/test_project', contents,
+        __dirname + '/test_project', contents, recurse,
         cont(err, generated));
     const expected = serialfs.obj(
-        __dirname + '/expected_data', contents,
+        __dirname + '/expected_data', contents, recurse,
         cont(err, expected));
     cb(null, generated, expected);});

@@ -75,7 +75,7 @@
     "rollup": "^0.38.2",
     "rollup-plugin-commonjs": "^6.0.1",
     "rollup-plugin-node-resolve": "^2.0.0",
-    "serialfs": "0.0.17",
+    "serialfs": "0.0.21",
     "simple-git": "^1.62.0",
     "superstack": "0.0.4",
     "tap-difflet": "^0.7.0",
