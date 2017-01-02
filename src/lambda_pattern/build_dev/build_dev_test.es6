@@ -8,7 +8,7 @@ const set_up = require('../set_up/set_up');
 const build_dev = require('./build_dev');
 const set_updatables_version = require('../set_updatables_version/set_updatables_version');
 
-test.only('build dev', t => {
+test('build dev', t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};
@@ -23,10 +23,9 @@ test.only('build dev', t => {
     fs.copy(__dirname + '/test_module_data',
             __dirname + '/test_project/src/test_project/test_module',
             cont(err));
-    const metadata = {
-        project_name: 'test_project'};
+    const metadata = {project_name: 'test_project'};
     set_up(__dirname + '/..', __dirname + '/test_project', metadata, cont(err));
-    //build_dev(__dirname + '/test_project', 'test_project', cont(err));
+    build_dev(__dirname + '/test_project', 'test_project', cont(err));
 
     // TODO: add extra comparisons for content
     // TODO: create deep equal function which doesn't hang on fail

@@ -15,7 +15,7 @@ const make_package_json = (src_path, metadata, path, deps, dev_deps, cb) => {
         dependencies: 'map_to_str(deps)',
         dev_dependencies: map_to_str(dev_deps)};
     fs.readFile(src_path + '/shared/package_template', 'utf8', cont(err, template));
-    console.log(apply_template(template, replace));
+    apply_template(template, replace);
     cb();}
 
 module.exports = make_package_json;

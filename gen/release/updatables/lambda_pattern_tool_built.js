@@ -1331,7 +1331,7 @@
 	fs = __webpack_require__(11);
 	create = function create(src_path, root, project_name, year, cb) {
 	  var skel_path, gen_path, err, temp_module_path, module_path, temp_index_path, index_path, temp_test_path, test_path, readme, index, test_file, meta_path, meta;
-	  skel_path = src_path + '/skeleton';
+	  skel_path = src_path + '/lambda_pattern/skeleton_data';
 	  gen_path = root + '/' + project_name;
 	  fs.copy(skel_path, gen_path, function (arguments, _$param0) {
 	    err = _$param0;
