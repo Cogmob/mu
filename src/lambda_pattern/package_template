@@ -41,7 +41,7 @@
   "dependencies": {
     "app-root-path": "^2.0.1",
     "async-stacktrace": "0.0.2",
-    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
     "continuation": "^0.1.7",
     "date-and-time": "^0.4.0",
     "del": "^2.2.2",
@@ -68,6 +68,7 @@
     "js-yaml": "^3.7.0",
     "longjohn": "^0.2.11",
     "ls": "^0.2.1",
+    "npm": "^4.0.5",
     "open": "0.0.5",
     "osenv": "^0.1.3",
     "path": "^0.12.7",
@@ -77,6 +78,7 @@
     "rollup-plugin-node-resolve": "^2.0.0",
     "serialfs": "0.0.21",
     "simple-git": "^1.62.0",
+    "string-template": "^1.0.0",
     "superstack": "0.0.4",
     "tap-difflet": "^0.7.0",
     "tape": "^4.6.3",
@@ -86,6 +88,7 @@
     "vargs-callback": "^0.2.4",
     "vinyl-transform": "^1.0.0",
     "webpack-stream": "^3.2.0",
-    "word-wrap": "^1.1.0"
+    "word-wrap": "^1.1.0",
+    "yarn": "^0.18.1"
   }
 }

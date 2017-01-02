@@ -106,7 +106,9 @@ gulp.task('build_tools', () => {
 
 gulp.task('build_lambda_pattern_tool', () => {
     return gulp.src('[project_name]/[project_name].js')
-        .pipe(webpack({target: 'node', output: {
+        .pipe(webpack({
+            target: 'node',
+            output: {
             filename: '[project_name]_tool_built.js'}}))
         .pipe(gulp.dest('[project_name]'));});
 

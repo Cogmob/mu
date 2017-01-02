@@ -1,9 +1,9 @@
 #!/bin/bash
 cd ../..
 rm -rf gen/dev
-mkdir -p gen/dev/src/lambda_pattern
+# mkdir -p gen/dev/src/lambda_pattern
 cp -r src gen/dev
 cd gen/dev/src
-npm install
+yarn install
 cd lambda_pattern
-npm install
+yarn install
