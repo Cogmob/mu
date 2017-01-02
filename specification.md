@@ -42,77 +42,64 @@ itself.
 The basic outline of the project which is not updated by the lambda pattern
 tool.
 
-This is the skeleton for an es6 lambda pattern project:
+Here is an example of a lambda pattern project:
 
 ```
 root
-├── gen
-│   ├── dev
-│   │   └── lambda_updatables
-│   │       ├── ...
-│   │       '
-│   ├── stored
-│   │   ├── lambda_state_history.yaml
-│   │   └── tools.js
-│   └── .gitignore // dev
-├── src
-│   ├── [project name]
-│   │   ├── [project_name.es6]
-│   │   ├── [project_name_test.es6]
-│   │   ├── npm_dependencies
-│   │   └── npm_dev_dependencies
-│   └── tools
-│       ├── build_test_data
-│       │   ├── after1
-│       │   ├── before1
-│       │   └── dependency
-│       ├── tools.es6
-│       ├── tools_tests.es6
-│       ├── metadata.yaml
-│       ├── paths.yaml // es6, cached, gitignore (...: dev: , release: )
-│       └── tools_npm_dev_dependencies.yaml
-├── LICENCE.md
-└── README.md
+├── generated
+│   ├── release
+│   │   ├── package.json
+│   │   ├── .js
+│   │   └── package.json
+│   ├── lambda_state_history.yaml
+│   └── tools.js
+├── meta
+│   ├── metadata.yaml
+│   ├── npm_dependencies
+│   └── npm_dev_dependencies.yaml
+├── submodules
+|   └-- submodule1
+│       ├── submodule.es6
+│       └── submodule_test.es6
+├── notes
+│   ├── specification.md
+│   └── todo
+├── tools
+│   ├── build_test_data
+│   │   ├── after1
+│   │   └── before1
+│   ├── .es6
+│   ├── _tests.es6
+│   ├── paths.yaml
+│   └── tools_npm_dev_dependencies.yaml
+├── .es6
+├── _test.es6
+├── licence.md
+└── readme.md
 ```
 
-Here is an example of a project after being developed and built:
+After building locally, these files will also exist under root:
 
 ```
-root
-├── gen
-│   ├── dev
-│   │   ├── [project name]
-│   │   │   ├── node_packages
-│   │   │   │   ├── ...
-│   │   │   │   '
-│   │   │   ├── [project name.js]
-│   │   │   ├── [project name_test.js]
-│   │   │   └── package.json
-│   │   └── lambda_updatables
-│   │       ├── ...
-│   │       '
-│   ├── stored
-│   │   ├── lambda_state_history.yaml
-│   │   └── tools.js
-│   └── .gitignore // dev
-├── src
-│   ├── [project name]
-│   │   ├── [project_name.es6]
-│   │   ├── [project_name_test.es6]
-│   │   ├── npm_dependencies
-│   │   ├── metadata.yaml
-│   │   └── npm_dev_dependencies.yaml
-│   └── tools
-│       ├── build_test_data
-│       │   ├── after1
-│       │   ├── before1
-│       │   └── dependency
-│       ├── tools.es6
-│       ├── tools_tests.es6
-│       ├── paths.yaml
-│       └── tools_npm_dev_dependencies.yaml
-├── LICENCE.md
-└── README.md
+├── generated_local
+│   ├── project
+│   │   |── submodules
+│   │   |   └-- submodule1
+|   |   |       ├── .js
+│   │   |       └-- _test.js
+│   |   ├── .js
+│   |   └── _test.js
+|   ├── tools
+│   │   ├── build_test_data
+│   │   │   ├── after1
+│   │   │   └── before1
+│   │   ├── .es6
+│   │   ├── _tests.es6
+│   │   ├── paths.yaml
+│   │   └── tools_npm_dev_dependencies.yaml
+│   └── lambda_updatables
+│       ├── ...
+│       '
 ```
 
 #### lambda pattern updatables
