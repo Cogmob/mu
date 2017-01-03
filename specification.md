@@ -89,14 +89,14 @@ After building locally, these files will also exist under root:
 │   │   |       └-- _test.js
 │   |   ├── .js
 │   |   └── _test.js
+│   ├── tools_test_project
+│   │   |── submodules
+│   │   |   └-- submodule1
+|   |   |       ├── .js
+│   │   |       └-- _test.js
+│   |   ├── .js
+│   |   └── _test.js
 |   ├── tools
-│   │   ├── project
-│   │   │   |── submodules
-│   │   │   |   └-- submodule1
-|   |   |   |       ├── .js
-│   │   │   |       └-- _test.js
-│   │   |   ├── .js
-│   │   |   └── _test.js
 │   |   ├── .js
 │   |   └── _test.js
 │   │   ├── test_data
@@ -169,7 +169,7 @@ before each of the following steps:
 
 * run the tools.build.dev(path) function by requiring gen/stored/tools.js,
     passing the root folder as a parameter
-    * deletes the folder gen/dev/src
+    * deletes the folder gen/dev/src apart from saved files eg node_modules
     * copies from src to gen/dev/src
     * installs npm modules
     * compiles all the source files in place in gen/dev/src
@@ -197,11 +197,30 @@ before each of the following steps:
 #### test dev
 
 * run the tools.test.dev(path) function by requiring gen/stored/tools.js,
-    passing the root folder as a paramter
+    passing the root folder as a parameter
     * run all files which end with \_test.js in the gen/dev folder
     * write the results into gen/dev/test_results
     * if the tests have zero fails, write the current version number into the
         correct gen/stored/lambda_state_history.yaml entry
+
+#### build tools
+
+* run the tools.build.dev(path) function by requiring gen/stored/tools.js,
+    passing the root folder as a parameter
+    * deletes the folder containing previously built tools
+        (backs up node_modules and project)
+    * copies from tools to this folder
+    * compiles all source in place and cleans up
+* if --full parameter is passed, do no back anything up and perform set up first
+
+#### test tools
+
+* run the tools.test.tools(path) function by requiring gen/stored/tools.js,
+    passing the root folder as a parameter
+    * run the files which end with \_test.js but not \_project_test.js
+    * if the project does not exist, perform set up on it
+    * run build_dev on the project folder inside the tools_test_project
+    * run the files which end with \_project_test.js
 
 #### update tools
 
