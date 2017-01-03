@@ -65,7 +65,7 @@ root
 │   ├── specification.md
 │   └── todo
 ├── tools
-│   ├── build_test_data
+│   ├── test_data
 │   │   ├── after1
 │   │   └── before1
 │   ├── .es6
@@ -90,7 +90,16 @@ After building locally, these files will also exist under root:
 │   |   ├── .js
 │   |   └── _test.js
 |   ├── tools
-│   │   ├── build_test_data
+│   │   ├── project
+│   │   │   |── submodules
+│   │   │   |   └-- submodule1
+|   |   |   |       ├── .js
+│   │   │   |       └-- _test.js
+│   │   |   ├── .js
+│   │   |   └── _test.js
+│   |   ├── .js
+│   |   └── _test.js
+│   │   ├── test_data
 │   │   │   ├── after1
 │   │   │   └── before1
 │   │   ├── .es6
