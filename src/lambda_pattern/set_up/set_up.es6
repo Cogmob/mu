@@ -11,8 +11,8 @@ const set_up = (src_path, root, metadata, cb) => {
     fs.remove(gen_path, cont(err));
     fs.mkdirp(gen_path, cont(err));
     copy_if_exists(root + '/submodules', gen_path, cont(err));
-    fs.copy(root + '/.es6', gen_path, cont(err));
-    fs.copy(root + '/_test.es6', gen_path, cont(err));
+    fs.copy(root + '/.es6', gen_path + '/.es6', cont(err));
+    fs.copy(root + '/_test.es6', gen_path + '/_test.es6', cont(err));
     download_updatables(src_path, root, 'HEAD', cont(err));
     const deps = {'a': '^1.0.0', 'b': '^1.0.0'};
     const dev_deps = {'c': '^1.0.0', 'd': '^1.0.0'};

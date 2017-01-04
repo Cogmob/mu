@@ -21,9 +21,9 @@ const build_dev = (root_path, project_name, cb) => {
     fs.remove(proj_path, cont(err));
     fs.mkdirp(proj_path, cont(err));
 
-    fs.copy(root_path + '/.es6', proj_path, cont(err));
-    fs.copy(root_path + '/_test.es6', proj_path, cont(err));
-    fs.copy(root_path + '/submodules', proj_path, cont(err));
+    fs.copy(root_path + '/.es6', proj_path + '/.es6', cont(err));
+    fs.copy(root_path + '/_test.es6', proj_path + '/_test.es6', cont(err));
+    fs.copy(root_path + '/submodules', proj_path + '/submodules', cont(err));
 
     move_if_exists(
         root_path + '/project_node_modules',
@@ -31,7 +31,7 @@ const build_dev = (root_path, project_name, cb) => {
         cont(err));
 
     modify_es6(proj_path, project_name, cont(err));
-    modify_main_file(root_path, project_name, cont(err));
+    modify_main_file(proj_path, cont(err));
     convert_es6(proj_path, project_name, cont(err));
 
     cb(null);};

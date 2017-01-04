@@ -20,8 +20,9 @@ test.only('build dev', t => {
         2000,
         cont(err));
 
+    fs.mkdirp(__dirname + '/test_project/submodules');
     fs.copy(__dirname + '/test_module_data',
-            __dirname + '/test_project/src/test_project/test_module',
+            __dirname + '/test_project/submodules/test_module',
             cont(err));
     const metadata = {project_name: 'test_project'};
     set_up(__dirname + '/..', __dirname + '/test_project', metadata, cont(err));

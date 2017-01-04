@@ -1330,7 +1330,7 @@
 	word_wrap = __webpack_require__(3);
 	fs = __webpack_require__(11);
 	create = function create(src_path, root, project_name, year, cb) {
-	  var skel_path, gen_path, err, temp_module_path, module_path, temp_index_path, index_path, temp_test_path, test_path, readme, index, test_file, meta_path, meta;
+	  var skel_path, gen_path, err, readme, index, test_file, meta;
 	  skel_path = src_path + '/lambda_pattern/skeleton_data';
 	  gen_path = root + '/' + project_name;
 	  fs.copy(skel_path, gen_path, function (arguments, _$param0) {
@@ -1338,85 +1338,60 @@
 	    if (ERR(err, cb)) {
 	      return;
 	    }
-	    temp_module_path = gen_path + '/src/project_name';
-	    module_path = gen_path + '/src/' + project_name;
-	    fs.move(temp_module_path, module_path, function (arguments, _$param1) {
+	    fs.readFile(gen_path + '/readme.md', 'utf8', function (arguments, _$param1, _$param2) {
 	      err = _$param1;
+	      readme = _$param2;
 	      if (ERR(err, cb)) {
 	        return;
 	      }
-	      temp_index_path = module_path + '/project_name.es6';
-	      index_path = module_path + '/' + project_name + '.es6';
-	      fs.move(temp_index_path, index_path, function (arguments, _$param2) {
-	        err = _$param2;
+	      readme = readme.replace(/\[\[project_name\]\]/g, project_name);
+	      fs.writeFile(gen_path + '/readme.md', readme, function (arguments, _$param3) {
+	        err = _$param3;
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        temp_test_path = module_path + '/project_name_test.es6';
-	        test_path = module_path + '/' + project_name + '_test.es6';
-	        fs.move(temp_test_path, test_path, function (arguments, _$param3) {
-	          err = _$param3;
+	        fs.readFile(gen_path + '/.es6', 'utf8', function (arguments, _$param4, _$param5) {
+	          err = _$param4;
+	          index = _$param5;
 	          if (ERR(err, cb)) {
 	            return;
 	          }
-	          fs.readFile(gen_path + '/README.md', 'utf8', function (arguments, _$param4, _$param5) {
-	            err = _$param4;
-	            readme = _$param5;
+	          index = index.replace(/\[\[project_name\]\]/g, project_name);
+	          fs.writeFile(gen_path + '/.es6', index, function (arguments, _$param6) {
+	            err = _$param6;
 	            if (ERR(err, cb)) {
 	              return;
 	            }
-	            readme = readme.replace(/\[\[project_name\]\]/g, project_name);
-	            fs.writeFile(gen_path + '/README.md', readme, function (arguments, _$param6) {
-	              err = _$param6;
+	            fs.readFile(gen_path + '/_test.es6', 'utf8', function (arguments, _$param7, _$param8) {
+	              err = _$param7;
+	              test_file = _$param8;
 	              if (ERR(err, cb)) {
 	                return;
 	              }
-	              fs.readFile(index_path, 'utf8', function (arguments, _$param7, _$param8) {
-	                err = _$param7;
-	                index = _$param8;
+	              test_file = test_file.replace(/\[\[project_name\]\]/g, project_name);
+	              fs.writeFile(gen_path + '/_test.es6', test_file, function (arguments, _$param9) {
+	                err = _$param9;
 	                if (ERR(err, cb)) {
 	                  return;
 	                }
-	                index = index.replace(/\[\[project_name\]\]/g, project_name);
-	                fs.writeFile(index_path, index, function (arguments, _$param9) {
-	                  err = _$param9;
+	                fs.readFile(gen_path + '/meta/data.yaml', 'utf8', function (arguments, _$param10, _$param11) {
+	                  err = _$param10;
+	                  meta = _$param11;
 	                  if (ERR(err, cb)) {
 	                    return;
 	                  }
-	                  fs.readFile(test_path, 'utf8', function (arguments, _$param10, _$param11) {
-	                    err = _$param10;
-	                    test_file = _$param11;
+	                  meta = meta.replace(/\[\[project_name\]\]/g, project_name);
+	                  fs.writeFile(gen_path + '/meta/data.yaml', meta, function (arguments, _$param12) {
+	                    err = _$param12;
 	                    if (ERR(err, cb)) {
 	                      return;
 	                    }
-	                    test_file = test_file.replace(/\[\[project_name\]\]/g, project_name);
-	                    fs.writeFile(test_path, test_file, function (arguments, _$param12) {
-	                      err = _$param12;
+	                    fs.ensureDir(gen_path + '/gen/dev', function (arguments, _$param13) {
+	                      err = _$param13;
 	                      if (ERR(err, cb)) {
 	                        return;
 	                      }
-	                      meta_path = gen_path + '/src/metadata.yaml';
-	                      fs.readFile(meta_path, 'utf8', function (arguments, _$param13, _$param14) {
-	                        err = _$param13;
-	                        meta = _$param14;
-	                        if (ERR(err, cb)) {
-	                          return;
-	                        }
-	                        meta = meta.replace(/\[\[project_name\]\]/g, project_name);
-	                        fs.writeFile(meta_path, meta, function (arguments, _$param15) {
-	                          err = _$param15;
-	                          if (ERR(err, cb)) {
-	                            return;
-	                          }
-	                          fs.ensureDir(gen_path + '/gen/dev', function (arguments, _$param16) {
-	                            err = _$param16;
-	                            if (ERR(err, cb)) {
-	                              return;
-	                            }
-	                            cb(null);
-	                          }.bind(this, arguments));
-	                        }.bind(this, arguments));
-	                      }.bind(this, arguments));
+	                      cb(null);
 	                    }.bind(this, arguments));
 	                  }.bind(this, arguments));
 	                }.bind(this, arguments));
