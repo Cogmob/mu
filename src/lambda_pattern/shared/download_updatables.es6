@@ -8,16 +8,16 @@ const find_project_root = require('../shared/find_project_root');
 const download_updatables = (src_path, root, version, cb) => {
     const move_updatables = () => {
         extract(
-            root + '/gen/dev/updatables.tar',
-            root + '/gen/dev/updatables',
+            root + '/generated_local/updatables.tar',
+            root + '/generated_local/updatables',
             cont(err));
-        fs.remove(root + '/gen/dev/lambda_updatables', cont(err));
+        fs.remove(root + '/generated_local/lambda_updatables', cont(err));
         fs.move(
-            root + '/gen/dev/updatables/repo/gen/release/updatables',
-            root + '/gen/dev/lambda_updatables',
+            root + '/generated_local/updatables/repo/gen/release/updatables',
+            root + '/generated_local/lambda_updatables',
             cont(err));
-        fs.remove(root + '/gen/dev/updatables.tar', cont(err));
-        fs.remove(root + '/gen/dev/updatables', cont(err));
+        fs.remove(root + '/generated_local/updatables.tar', cont(err));
+        fs.remove(root + '/generated_local/updatables', cont(err));
         cb();};
 
     find_project_root(src_path, cont(err, tool_root));
@@ -26,6 +26,6 @@ const download_updatables = (src_path, root, version, cb) => {
         format: 'tar'})
     .on('error', (err) => cb(err))
     .on('end', move_updatables)
-    .pipe(fs.createWriteStream(root + '/gen/dev/updatables.tar'));};
+    .pipe(fs.createWriteStream(root + '/generated_local/updatables.tar'));};
 
 module.exports = download_updatables;

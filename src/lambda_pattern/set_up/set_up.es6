@@ -2,19 +2,21 @@ const fs = require('fs-extra');
 const npm = require('npm');
 
 const download_updatables = require('../shared/download_updatables');
+const copy_if_exists = require('../shared/copy_if_exists');
 const make_package_json = require('../shared/make_package_json');
 
 const set_up = (src_path, root, metadata, cb) => {
     const project_name = metadata['project_name'];
-    fs.remove(root + '/gen/dev', cont(err));
-    fs.mkdirp(root + '/gen/dev', cont(err));
-    fs.copy(root + '/src', root + '/gen/dev/src', cont(err));
+    const gen_path = root + '/generated_local/project';
+    fs.remove(gen_path, cont(err));
+    fs.mkdirp(gen_path, cont(err));
+    copy_if_exists(root + '/submodules', gen_path, cont(err));
+    fs.copy(root + '/.es6', gen_path, cont(err));
+    fs.copy(root + '/_test.es6', gen_path, cont(err));
     download_updatables(src_path, root, 'HEAD', cont(err));
     const deps = {'a': '^1.0.0', 'b': '^1.0.0'};
     const dev_deps = {'c': '^1.0.0', 'd': '^1.0.0'};
-    make_package_json(src_path, metadata, root + '/gen/dev', deps, dev_deps, cont(err));
-    /**
-   **/
+    make_package_json(src_path, metadata, gen_path, deps, dev_deps, cont(err));
    /**
     npm.load({prefix: root + '/gen/dev/src/'}, cont(err));
     npm.install(cont(err));

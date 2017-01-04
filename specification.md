@@ -54,7 +54,7 @@ root
 │   ├── lambda_state_history.yaml
 │   └── tools.js
 ├── meta
-│   ├── metadata.yaml
+│   ├── data.yaml
 │   ├── npm_dependencies
 │   ├── npm_dev_dependencies
 │   ├── freeze
@@ -85,27 +85,48 @@ After building locally, these files will also exist under root:
 ```
 └── generated_local
     ├── project
+    │   |── node_modules
+    |   |   ├── ...
+    |   |   '
     │   |── submodules
     │   |   └-- submodule1
+    |   |       ├── .es6
     |   |       ├── .js
+    |   |       ├── _test.es6
     │   |       └-- _test.js
+    |   ├── .es6
     |   ├── .js
+    |   ├── _test.es6
     |   └── _test.js
     ├── tools_test_project
+    │   |── node_modules
+    |   |   ├── ...
+    |   |   '
     │   |── submodules
     │   |   └-- submodule1
+    |   |       ├── .es6
     |   |       ├── .js
+    |   |       ├── _test.es6
     │   |       └-- _test.js
+    |   ├── .es6
     |   ├── .js
+    |   ├── _test.es6
     |   └── _test.js
     ├── tools
+    │   |── node_modules
+    |   |   ├── ...
+    |   |   '
+    |   ├── .es6
     |   ├── .js
+    |   ├── _test.es6
     |   └── _test.js
     │   ├── test_data
     │   │   ├── after1
     │   │   └── before1
     │   ├── .es6
-    │   └── _tests.es6
+    │   ├── .js
+    │   ├── _test.es6
+    │   └── _test.js
     └── lambda_updatables
         ├── ...
         '
