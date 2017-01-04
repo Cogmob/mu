@@ -9,5 +9,4 @@ cp README.md gen/release
 cd gen/release/cached
 npm install
 rm -rf src
-clear
 node_modules/.bin/gulp build_release
