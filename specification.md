@@ -47,23 +47,22 @@ Here is an example of a lambda pattern project:
 ```
 root
 ├── generated
-│   ├── release
-│   │   ├── package.json
-│   │   ├── .js
-│   │   └── package.json
+│   ├── release *
+│   │   ├── package.json *
+│   │   ├── .js *
+│   │   └── package.json *
 │   ├── lambda_state_history.yaml
 │   └── tools.js
 ├── meta
 │   ├── metadata.yaml
 │   ├── npm_dependencies
-│   └── npm_dev_dependencies.yaml
-├── submodules
-|   └-- submodule1
-│       ├── submodule.es6
-│       └── submodule_test.es6
-├── notes
-│   ├── specification.md
+│   ├── npm_dev_dependencies
+│   ├── freeze
 │   └── todo
+├── submodules *
+|   └-- submodule1 *
+│       ├── submodule.es6 *
+│       └── submodule_test.es6 *
 ├── tools
 │   ├── test_data
 │   │   ├── after1
@@ -71,44 +70,45 @@ root
 │   ├── .es6
 │   ├── _tests.es6
 │   ├── paths.yaml
-│   └── tools_npm_dev_dependencies.yaml
+│   └── npm_dev_dependencies.yaml
 ├── .es6
+├── .gitignore
 ├── _test.es6
 ├── licence.md
 └── readme.md
 ```
 
+* these files are not part of the project skeleton
+
 After building locally, these files will also exist under root:
 
 ```
-├── generated_local
-│   ├── project
-│   │   |── submodules
-│   │   |   └-- submodule1
-|   |   |       ├── .js
-│   │   |       └-- _test.js
-│   |   ├── .js
-│   |   └── _test.js
-│   ├── tools_test_project
-│   │   |── submodules
-│   │   |   └-- submodule1
-|   |   |       ├── .js
-│   │   |       └-- _test.js
-│   |   ├── .js
-│   |   └── _test.js
-|   ├── tools
-│   |   ├── .js
-│   |   └── _test.js
-│   │   ├── test_data
-│   │   │   ├── after1
-│   │   │   └── before1
-│   │   ├── .es6
-│   │   ├── _tests.es6
-│   │   ├── paths.yaml
-│   │   └── tools_npm_dev_dependencies.yaml
-│   └── lambda_updatables
-│       ├── ...
-│       '
+└── generated_local
+    ├── project
+    │   |── submodules
+    │   |   └-- submodule1
+    |   |       ├── .js
+    │   |       └-- _test.js
+    |   ├── .js
+    |   └── _test.js
+    ├── tools_test_project
+    │   |── submodules
+    │   |   └-- submodule1
+    |   |       ├── .js
+    │   |       └-- _test.js
+    |   ├── .js
+    |   └── _test.js
+    ├── tools
+    |   ├── .js
+    |   └── _test.js
+    │   ├── test_data
+    │   │   ├── after1
+    │   │   └── before1
+    │   ├── .es6
+    │   └── _tests.es6
+    └── lambda_updatables
+        ├── ...
+        '
 ```
 
 #### lambda pattern updatables
