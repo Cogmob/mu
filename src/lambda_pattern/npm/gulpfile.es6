@@ -126,4 +126,4 @@ gulp.task('build_dev', sequence(
     'build_lambda_pattern_tool',
     'send_built_tools_to_release'));
 
-gulp.task('build_release',sequence('copy_src', 'es6', 'main_file'));
+gulp.task('build_release',sequence('es6', 'main_file'));
