@@ -117,6 +117,10 @@ gulp.task('send_built_tools_to_release', () => {
         .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release/updatables'));});
 
+gulp.task('copy_src', () => {
+    return gulp.src('../../../src/**/*')
+        .pipe(gulp.dest('.'));});
+
 gulp.task('build_dev', sequence(
     'es6',
     'tools_es6',
@@ -126,4 +130,4 @@ gulp.task('build_dev', sequence(
     'build_lambda_pattern_tool',
     'send_built_tools_to_release'));
 
-gulp.task('build_release',sequence('es6', 'main_file'));
+gulp.task('build_release',sequence('copy_src', 'es6', 'main_file'));
