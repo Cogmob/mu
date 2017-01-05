@@ -1,0 +1,4 @@
+#!/bin/bash
+cd ../../gen/dev/src/lambda_pattern
+npm $1 $2 $3 $4 $5
+cp package.json ../../../../src/lambda_pattern
