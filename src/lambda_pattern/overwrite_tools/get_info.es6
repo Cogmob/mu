@@ -4,12 +4,12 @@ const yaml = require('js-yaml');
 
 const get_info = (root, cb) => {
     fs.readFile(
-        path.resolve(root, 'gen/dev/lambda_updatables/version'),
+        path.resolve(root, 'generated_local/lambda_updatables/version'),
         'utf8',
         cont(err, updatables_version));
 
     fs.readFile(
-        path.resolve(root, 'gen/stored/lambda_state_history.yaml'),
+        path.resolve(root, 'generated/lambda_state_history.yaml'),
         'utf8',
         cont(err, history));
 

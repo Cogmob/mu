@@ -21,8 +21,6 @@ const create = (src_path, root, project_name, year, cb) => {
     meta = meta.replace(/\[\[project_name\]\]/g, project_name);
     fs.writeFile(gen_path + '/meta/data.yaml', meta, cont(err));
 
-    fs.ensureDir(gen_path + '/gen/dev', cont(err));
-
     cb(null);};
 
 module.exports = create;

@@ -1386,13 +1386,7 @@
 	                    if (ERR(err, cb)) {
 	                      return;
 	                    }
-	                    fs.ensureDir(gen_path + '/gen/dev', function (arguments, _$param13) {
-	                      err = _$param13;
-	                      if (ERR(err, cb)) {
-	                        return;
-	                      }
-	                      cb(null);
-	                    }.bind(this, arguments));
+	                    cb(null);
 	                  }.bind(this, arguments));
 	                }.bind(this, arguments));
 	              }.bind(this, arguments));
