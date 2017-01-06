@@ -15,6 +15,7 @@ const es6 = (root_path, project_name, cb) => {
             .pipe(babel({ presets: ['es2015'] }))
             .pipe(continuation())
             .pipe(gulp.dest(root_path))
+            .pipe(debug())
             .on('end', cb)
             .on('error', cb);});
 

@@ -7,7 +7,7 @@ const set_up = require('../set_up/set_up');
 const create = require('../create/create');
 const build_dev = require('../build_dev/build_dev');
 
-test.only('overwrite tools', (t) => {
+test('overwrite tools', (t) => {
     const cb = (err, generated, expected) => {
         t.deepEqual(expected, generated);
         t.end();}
@@ -20,7 +20,7 @@ test.only('overwrite tools', (t) => {
     const metadata = {project_name: 'test_project'};
     set_up(__dirname + '/..', __dirname + '/test_project', metadata, cont(err));
     build_dev(__dirname + '/test_project', 'test_project', cont(err));
-    overwrite_tools(__dirname + 'test_project', cont(err));
+    overwrite_tools(__dirname + '/test_project', cont(err));
     const recurse = {gen: {dev: {lambda_updatables: false}}};
     serialfs.obj(
         rsv(__dirname, 'test_project'),
