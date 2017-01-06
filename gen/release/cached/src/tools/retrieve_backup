@@ -1,0 +1,3 @@
+#!/bin/bash
+cd ../lambda_pattern/npm
+cp gulpfile_backup.js gulpfile.js

@@ -21,7 +21,7 @@ const build_dev = (root_path, project_name, cb) => {
     fs.remove(proj_path, cont(err));
     fs.mkdirp(proj_path, cont(err));
 
-    fs.copy(root_path + '/.es6', proj_path + '/.es6', cont(err));
+    fs.copy(root_path + '/_.es6', proj_path + '/_.es6', cont(err));
     fs.copy(root_path + '/_test.es6', proj_path + '/_test.es6', cont(err));
     copy_if_exists(
         root_path + '/submodules',

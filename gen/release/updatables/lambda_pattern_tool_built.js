@@ -1350,14 +1350,14 @@
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        fs.readFile(gen_path + '/.es6', 'utf8', function (arguments, _$param4, _$param5) {
+	        fs.readFile(gen_path + '/_.es6', 'utf8', function (arguments, _$param4, _$param5) {
 	          err = _$param4;
 	          index = _$param5;
 	          if (ERR(err, cb)) {
 	            return;
 	          }
 	          index = index.replace(/\[\[project_name\]\]/g, project_name);
-	          fs.writeFile(gen_path + '/.es6', index, function (arguments, _$param6) {
+	          fs.writeFile(gen_path + '/_.es6', index, function (arguments, _$param6) {
 	            err = _$param6;
 	            if (ERR(err, cb)) {
 	              return;

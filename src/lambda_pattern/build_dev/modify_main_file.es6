@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const rsv = require('path').resolve;
 
 const modify_main_file = (root_path, cb) => {
-    const main_path = root_path + '/.es6';
+    const main_path = root_path + '/_.es6';
     fs.readFile(main_path, cont(err, main_file));
     main_file = main_file + `
 if (!module.parent) {

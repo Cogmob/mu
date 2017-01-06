@@ -3,17 +3,16 @@ const lambda_state_history = require('../shared/lambda_state_history');
 const path = require('path');
 const yaml = require('js-yaml');
 
-const set_lambda_state_version = (root, version_number, cb) => {
+const set_lambda_state_version = (src_path, root, version_number, cb) => {
     fs.readFile(
-        path.resolve(root, 'gen/stored/lambda_state_history.yaml'),
+        path.resolve(root, 'generated/lambda_state_history.yaml'),
         'utf8',
         cont(err, history));
     history = yaml.safeLoad(history);
 
+    const updatables_num = history['states'][version_number]['state_version'];
+    download_updatables(src_path, root, updatables_num, cont(err));
 
-    fs.exists(path.resolve(root, 'gen/dev/lambda_updatables/test'), cont(is_test));
-    if (!is_test) {
-        return cb('have not yet written code to update updatables');}
     fs.writeFile(
         path.resolve(root, 'gen/dev/lambda_updatables/version'),
         history['states'][version_number]['state_version'] + '\n',

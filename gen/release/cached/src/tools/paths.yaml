@@ -1,0 +1,18 @@
+es6:
+  dev:
+  - src
+  - tool
+  release:
+  - src
+  - tools
+cached:
+  dev:
+  - src/node_modules
+  release:
+  - node_modules
+gitignore:
+  dev:
+  - "*"
+  release:
+  - node_modules/
+  - cached/
