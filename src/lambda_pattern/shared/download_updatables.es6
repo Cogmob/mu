@@ -21,11 +21,14 @@ const download_updatables = (src_path, root, version, cb) => {
         cb();};
 
     find_project_root(src_path, cont(err, tool_root));
+    fs.mkdirp(root + '/generated_local', cont(err));
     archive(tool_root + '/.git', {
         rev: version,
         format: 'tar'})
-    .on('error', (err) => cb(err))
+    .on('error', (er) => {console.log('err'); ((clb) => {clb(er);})(cont(err));})
     .on('end', move_updatables)
-    .pipe(fs.createWriteStream(root + '/generated_local/updatables.tar'));};
+    .pipe(fs.createWriteStream(root + '/generated_local/updatables.tar'))
+    .on('error', (er) => {console.log('err'); ((clb) => {clb(er);})(cont(err));})
+    .on('end', move_updatables);};
 
 module.exports = download_updatables;

@@ -3,7 +3,8 @@ const serialfs = require('serialfs');
 const test = require('tape');
 
 const create = require('../create/create');
-const set_updatables_version = require('../set_updatables_version/set_updatables_version');
+const set_updatables_version =
+    require('../set_updatables_version/set_updatables_version');
 
 test('create and set updatables version', {timeout: 3000}, t => {
     const cb = (err, generated, expected) => {
