@@ -6,7 +6,7 @@ const create = require('../create/create');
 const set_updatables_version =
     require('../set_updatables_version/set_updatables_version');
 
-test('create and set updatables version', {timeout: 3000}, t => {
+test('create and set updatables version', {timeout: 9000}, t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};

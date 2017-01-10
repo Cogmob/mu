@@ -1,13 +1,17 @@
 const fs = require('fs-extra');
-const lambda_state_history = require('../shared/lambda_state_history');
 const path = require('path');
 const yaml = require('js-yaml');
 
+const lambda_state_history = require('../shared/lambda_state_history');
+const download_updatables = require('../shared/download_updatables');
+
 const set_lambda_state_version = (src_path, root, version_number, cb) => {
+    console.log('a');
     fs.readFile(
         path.resolve(root, 'generated/lambda_state_history.yaml'),
         'utf8',
         cont(err, history));
+    console.log('b');
     history = yaml.safeLoad(history);
 
     const updatables_num = history['states'][version_number]['state_version'];

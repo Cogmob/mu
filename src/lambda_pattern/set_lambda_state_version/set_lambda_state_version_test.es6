@@ -3,14 +3,14 @@ const path = require('path');
 const serialfs = require('serialfs');
 const set_lambda_state_version = require('./set_lambda_state_version');
 
-test.only('set lambda state version', (t) => {
+test('set lambda state version', {timeout: 9000}, (t) => {
     const cb = (err, generated, expected) => {
         t.deepEqual(expected, generated);
         t.end();}
 
     set_lambda_state_version(
-        path.resolve('.'),
-        path.resolve('./before'),
+        __dirname + '/..',
+        __dirname + '/before',
         12345,
         cont(err));
 

@@ -9,12 +9,18 @@ const del = require('del');
 const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
 const path = require('path');
+const vmap = require('vinyl-map');
 
 gulp.task('tools_es6', ()=>{
     return gulp.src(['tools/*.es6'])
         .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
+        .pipe(replace(/\[filename\]/g, 'lambda_pattern'))
+        .pipe(vmap((code, filename) => {
+            console.log('to string');
+            console.log(code.toString());
+            return '//prefix\n' + code.toString();}))
         .pipe(replace(
             /cont\(.*err.*\).*;/g,
             `$&
