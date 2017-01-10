@@ -17,10 +17,6 @@ gulp.task('tools_es6', ()=>{
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
         .pipe(replace(/\[filename\]/g, 'lambda_pattern'))
-        .pipe(vmap((code, filename) => {
-            console.log('to string');
-            console.log(code.toString());
-            return '//prefix\n' + code.toString();}))
         .pipe(replace(
             /cont\(.*err.*\).*;/g,
             `$&
@@ -56,6 +52,12 @@ gulp.task('es6', ()=>{
         .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
+        .pipe(vmap((code, filename) => {
+            console.log(code)
+            console.log(filename)
+            var ret = code.toString();
+            ret = ret.replace('[file' + 'name]', filename.split('asdf')[0])
+            return ret;}))
         .pipe(replace(
             /cont\(.*err.*\).*;/g,
             `$&
