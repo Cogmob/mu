@@ -9,7 +9,7 @@ const del = require('del');
 const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
 const path = require('path');
-const vmap = require('vinyl-map');
+const vmap = require('vinyl-map2');
 
 gulp.task('tools_es6', ()=>{
     return gulp.src(['tools/*.es6'])
@@ -53,10 +53,13 @@ gulp.task('es6', ()=>{
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
         .pipe(vmap((code, filename) => {
-            console.log(code)
-            console.log(filename)
             var ret = code.toString();
-            ret = ret.replace('[file' + 'name]', filename.split('asdf')[0])
+            filename = filename.split('.');
+            filename = filename[filename.length - 2];
+            filename = filename.split('\\');
+            filename = filename[filename.length - 1];
+            console.log(filename);
+            ret = ret.replace('[file' + 'name]', filename);
             return ret;}))
         .pipe(replace(
             /cont\(.*err.*\).*;/g,
