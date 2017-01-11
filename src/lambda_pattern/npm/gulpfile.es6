@@ -9,7 +9,7 @@ const del = require('del');
 const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
 const path = require('path');
-const vmap = require('vinyl-map2');
+const vmap = require('vinyl-map');
 
 gulp.task('tools_es6', ()=>{
     return gulp.src(['tools/*.es6'])
