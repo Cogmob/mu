@@ -10,7 +10,6 @@ const set_updatables_version = require('../set_updatables_version/set_updatables
 
 test.only('[filename]', t => {
     const cb = (err, generated, expected) => {
-        console.log('comparing');
         t.deepEqual(generated, expected);
         t.end();};
 
@@ -26,10 +25,10 @@ test.only('[filename]', t => {
             __dirname + '/test_project/submodules/test_module',
             cont(err));
     const metadata = {project_name: 'test_project'};
-    console.log('setting up');
     set_up(__dirname + '/..', __dirname + '/test_project', metadata, cont(err));
-    console.log('build dev');
+    /*
     build_dev(__dirname + '/test_project', 'test_project', cont(err));
+   */
 
     // TODO: add extra comparisons for content
     // TODO: create deep equal function which doesn't hang on fail
@@ -50,7 +49,6 @@ test.only('[filename]', t => {
 
     const recurse = {gen: {dev: {lambda_updatables: false}}};
 
-    console.log('getting data');
     const generated = serialfs.obj(
         __dirname + '/test_project', contents, recurse,
         cont(err, generated));
