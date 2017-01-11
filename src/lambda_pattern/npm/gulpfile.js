@@ -25,8 +25,8 @@ gulp.task('es6', function () {
         filename = filename.split('.');
         filename = filename[filename.length - 2];
         filename = filename.split('\\');
-        filename = filename[filename.length - 1];
-        console.log(filename);
+        var last = filename.length - 1;
+        filename = filename[last - 1] + '/' + filename[last];
         ret = ret.replace('[file' + 'name]', filename);
         return ret;
     })).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('lambda_pattern')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('lambda_pattern'));

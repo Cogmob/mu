@@ -57,8 +57,8 @@ gulp.task('es6', ()=>{
             filename = filename.split('.');
             filename = filename[filename.length - 2];
             filename = filename.split('\\');
-            filename = filename[filename.length - 1];
-            console.log(filename);
+            const last = filename.length - 1
+            filename = filename[last - 1] + '/' + filename[last];
             ret = ret.replace('[file' + 'name]', filename);
             return ret;}))
         .pipe(replace(
