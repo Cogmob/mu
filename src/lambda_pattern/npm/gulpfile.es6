@@ -58,8 +58,12 @@ gulp.task('es6', ()=>{
             filename = filename[filename.length - 2];
             filename = filename.split('\\');
             const last = filename.length - 1
-            filename = filename[last - 1] + '/' + filename[last];
-            ret = ret.replace('[file' + 'name]', filename);
+
+            const name = filename[last - 1] + '/' + filename[last];
+            ret = ret.replace('[file' + 'name]', name);
+            const module = filename[last - 1];
+            ret = ret.replace('[mod' + 'ule]', module);
+
             return ret;}))
         .pipe(replace(
             /cont\(.*err.*\).*;/g,

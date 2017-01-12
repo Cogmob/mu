@@ -9,11 +9,11 @@ test('set lambda state version', {timeout: 9000}, (t) => {
         t.end();}
 
     set_lambda_state_version(
-        __dirname + '/..',
+        __dirname + '/../..',
         __dirname + '/before',
         12345,
         cont(err));
 
     serialfs.obj(__dirname + '/before', {}, cont(err, generated));
-    serialfs.obj(__dirname + '/expected', {}, cont(err, expected));
+    serialfs.obj(__dirname + '/expected_data', {}, cont(err, expected));
     cb(null, generated, expected);});

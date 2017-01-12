@@ -5,9 +5,8 @@ const copy_if_exists = require('../shared/copy_if_exists');
 const modify_es6 = require('./modify_es6');
 const convert_es6 = require('./convert_es6');
 const modify_main_file = require('./modify_main_file');
-const build_tools = require('./build_tools');
 
-const build_dev = (root_path, project_name, cb) => {
+const _ = (root_path, project_name, cb) => {
     // TODO: handle errors without leaving node_modules in wrong place
     // TODO: replace with config file for what will be saved as in spec
     
@@ -37,9 +36,9 @@ const build_dev = (root_path, project_name, cb) => {
     modify_main_file(proj_path, cont(err));
     convert_es6(proj_path, project_name, cont(err));
     /*
-    build_tools(proj_path, cont(err));
+    _(proj_path, cont(err));
    */
 
     cb(null);};
 
-module.exports = build_dev;
+module.exports = _;

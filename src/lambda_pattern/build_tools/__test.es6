@@ -5,10 +5,11 @@ const resolve = require('path').resolve;
 
 const create = require('../create/create');
 const set_up = require('../set_up/set_up');
-const build_dev = require('./build_dev');
+const _ = require('./_');
 const set_updatables_version = require('../set_updatables_version/set_updatables_version');
 
-test('build dev', t => {
+/*
+test.only('[module]', t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};
@@ -26,7 +27,7 @@ test('build dev', t => {
             cont(err));
     const metadata = {project_name: 'test_project'};
     set_up(__dirname + '/..', __dirname + '/test_project', metadata, cont(err));
-    build_dev(__dirname + '/test_project', 'test_project', cont(err));
+    _(__dirname + '/test_project', 'test_project', cont(err));
 
     // TODO: add extra comparisons for content
     // TODO: create deep equal function which doesn't hang on fail
@@ -54,3 +55,4 @@ test('build dev', t => {
         __dirname + '/expected_data', contents, recurse,
         cont(err, expected));
     cb(null, generated, expected);});
+    */

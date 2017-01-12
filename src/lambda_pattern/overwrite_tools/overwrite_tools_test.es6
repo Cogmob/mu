@@ -5,8 +5,9 @@ const serialfs = require('serialfs');
 const overwrite_tools = require('./overwrite_tools');
 const set_up = require('../set_up/set_up');
 const create = require('../create/create');
-const build_dev = require('../build_dev/build_dev');
+const build_dev = require('../build_dev/_');
 
+/*
 test('overwrite tools', (t) => {
     const cb = (err, generated, expected) => {
         t.deepEqual(expected, generated);
@@ -33,3 +34,4 @@ test('overwrite tools', (t) => {
         recurse,
         cont(err, expected));
     cb(null, generated, expected);});
+   */

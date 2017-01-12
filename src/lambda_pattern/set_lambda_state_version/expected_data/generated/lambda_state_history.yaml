@@ -1,4 +1,4 @@
-current_state_version: 12345
+current_state_version: 12346
 newest_state_version: 12346
 state_version_order:
   - 12345
@@ -6,7 +6,7 @@ state_version_order:
 states:
   '12345':
     name: old
-    state_version: 4342434
+    state_version: ccf6fa3
     dev_built: true
     dev_tests_passed: true
     release_built: true
