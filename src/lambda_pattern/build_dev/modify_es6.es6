@@ -6,7 +6,7 @@ const babel = require('gulp-babel');
 const continuation = require('gulp-continuation');
 
 const modify_es6 = (root_path, project_name, cb) => {
-    gulp.task('a', ()=>{
+    gulp.task('_', ()=>{
         return gulp.src([
                 root_path + '/**/*.es6',
                 '!**/expected/**',
@@ -40,6 +40,6 @@ const modify_es6 = (root_path, project_name, cb) => {
             .on('end', cb)
             .on('error', cb);});
 
-        gulp.start('a');};
+        gulp.start('_');};
 
 module.exports = modify_es6;

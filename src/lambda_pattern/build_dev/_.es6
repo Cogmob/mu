@@ -35,9 +35,6 @@ const _ = (root_path, project_name, cb) => {
     modify_es6(proj_path, project_name, cont(err));
     modify_main_file(proj_path, cont(err));
     convert_es6(proj_path, project_name, cont(err));
-    /*
-    _(proj_path, cont(err));
-   */
 
     cb(null);};
 
