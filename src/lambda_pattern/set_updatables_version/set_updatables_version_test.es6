@@ -14,6 +14,7 @@ test('create and set updatables version', {timeout: 9000}, t => {
     const src_path = __dirname + '/../..';
 
     create(src_path, __dirname, 'test_project', 2000, cont(err));
+
     const commit = 'df3c86442b5e9a05e471e0e90f9188bd372f7e48';
     set_updatables_version(
         src_path,
@@ -33,6 +34,6 @@ test('create and set updatables version', {timeout: 9000}, t => {
         __dirname + '/test_project', contents,
         cont(err, generated));
     const expected = serialfs.obj(
-        __dirname + '/expected', contents,
+        __dirname + '/expected_data', contents,
         cont(err, expected));
     cb(null, generated, expected);});
