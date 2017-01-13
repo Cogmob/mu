@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const move_if_exists = require('../shared/move_if_exists');
 const copy_if_exists = require('../shared/copy_if_exists');
 const modify_es6 = require('./modify_es6');
-const convert_es6 = require('./convert_es6');
+const convert_es6 = require('../shared/convert_es6');
 const modify_main_file = require('./modify_main_file');
 
 const _ = (root_path, project_name, cb) => {

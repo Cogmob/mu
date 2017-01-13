@@ -3,8 +3,8 @@ const fs = require('fs-extra');
 const move_if_exists = require('../shared/move_if_exists');
 const copy_if_exists = require('../shared/copy_if_exists');
 const modify_es6 = require('./modify_es6');
-const convert_es6 = require('./convert_es6');
-const modify_main_file = require('./modify_main_file');
+const convert_es6 = require('../shared/convert_es6');
+const webpack = require('./webpack');
 
 const _ = (root_path, project_name, cb) => {
     // TODO: handle errors without leaving node_modules in wrong place
@@ -31,6 +31,7 @@ const _ = (root_path, project_name, cb) => {
 
     modify_es6(proj_path, project_name, cont(err));
     convert_es6(proj_path, project_name, cont(err));
+    webpack(proj_path, cont(err));
 
     cb(null);};
 
