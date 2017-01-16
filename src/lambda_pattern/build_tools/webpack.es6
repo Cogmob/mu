@@ -9,20 +9,18 @@ const webpack = require('webpack-stream');
 const _ = (root_path, cb) => {
     gulp.task('_', () => {
         return gulp.src(root_path + '/_.js')
-        /*
             .pipe(webpack({
+                quiet: true,
                 target: 'node',
-                entry: '_.js',
                 output: {
+                    filename: 'built_tools.js',
                     library: 'library_name',
-                    libraryTarget: 'commonjs2',
-                    filename: 'tool_foundation.js'},
+                    libraryTarget: 'commonjs2'},
                 context: root_path}))
-               */
-            .pipe(gulp.dest(root_path + '/built.js'))
+            .pipe(gulp.dest(root_path))
             .on('end', cb)
             .on('error', cb);});
 
-        gulp.start('_');};
+    gulp.start('_');};
 
 module.exports = _;

@@ -8,7 +8,7 @@ const set_up = require('../set_up/set_up');
 const _ = require('./_');
 const set_updatables_version = require('../set_updatables_version/set_updatables_version');
 
-test('[module]', t => {
+test('build dev', t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};
