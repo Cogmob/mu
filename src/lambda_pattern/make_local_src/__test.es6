@@ -8,7 +8,7 @@ const set_up = require('../set_up/_');
 const _ = require('./_');
 const set_updatables_version = require('../set_updatables_version/_');
 
-test('build dev', t => {
+test('[module]', t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};
@@ -26,7 +26,7 @@ test('build dev', t => {
             cont(err));
     const metadata = {project_name: 'test_project'};
     set_up(__dirname + '/..', __dirname + '/test_project', metadata, cont(err));
-    _(__dirname + '/test_project', 'test_project', cont(err));
+    _(__dirname + '/test_project', cont(err));
 
     // TODO: add extra comparisons for content
     // TODO: create deep equal function which doesn't hang on fail

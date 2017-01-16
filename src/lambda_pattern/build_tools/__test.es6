@@ -26,7 +26,7 @@ test('[module]', t => {
             cont(err));
     const metadata = {project_name: 'test_project'};
     set_up(__dirname + '/..', __dirname + '/test_project', metadata, cont(err));
-    _(__dirname + '/test_project', 'test_project', cont(err));
+    _(__dirname + '/test_project', cont(err));
 
     // TODO: add extra comparisons for content
     // TODO: create deep equal function which doesn't hang on fail

@@ -3,7 +3,7 @@ const path = require('path');
 const serialfs = require('serialfs');
 const _ = require('./_');
 
-test('set lambda state version', {timeout: 9000}, (t) => {
+test('[module]', {timeout: 9000}, (t) => {
     const cb = (err, generated, expected) => {
         t.deepEqual(expected, generated);
         t.end();}
