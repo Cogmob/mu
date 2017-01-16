@@ -13,7 +13,7 @@ const _ = (root_path, cb) => {
                 quiet: true,
                 target: 'node',
                 output: {
-                    filename: 'built_tools.js',
+                    filename: '__built.js',
                     library: 'library_name',
                     libraryTarget: 'commonjs2'},
                 context: root_path}))

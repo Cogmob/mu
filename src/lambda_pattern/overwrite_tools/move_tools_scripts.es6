@@ -4,13 +4,13 @@ const rsv = require('path').resolve;
 
 const move_tools_scripts = (root, updatables_version, cb) => {
     move_if_exists(
-        root + '/gen/stored/tools.js',
-        root + '/gen/stored/tools/' + updatables_version + '.js',
+        root + '/generated/tools.js',
+        root + '/generated/tools/' + updatables_version + '.js',
         cont(err));
 
     fs.move(
-        rsv(root, 'gen/dev/src/tools/built_tools.js'),
-        rsv(root, 'gen/stored/tools.js'),
+        rsv(root, 'generated_local/tools/__built.js'),
+        rsv(root, 'generated/tools.js'),
         cb);}
 
 module.exports = move_tools_scripts;
