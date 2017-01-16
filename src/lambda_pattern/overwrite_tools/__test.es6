@@ -23,6 +23,8 @@ test('[module]', (t) => {
     overwrite_tools(__dirname + '/test_project', cont(err));
     build_tools(__dirname + '/test_project', 'test_project', cont(err));
     overwrite_tools(__dirname + '/test_project', cont(err));
+    build_tools(__dirname + '/test_project', 'test_project', cont(err));
+    overwrite_tools(__dirname + '/test_project', cont(err));
     const recurse = {gen: {dev: {lambda_updatables: false}}};
     serialfs.obj(
         rsv(__dirname, 'test_project'),
@@ -30,7 +32,7 @@ test('[module]', (t) => {
         recurse,
         cont(err, generated));
     serialfs.obj(
-        rsv(__dirname, 'expected'),
+        rsv(__dirname, 'expected_data'),
         false,
         recurse,
         cont(err, expected));
