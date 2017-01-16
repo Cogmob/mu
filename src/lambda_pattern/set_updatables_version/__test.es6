@@ -2,9 +2,8 @@ const fs = require('fs-extra');
 const serialfs = require('serialfs');
 const test = require('tape');
 
-const create = require('../create/create');
-const set_updatables_version =
-    require('../set_updatables_version/set_updatables_version');
+const create = require('../create/_');
+const set_updatables_version = require('./_');
 
 test('create and set updatables version', {timeout: 9000}, t => {
     const cb = (err, generated, expected) => {

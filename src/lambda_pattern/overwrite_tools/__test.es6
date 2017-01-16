@@ -2,12 +2,11 @@ const test = require('tape');
 const rsv = require('path').resolve;
 const serialfs = require('serialfs');
 
-const overwrite_tools = require('./overwrite_tools');
-const set_up = require('../set_up/set_up');
-const create = require('../create/create');
+const overwrite_tools = require('./_');
+const set_up = require('../set_up/_');
+const create = require('../create/_');
 const build_dev = require('../build_dev/_');
 
-/*
 test('overwrite tools', (t) => {
     const cb = (err, generated, expected) => {
         t.deepEqual(expected, generated);
@@ -34,4 +33,3 @@ test('overwrite tools', (t) => {
         recurse,
         cont(err, expected));
     cb(null, generated, expected);});
-   */

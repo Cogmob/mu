@@ -1,14 +1,14 @@
 const test = require('tape');
 const path = require('path');
 const serialfs = require('serialfs');
-const set_lambda_state_version = require('./set_lambda_state_version');
+const _ = require('./_');
 
 test('set lambda state version', {timeout: 9000}, (t) => {
     const cb = (err, generated, expected) => {
         t.deepEqual(expected, generated);
         t.end();}
 
-    set_lambda_state_version(
+    _(
         __dirname + '/../..',
         __dirname + '/before',
         12345,

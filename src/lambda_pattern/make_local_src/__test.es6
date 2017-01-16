@@ -3,10 +3,10 @@ const serialfs = require('serialfs');
 const test = require('tape');
 const resolve = require('path').resolve;
 
-const create = require('../create/create');
-const set_up = require('../set_up/set_up');
+const create = require('../create/_');
+const set_up = require('../set_up/_');
 const _ = require('./_');
-const set_updatables_version = require('../set_updatables_version/set_updatables_version');
+const set_updatables_version = require('../set_updatables_version/_');
 
 test('build dev', t => {
     const cb = (err, generated, expected) => {

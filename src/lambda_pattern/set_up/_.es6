@@ -5,7 +5,7 @@ const download_updatables = require('../shared/download_updatables');
 const copy_if_exists = require('../shared/copy_if_exists');
 const make_package_json = require('../shared/make_package_json');
 
-const set_up = (src_path, root, metadata, cb) => {
+const _ = (src_path, root, metadata, cb) => {
     const project_name = metadata['project_name'];
     const gen_path = root + '/generated_local/project';
     fs.remove(gen_path, cont(err));
@@ -26,4 +26,4 @@ const set_up = (src_path, root, metadata, cb) => {
 
     cb();}
 
-module.exports = set_up;
+module.exports = _;

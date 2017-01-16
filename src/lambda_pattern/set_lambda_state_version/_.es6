@@ -5,7 +5,7 @@ const yaml = require('js-yaml');
 const lambda_state_history = require('../shared/lambda_state_history');
 const download_updatables = require('../shared/download_updatables');
 
-const set_lambda_state_version = (src_path, root, version_number, cb) => {
+const _ = (src_path, root, version_number, cb) => {
     fs.readFile(
         path.resolve(root, 'generated/lambda_state_history.yaml'),
         'utf8',
@@ -40,4 +40,4 @@ const set_lambda_state_version = (src_path, root, version_number, cb) => {
 
     cb();}
 
-module.exports = set_lambda_state_version;
+module.exports = _;
