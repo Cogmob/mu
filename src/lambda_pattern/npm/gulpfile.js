@@ -14,6 +14,7 @@ var debug = require('gulp-debug');
 var continuation = require('gulp-continuation');
 var path = require('path');
 var vmap = require('vinyl-map');
+var S = require('string');
 
 gulp.task('tools_es6', function () {
     return gulp.src(['tools/*.es6']).pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/\[filename\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('tools'));
@@ -27,10 +28,10 @@ gulp.task('es6', function () {
         filename = filename.split('\\');
         var last = filename.length - 1;
 
-        var name = filename[last - 1] + '/' + filename[last];
-        ret = ret.replace('[file' + 'name]', name);
+        var name = filename[last];
+        ret = S(ret).replaceAll('[file' + 'name]', name).s;
         var module = filename[last - 1];
-        ret = ret.replace('[mod' + 'ule]', module);
+        ret = S(ret).replace('[mod' + 'ule]', module).s;
 
         return ret;
     })).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('lambda_pattern')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('lambda_pattern'));

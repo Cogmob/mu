@@ -13,9 +13,9 @@ const _ = (src_path, root, project_name, year, cb) => {
     index = index.replace(/\[\[project_name\]\]/g, project_name);
     fs.writeFile(gen_path + '/_.es6', index, cont(err));
 
-    fs.readFile(gen_path + '/_test.es6', 'utf8', cont(err, test_file));
+    fs.readFile(gen_path + '/__test.es6', 'utf8', cont(err, test_file));
     test_file = test_file.replace(/\[\[project_name\]\]/g, project_name);
-    fs.writeFile(gen_path + '/_test.es6', test_file, cont(err));
+    fs.writeFile(gen_path + '/__test.es6', test_file, cont(err));
 
     fs.readFile(gen_path + '/meta/data.yaml', 'utf8', cont(err, meta));
     meta = meta.replace(/\[\[project_name\]\]/g, project_name);

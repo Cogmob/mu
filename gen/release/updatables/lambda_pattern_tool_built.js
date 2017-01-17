@@ -1362,14 +1362,14 @@
 	            if (ERR(err, cb)) {
 	              return;
 	            }
-	            fs.readFile(gen_path + '/_test.es6', 'utf8', function (arguments, _$param7, _$param8) {
+	            fs.readFile(gen_path + '/__test.es6', 'utf8', function (arguments, _$param7, _$param8) {
 	              err = _$param7;
 	              test_file = _$param8;
 	              if (ERR(err, cb)) {
 	                return;
 	              }
 	              test_file = test_file.replace(/\[\[project_name\]\]/g, project_name);
-	              fs.writeFile(gen_path + '/_test.es6', test_file, function (arguments, _$param9) {
+	              fs.writeFile(gen_path + '/__test.es6', test_file, function (arguments, _$param9) {
 	                err = _$param9;
 	                if (ERR(err, cb)) {
 	                  return;
