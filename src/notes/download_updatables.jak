@@ -1,5 +1,7 @@
 src_path, root, version, cb 
 
+break do in typeof
+
 make_archive.
 extract_archive.
 isolate_updatables.
