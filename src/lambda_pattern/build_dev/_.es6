@@ -6,7 +6,7 @@ const modify_es6 = require('./modify_es6');
 const convert_es6 = require('../shared/convert_es6');
 const modify_main_file = require('./modify_main_file');
 
-const _ = (root_path, project_name, cb) => {
+const _ = (root_path, cb) => {
     // TODO: handle errors without leaving node_modules in wrong place
     // TODO: replace with config file for what will be saved as in spec
     
@@ -32,9 +32,9 @@ const _ = (root_path, project_name, cb) => {
         proj_path + '/node_modules',
         cont(err));
 
-    modify_es6(proj_path, project_name, cont(err));
+    modify_es6(proj_path, cont(err));
     modify_main_file(proj_path, cont(err));
-    convert_es6(proj_path, project_name, cont(err));
+    convert_es6(proj_path, cont(err));
 
     cb(null);};
 

@@ -10,6 +10,7 @@ const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
 const path = require('path');
 const vmap = require('vinyl-map');
+const S = require('string');
 
 gulp.task('tools_es6', ()=>{
     return gulp.src(['tools/*.es6'])
@@ -59,10 +60,10 @@ gulp.task('es6', ()=>{
             filename = filename.split('\\');
             const last = filename.length - 1
 
-            const name = filename[last - 1] + '/' + filename[last];
-            ret = ret.replace('[file' + 'name]', name);
+            const name = filename[last];
+            ret = S(ret).replaceAll('[file' + 'name]', name).s;
             const module = filename[last - 1];
-            ret = ret.replace('[mod' + 'ule]', module);
+            ret = S(ret).replace('[mod' + 'ule]', module).s;
 
             return ret;}))
         .pipe(replace(

@@ -1,8 +1,2 @@
-const test = require('tape');
-const path = require('path');
-const lambda_pattern = require('./lambda_pattern');
-
-test('full process', t => {
-    console.log(lambda_pattern);
-    t.end();
-});
+require('./set_up/__test');
+require('./set_lambda_state_version/__test');

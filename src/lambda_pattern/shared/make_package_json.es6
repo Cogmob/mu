@@ -14,7 +14,10 @@ const make_package_json = (src_path, metadata, path, deps, dev_deps, cb) => {
         abc: 'asdf',
         dependencies: 'map_to_str(deps)',
         dev_dependencies: map_to_str(dev_deps)};
-    fs.readFile(src_path + '/shared/package_template', 'utf8', cont(err, template));
+    fs.readFile(
+        src_path + '/lambda_pattern/shared/package_template',
+        'utf8',
+        cont(err, template));
     apply_template(template, replace);
     cb();}
 
