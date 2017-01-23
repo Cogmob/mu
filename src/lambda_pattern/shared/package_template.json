@@ -1,7 +1,7 @@
 {
   "name": "{project_name}",
-  "version": "0.0.0",
-  "description": "description",
+  "version": "{version}",
+  "description": "{description}",
   "main": "index.js",
   "scripts": {
     "test": "lambda test"
@@ -10,11 +10,9 @@
     "type": "git",
     "url": "@gitrepo"
   },
-  "keywords": [
-    "keywords"
-  ],
-  "author": "author",
-  "license": "Apache-2.0",
+  "keywords": [{keywords}],
+  "author": "{author}",
+  "license": "{licence}",
   "dependencies": {
     {dependencies}
   },

@@ -1,5 +1,4 @@
 const test = require('tape');
-const rsv = require('path').resolve;
 const serialfs = require('serialfs');
 
 const overwrite_tools = require('./_');
@@ -27,12 +26,12 @@ test('[module]', (t) => {
     overwrite_tools(__dirname + '/test_project', cont(err));
     const recurse = {gen: {dev: {lambda_updatables: false}}};
     serialfs.obj(
-        rsv(__dirname, 'test_project'),
+        __dirname + '/test_project',
         false,
         recurse,
         cont(err, generated));
     serialfs.obj(
-        rsv(__dirname, 'expected_data'),
+        __dirname + '/expected_data',
         false,
         recurse,
         cont(err, expected));

@@ -1,8 +1,8 @@
 const fs = require('fs-extra');
 
-const _ = (src_path, root, project_name, year, cb) => {
+const _ = (src_path, root_path, project_name, year, cb) => {
     const skel_path = src_path + '/lambda_pattern/skeleton_data';
-    const gen_path = root + '/' + project_name;
+    const gen_path = root_path + '/' + project_name;
     fs.copy(skel_path, gen_path, cont(err));
 
     fs.readFile(gen_path + '/readme.md', 'utf8', cont(err, readme));

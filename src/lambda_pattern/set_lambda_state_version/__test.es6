@@ -1,5 +1,4 @@
 const test = require('tape');
-const path = require('path');
 const serialfs = require('serialfs');
 const _ = require('./_');
 

@@ -38,6 +38,8 @@
     "vinyl-map": "^1.0.2"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "string": "^3.3.3"
+  }
 }
-

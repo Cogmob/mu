@@ -1,4 +1,3 @@
-const rsv = require('path').resolve;
 const is_function = require('is-function');
 const commander = require('commander');
 
@@ -22,5 +21,5 @@ module.exports = {
     run: () => commander.parse(process.argv)};
 
 if (!module.parent) {
-    set_up(rsv('../..'));
+    set_up('../..');
     commander.parse(process.argv);}

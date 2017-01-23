@@ -12,7 +12,6 @@ var babel = require('gulp-babel');
 var del = require('del');
 var debug = require('gulp-debug');
 var continuation = require('gulp-continuation');
-var path = require('path');
 var vmap = require('vinyl-map');
 var S = require('string');
 
@@ -53,7 +52,7 @@ gulp.task('build_tools', function () {
             library: 'library_name',
             libraryTarget: 'commonjs2',
             filename: 'tool_foundation.js' },
-        context: path.join(process.cwd(), 'tools') })).pipe(gulp.dest('tools'));
+        context: process.cwd() + '/tools' })).pipe(gulp.dest('tools'));
 });
 
 gulp.task('build_lambda_pattern_tool', function () {

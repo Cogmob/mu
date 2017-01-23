@@ -8,7 +8,6 @@ const babel = require('gulp-babel');
 const del = require('del');
 const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
-const path = require('path');
 const vmap = require('vinyl-map');
 const S = require('string');
 
@@ -117,7 +116,7 @@ gulp.task('build_tools', () => {
                 library: 'library_name',
                 libraryTarget: 'commonjs2',
                 filename: 'tool_foundation.js'},
-            context: path.join(process.cwd(), 'tools')}))
+            context: process.cwd() + '/tools'}))
         .pipe(gulp.dest('tools'));});
 
 gulp.task('build_lambda_pattern_tool', () => {

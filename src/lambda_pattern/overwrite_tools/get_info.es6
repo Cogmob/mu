@@ -1,14 +1,14 @@
 const fs = require('fs-extra');
 const yaml = require('js-yaml');
 
-const get_info = (root, cb) => {
+const get_info = (root_path, cb) => {
     fs.readFile(
-        root + '/generated_local/lambda_updatables/version',
+        root_path + '/generated_local/lambda_updatables/version',
         'utf8',
         cont(err, updatables_version));
 
     fs.readFile(
-        root + '/generated/lambda_state_history.yaml',
+        root_path + '/generated/lambda_state_history.yaml',
         'utf8',
         cont(err, history));
 

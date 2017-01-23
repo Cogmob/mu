@@ -1,5 +1,4 @@
 const fs = require('fs-extra');
-const rsv = require('path').resolve;
 
 const modify_main_file = (root_path, cb) => {
     const main_path = root_path + '/_.es6';
