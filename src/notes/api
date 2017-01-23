@@ -1,0 +1,29 @@
+# managing projects
+create [name]
+get [name]
+close [name]
+
+# building and testing
+build dev
+build single dev
+build release
+build single release
+test dev
+build tools
+test tools
+update tools
+test single dev
+test release
+test single release
+publish
+
+# other commands
+update updatables
+overwrite tools
+set lambda state version
+name lambda state
+add folder
+
+# lambda demon (lambdad)
+start
+stop

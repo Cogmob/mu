@@ -17,7 +17,8 @@ test('[module]', (t) => {
         2000,
         cont(err));
     const metadata = {project_name: 'test_project'};
-    set_up(__dirname + '/..', __dirname + '/test_project', metadata, cont(err));
+    set_up(
+        __dirname + '/../..', __dirname + '/test_project', metadata, cont(err));
     build_tools(__dirname + '/test_project', cont(err));
     overwrite_tools(__dirname + '/test_project', cont(err));
     build_tools(__dirname + '/test_project', cont(err));

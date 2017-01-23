@@ -24,7 +24,8 @@ test('[module]', t => {
             __dirname + '/test_project/submodules/test_module',
             cont(err));
     const metadata = {project_name: 'test_project'};
-    set_up(__dirname + '/..', __dirname + '/test_project', metadata, cont(err));
+    set_up(
+        __dirname + '/../..', __dirname + '/test_project', metadata, cont(err));
     _(__dirname + '/test_project', cont(err));
 
     // TODO: add extra comparisons for content

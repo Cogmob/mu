@@ -8,8 +8,8 @@ const move_tools_scripts = (root_path, updatables_version, cb) => {
         cont(err));
 
     fs.move(
-        root_path + 'generated_local/tools/__built.js',
-        root_path + 'generated/tools.js',
+        root_path + '/generated_local/tools/__built.js',
+        root_path + '/generated/tools.js',
         cb);}
 
 module.exports = move_tools_scripts;

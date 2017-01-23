@@ -21,7 +21,7 @@ const _ = (root_path, cb) => {
     fs.mkdirp(proj_path, cont(err));
 
     fs.copy(root_path + '/_.es6', proj_path + '/_.es6', cont(err));
-    fs.copy(root_path + '/_test.es6', proj_path + '/_test.es6', cont(err));
+    fs.copy(root_path + '/__test.es6', proj_path + '/__test.es6', cont(err));
     copy_if_exists(
         root_path + '/submodules',
         proj_path + '/submodules',
