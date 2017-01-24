@@ -1,4 +1,4 @@
-src_path,    root_path,    version,    cb 
+mu_src_path,    root_path,    version,    cb 
 
 make_archive.
 extract_archive.
@@ -6,7 +6,7 @@ isolate_updatables.
 
 make_archive
     mkdir    root_path + '/generated_local',    cont.
-    find_project_root    src_path,    cont    tool_root
+    find_project_root    mu_src_path,    cont    tool_root
     archive.
         repoPath:    tool_root + '/.git'
         commit:    version

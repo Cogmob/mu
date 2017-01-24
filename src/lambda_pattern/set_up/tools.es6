@@ -9,7 +9,7 @@ const yaml = require('js-yaml');
 const copy_if_exists = require('../shared/copy_if_exists');
 const make_package_json = require('../shared/make_package_json');
 
-const [filename] = (src_path, root_path, metadata, cb) => {
+const [filename] = (mu_src_path, root_path, metadata, cb) => {
     const gen_path = root_path + '/generated_local/tools';
     remove(gen_path, cont(err));
     mkdir(gen_path, cont(err));
@@ -17,7 +17,7 @@ const [filename] = (src_path, root_path, metadata, cb) => {
     read_file(
         root_path + '/tools/npm_dev_dependencies.yaml', cont(err, dev_deps));
     make_package_json(
-        src_path,
+        mu_src_path,
         metadata,
         gen_path,
         {},

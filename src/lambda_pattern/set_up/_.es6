@@ -4,11 +4,13 @@ const download_updatables = require('../set_updatables_version/_');
 
 const make_project = require('./project');
 const make_tools = require('./tools');
+const ensure_git_exists = require('./ensure_git_exists');
 
-const [filename] = (src_path, root_path, metadata, cb) => {
+const [filename] = (mu_src_path, root_path, metadata, cb) => {
+    ensure_git_exists(mu_src_path);
     mkdir(root_path + '/generated_local', cont(err));
-    download_updatables(src_path, root_path, 'HEAD', cont(err));
-    make_project(src_path, root_path, metadata, cont(err));
-    make_tools(src_path, root_path, metadata, cb);};
+    download_updatables(mu_src_path, root_path, 'HEAD', cont(err));
+    make_project(mu_src_path, root_path, metadata, cont(err));
+    make_tools(mu_src_path, root_path, metadata, cb);};
 
 module.exports = [filename];

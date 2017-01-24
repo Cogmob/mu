@@ -10,13 +10,13 @@ test('create and set updatables version', {timeout: 9000}, t => {
         t.deepEqual(generated, expected);
         t.end();};
 
-    const src_path = __dirname + '/../..';
+    const mu_src_path = __dirname + '/../..';
 
-    create(src_path, __dirname, 'test_project', 2000, cont(err));
+    create(mu_src_path, __dirname, 'test_project', 2000, cont(err));
 
     const commit = 'df3c86442b5e9a05e471e0e90f9188bd372f7e48';
     set_updatables_version(
-        src_path,
+        mu_src_path,
         __dirname + '/test_project',
         commit,
         cont(err));

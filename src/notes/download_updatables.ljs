@@ -1,8 +1,8 @@
-src_path, root_path, version, cb 
+mu_src_path, root_path, version, cb 
 
 make_archive!
     mkdir    root_path + '/generated_local', cont.
-    find_project_root    src_path, cont    tool_root
+    find_project_root    mu_src_path, cont    tool_root
     archive.:
         repoPath = tool_root + '/.git'
         commit = version
@@ -32,7 +32,7 @@ isolate_updatables!
 
 # const make_archive_wrapper = (report_error, run_next) => {
 #   mkdir(root_path + '/generated_local', cont(err));
-#   find_project_root_path(src_path, cont(err, tool_root));
+#   find_project_root_path(mu_src_path, cont(err, tool_root));
 #   archive(repoPath: tool_root + '/.git, connit: version, outputPath: ...)
 #   .then(run_next(cb))
 #   .fail(er => ERR(er, report_error));};

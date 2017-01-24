@@ -11,11 +11,11 @@ test('[module]', {timeout: 9000}, t => {
         t.deepEqual(generated, expected);
         t.end();};
 
-    const src_path = __dirname + '/../..';
+    const mu_src_path = __dirname + '/../..';
 
-    create(src_path, __dirname, 'test_project', 2000, cont(err));
+    create(mu_src_path, __dirname, 'test_project', 2000, cont(err));
     get_metadata(__dirname + '/test_project', cont(err, info));
-    _(src_path, __dirname + '/test_project', info, cont(err));
+    _(mu_src_path, __dirname + '/test_project', info, cont(err));
 
     const contents = {
         gen: {

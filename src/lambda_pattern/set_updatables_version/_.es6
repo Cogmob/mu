@@ -9,10 +9,10 @@ const move = fs.move;
 
 const find_project_root = require('../shared/find_project_root');
 
-const [filename] = (src_path, root_path, version, cb) => {
+const [filename] = (mu_src_path, root_path, version, cb) => {
     (() => {
         mkdirp(root_path + '/generated_local', cont(err));
-        find_project_root(src_path, cont(err, tool_root));
+        find_project_root(mu_src_path, cont(err, tool_root));
         archive({
             repoPath: tool_root + '/.git',
             commit: version,
