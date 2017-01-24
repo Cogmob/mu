@@ -25,7 +25,7 @@ A command line tool which is used for creating and maintaining a lambda pattern 
 
 The source code for the lambda pattern tool is a lambda pattern project itself.
 
-The folder containing the code for the lambda pattern tool which is currently running is referred to as mu.
+The lambda pattern tool is also called mu, which is useful for distinguishing it from any other general lambda pattern project.
 
 #### lambda pattern skeleton
 
