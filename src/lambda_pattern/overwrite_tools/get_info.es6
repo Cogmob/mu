@@ -15,5 +15,3 @@ const _ = (root_path, cb) => {
     history = yaml.safeLoad(history);
 
     cb(null, updatables_version, history);}
-
-module.exports = _;

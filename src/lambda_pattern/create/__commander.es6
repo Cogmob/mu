@@ -12,5 +12,3 @@ const _ = (commander, tool_root, cb) => {
                 2000,
                 (err) => console.log(
                     'created project \'' + project_name + '\''));})}
-
-module.exports = _;

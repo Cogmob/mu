@@ -11,5 +11,3 @@ const _ = (root_path, updatables_version, cb) => {
         root_path + '/generated_local/tools/__built.js',
         root_path + '/generated/tools.js',
         cb);}
-
-module.exports = _;

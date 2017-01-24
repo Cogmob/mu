@@ -29,5 +29,3 @@ const _ = (
         gen_path + '/package.json',
         s,
         cb);};
-
-module.exports = _;

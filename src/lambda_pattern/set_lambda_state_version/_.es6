@@ -38,5 +38,3 @@ const _ = (mu_src_path, root_path, version_number, cb) => {
         cont(err));
 
     cb();}
-
-module.exports = _;

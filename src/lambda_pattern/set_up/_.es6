@@ -10,5 +10,3 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
     download_updatables(mu_src_path, root_path, 'HEAD', cont(err));
     make_project(mu_src_path, root_path, metadata, cont(err));
     make_tools(mu_src_path, root_path, metadata, cb);};
-
-module.exports = _;

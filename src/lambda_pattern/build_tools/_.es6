@@ -34,5 +34,3 @@ const _ = (root_path, cb) => {
     webpack(proj_path, cont(err));
 
     cb(null);};
-
-module.exports = _;

@@ -5,5 +5,3 @@ const _ = (from, to, cb) => {
         cb();};
 
     fs.copy(from, to, handle_response);};
-
-module.exports = _;

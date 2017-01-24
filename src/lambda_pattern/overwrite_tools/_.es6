@@ -10,5 +10,3 @@ const _ = (root_path, cb) => {
     move_tools_scripts(root_path, history['current_state_version'], cont(err));
     update_history(root_path, history, updatables_version, cont(err, history));
     cb();}
-
-module.exports = _;

@@ -12,7 +12,7 @@ const find_project_root = require('../shared/find_project_root');
 const _ = (mu_src_path, root_path, version, cb) => {
     (() => {
         mkdirp(root_path + '/generated_local', cont(err));
-        find_project_root(mu_src_path, cont(err, tool_root));
+        find_project_root(mu_src_path + '/mu_sub_repo', cont(err, tool_root));
         archive({
             repoPath: tool_root + '/.git',
             commit: version,
@@ -37,5 +37,3 @@ const _ = (mu_src_path, root_path, version, cb) => {
             remove(root_path + '/generated_local/updatables.tar', cont(err));
             remove(root_path + '/generated_local/updatables', cont(err));
             cb();};};
-
-module.exports = _;

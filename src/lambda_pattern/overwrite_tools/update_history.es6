@@ -21,5 +21,3 @@ const _ = (root_path, history, updatables_version, cb) => {
         cont(err));
 
     cb(null, history);}
-
-module.exports = _;

@@ -22,5 +22,3 @@ const _ = (root_path, cb) => {
             .on('error', cb);});
 
     gulp.start('_');};
-
-module.exports = _;

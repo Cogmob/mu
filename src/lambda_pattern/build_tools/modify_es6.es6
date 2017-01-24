@@ -41,5 +41,3 @@ const _ = (root_path, cb) => {
             .on('error', cb);});
 
         gulp.start('a');};
-
-module.exports = _;

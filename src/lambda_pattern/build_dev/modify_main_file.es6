@@ -12,5 +12,3 @@ if (!module.parent) {
     });
 }`
     fs.writeFile(main_path, main_file, cb);};
-
-module.exports = _;

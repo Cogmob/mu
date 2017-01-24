@@ -22,5 +22,3 @@ const _ = (mu_src_path, root_path, project_name, year, cb) => {
     fs.writeFile(gen_path + '/meta/data.yaml', meta, cont(err));
 
     cb(null);};
-
-module.exports = _;
