@@ -37,5 +37,3 @@ const _ = (root_path, cb) => {
     convert_es6(proj_path, cont(err));
 
     cb(null);};
-
-module.exports = _;

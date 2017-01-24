@@ -64,6 +64,9 @@ gulp.task('es6', ()=>{
             const module = filename[last - 1];
             ret = S(ret).replace('[mod' + 'ule]', module).s;
 
+            if (!ret.includes('module.exports') && ret.includes('const _ =')) {
+                ret += '\nmodule.exports = _;';}
+
             return ret;}))
         .pipe(replace(
             /cont\(.*err.*\).*;/g,

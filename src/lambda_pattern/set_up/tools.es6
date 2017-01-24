@@ -28,5 +28,3 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
     npm.cwd(gen_path);
     npm.createNodeModulesDirectory();
     npm.install(cb);};
-
-module.exports = _;
