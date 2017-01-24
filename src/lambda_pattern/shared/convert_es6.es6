@@ -5,7 +5,7 @@ const replace = require('gulp-replace');
 const babel = require('gulp-babel');
 const continuation = require('gulp-continuation');
 
-const es6 = (root_path, cb) => {
+const _ = (root_path, cb) => {
     gulp.task('_', ()=>{
         return gulp.src([
                 root_path + '/**/*.es6',
@@ -20,4 +20,4 @@ const es6 = (root_path, cb) => {
 
         gulp.start('_');};
 
-module.exports = es6;
+module.exports = _;

@@ -9,7 +9,7 @@ const yaml = require('js-yaml');
 const copy_if_exists = require('../shared/copy_if_exists');
 const make_package_json = require('../shared/make_package_json');
 
-const [filename] = (mu_src_path, root_path, metadata, cb) => {
+const _ = (mu_src_path, root_path, metadata, cb) => {
     const gen_path = root_path + '/generated_local/tools';
     remove(gen_path, cont(err));
     mkdir(gen_path, cont(err));
@@ -29,4 +29,4 @@ const [filename] = (mu_src_path, root_path, metadata, cb) => {
     npm.createNodeModulesDirectory();
     npm.install(cb);};
 
-module.exports = [filename];
+module.exports = _;

@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const yaml = require('js-yaml');
 
-const update_history = (root_path, history, updatables_version, cb) => {
+const _ = (root_path, history, updatables_version, cb) => {
     const state_version = history['newest_state_version'] + 1;
     history['current_state_version'] = state_version;
     history['newest_state_version'] = state_version;
@@ -22,4 +22,4 @@ const update_history = (root_path, history, updatables_version, cb) => {
 
     cb(null, history);}
 
-module.exports = update_history;
+module.exports = _;

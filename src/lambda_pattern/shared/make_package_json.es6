@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const apply_template = require('string-template');
 const yaml = require('js-yaml');
 
-const make_package_json = (
+const _ = (
     mu_src_path, metadata, gen_path, deps, dev_deps, cb) => {
     const map_to_str = (i) => {
         const ret = r.map(
@@ -30,4 +30,4 @@ const make_package_json = (
         s,
         cb);};
 
-module.exports = make_package_json;
+module.exports = _;

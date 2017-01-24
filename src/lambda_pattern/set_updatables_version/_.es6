@@ -9,7 +9,7 @@ const move = fs.move;
 
 const find_project_root = require('../shared/find_project_root');
 
-const [filename] = (mu_src_path, root_path, version, cb) => {
+const _ = (mu_src_path, root_path, version, cb) => {
     (() => {
         mkdirp(root_path + '/generated_local', cont(err));
         find_project_root(mu_src_path, cont(err, tool_root));
@@ -38,4 +38,4 @@ const [filename] = (mu_src_path, root_path, version, cb) => {
             remove(root_path + '/generated_local/updatables', cont(err));
             cb();};};
 
-module.exports = [filename];
+module.exports = _;

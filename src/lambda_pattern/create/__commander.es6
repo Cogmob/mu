@@ -1,6 +1,6 @@
 const create = require('./_');
 
-const create_commander = (commander, tool_root, cb) => {
+const _ = (commander, tool_root, cb) => {
     commander
         .command('create [project_name]')
         .description('make a new lambda patern project')
@@ -13,4 +13,4 @@ const create_commander = (commander, tool_root, cb) => {
                 (err) => console.log(
                     'created project \'' + project_name + '\''));})}
 
-module.exports = create_commander;
+module.exports = _;
