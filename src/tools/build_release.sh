@@ -9,7 +9,7 @@ cp src/package.json gen/release/cached/src
 cp src/tools/release_gitignore gen/release/.gitignore
 cp readme.md gen/release
 mkdir gen/release/updatables
-cp gen/release/cached/updatables/version gen/release/updatables/version
+cp gen/stored/updatables_version gen/release/updatables/version
 cd gen/release/cached/src
 npm install
 node_modules/.bin/gulp build_release
