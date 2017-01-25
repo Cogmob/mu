@@ -1,7 +1,7 @@
 const create = require('./_');
 
-const _ = (commander, mu_src_path, cb) => {
-    const success_message = 
+const _ = (commander, mu_src_path) => {
+    const success_message =
             'created a lambda pattern project in your current directory';
     commander
         .command('create lambda_pattern')
@@ -17,4 +17,4 @@ const _ = (commander, mu_src_path, cb) => {
                         console.log('error');
                         console.log(err);
                     } else {
-                        console.log(success_message}});});};
+                        console.log(success_message);}});});};

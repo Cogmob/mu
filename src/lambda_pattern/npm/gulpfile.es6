@@ -114,6 +114,9 @@ gulp.task('build_updatables', () => {
     return gulp.src('[project_name]/updatables/_.js')
         .pipe(webpack({
             target: 'node',
+            node: {
+                __filename: true,
+                __dirname: true},
             output: {filename: 'tool_foundation.js'}}))
         .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release/updatables'));});
@@ -121,6 +124,9 @@ gulp.task('build_updatables', () => {
 gulp.task('build_lambda_pattern_tool', () => {
     return gulp.src('[project_name]/_.js')
         .pipe(webpack({
+            node: {
+                __filename: false,
+                __dirname: false},
             target: 'node',
             output: {filename: '_.js'}}))
         .pipe(insert.prepend('#!/usr/bin/env node\n\n'))

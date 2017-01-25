@@ -51,11 +51,17 @@ gulp.task('backup_gulpfile', function () {
 gulp.task('build_updatables', function () {
     return gulp.src('lambda_pattern/updatables/_.js').pipe(webpack({
         target: 'node',
+        node: {
+            __filename: true,
+            __dirname: true },
         output: { filename: 'tool_foundation.js' } })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(gulp.dest('../../release/updatables'));
 });
 
 gulp.task('build_lambda_pattern_tool', function () {
     return gulp.src('lambda_pattern/_.js').pipe(webpack({
+        node: {
+            __filename: false,
+            __dirname: false },
         target: 'node',
         output: { filename: '_.js' } })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(gulp.dest('../../release'));
 });
