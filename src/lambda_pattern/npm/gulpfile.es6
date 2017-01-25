@@ -123,7 +123,7 @@ gulp.task('build_tools', () => {
         .pipe(gulp.dest('tools'));});
 
 gulp.task('build_lambda_pattern_tool', () => {
-    return gulp.src('[project_name]/[project_name].js')
+    return gulp.src('[project_name].js')
         .pipe(webpack({
             target: 'node',
             output: {
@@ -139,19 +139,11 @@ gulp.task('copy_src', () => {
     return gulp.src('../../../src/**/*')
         .pipe(gulp.dest('.'));});
 
-gulp.task('build_dev', sequence(
+gulp.task('build', sequence(
     'es6',
     'tools_es6',
     'main_file',
     'backup_gulpfile',
     'build_tools',
     'build_lambda_pattern_tool',
-    'send_built_tools_to_release'));
-
-gulp.task('build_release',sequence(
-    'copy_src',
-    'es6',
-    'tools_es6',
-    'main_file',
-    'build_tools',
     'send_built_tools_to_release'));

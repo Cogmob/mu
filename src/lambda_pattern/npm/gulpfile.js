@@ -60,7 +60,7 @@ gulp.task('build_tools', function () {
 });
 
 gulp.task('build_lambda_pattern_tool', function () {
-    return gulp.src('lambda_pattern/lambda_pattern.js').pipe(webpack({
+    return gulp.src('lambda_pattern.js').pipe(webpack({
         target: 'node',
         output: {
             filename: 'lambda_pattern_tool_built.js' } })).pipe(gulp.dest('lambda_pattern'));
