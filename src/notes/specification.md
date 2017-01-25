@@ -162,7 +162,7 @@ before each of the following steps:
 * make sure the gen/.updatables folder exists and fits the expected version
 * make a symlink from gen/stored/tools_scripts/current.js to gen/stored/tools.js
 
-#### build dev
+#### build all
 
 * run the tools.build.dev(path) function by requiring gen/stored/tools.js,
     passing the root folder as a parameter
@@ -170,14 +170,6 @@ before each of the following steps:
     * copies from src to gen/dev/src
     * installs npm modules
     * compiles all the source files in place in gen/dev/src
-
-#### build single dev
-
-* similar to build dev but only acts on a single file (map from globs to
-    functions)
-
-#### build release
-
 * run the tools.build.release(path) function by requiring gen/stored/tools.js,
     passing the root folder as a parameter
     * deletes the folder gen/release/src
@@ -186,11 +178,13 @@ before each of the following steps:
     * compiles all source in place in gen/release/src and cleans up
     * copies the licence and readme from root into gen/release
 
-#### build single release
 
-* similar to build release but only acts on a single file (map from globs to functions)
+#### build single
 
-#### test dev
+* similar to build dev but only acts on a single file (map from globs to
+    functions)
+
+#### test all
 
 * run the tools.test.dev(path) function by requiring gen/stored/tools.js, passing the root folder as a parameter
     * run all files which end with \_test.js in the gen/dev folder

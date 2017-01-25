@@ -5,21 +5,21 @@ state_version_order:
 states:
   '1':
     name: state
-    state_version: '9'
+    state_version: d
     dev_built: false
     dev_tests_passed: false
     release_built: false
     release_tests_passed: false
   '2':
     name: state
-    state_version: '9'
+    state_version: d
     dev_built: false
     dev_tests_passed: false
     release_built: false
     release_tests_passed: false
   '3':
     name: state
-    state_version: '9'
+    state_version: d
     dev_built: false
     dev_tests_passed: false
     release_built: false

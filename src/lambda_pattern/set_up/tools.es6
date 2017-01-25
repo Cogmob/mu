@@ -1,8 +1,8 @@
 const fs = require('fs-extra');
+const copy = fs.copy;
 const read_file = fs.readFile;
 const remove = fs.remove;
 const mkdir = fs.mkdirp;
-const copy = fs.copy;
 const NPM = require('npm-helper');
 const yaml = require('js-yaml');
 
@@ -27,4 +27,8 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
     const npm = new NPM();
     npm.cwd(gen_path);
     npm.createNodeModulesDirectory();
-    npm.install(cb);};
+    npm.install(cont(err));
+    copy(
+        root_path + '/generated_local/lambda_updatables/tool_foundation.js',
+        root_path + '/generated/tools.js',
+        cb);};

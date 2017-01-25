@@ -45,12 +45,10 @@ test('[module]', t => {
                     'metadata.yaml': false }}},
             stored: {'lambda_state_history.yaml': true}}};
 
-    const recurse = {gen: {dev: {lambda_updatables: false}}};
-
     const generated = serialfs.obj(
-        __dirname + '/test_project', contents, recurse,
+        __dirname + '/test_project', contents, true,
         cont(err, generated));
     const expected = serialfs.obj(
-        __dirname + '/expected_data', contents, recurse,
+        __dirname + '/expected_data', contents, true,
         cont(err, expected));
     cb(null, generated, expected);});
