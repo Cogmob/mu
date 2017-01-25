@@ -4,7 +4,7 @@ const _ = (commander, mu_src_path) => {
     const success_message =
             'created a lambda pattern project in your current directory';
     commander
-        .command('create lambda_pattern')
+        .command('create project_name')
         .description('make a new lambda patern project')
         .action((project_name) => {
             create(

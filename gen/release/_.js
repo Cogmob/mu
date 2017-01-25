@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -56,11 +54,15 @@
 	var create_commander = __webpack_require__(9);
 
 	var _ = function _(add_other_commands) {
+	    if (add_other_commands) {
+	        add_other_commands(commander, mu_src_path);
+	        return;
+	    }
+
 	    var mu_src_path = __dirname;
 	    console.log('mu src path');
 	    console.log(mu_src_path);
 	    create_commander(commander, mu_src_path);
-	    add_other_commands(commander, mu_src_path);
 	    commander.parse(process.argv);
 	};
 
@@ -1289,7 +1291,7 @@
 
 	var _ = function _(commander, mu_src_path) {
 	    var success_message = 'created a lambda pattern project in your current directory';
-	    commander.command('create lambda_pattern').description('make a new lambda patern project').action(function (project_name) {
+	    commander.command('create project_name').description('make a new lambda patern project').action(function (project_name) {
 	        create(mu_src_path, process.cwd(), project_name, 2000, function (err) {
 	            if (err) {
 	                console.log('error');

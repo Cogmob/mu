@@ -54,7 +54,7 @@ gulp.task('build_updatables', function () {
         node: {
             __filename: true,
             __dirname: true },
-        output: { filename: 'tool_foundation.js' } })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(gulp.dest('../../release/updatables'));
+        output: { filename: 'tool_foundation.js' } })).pipe(gulp.dest('../../release/updatables'));
 });
 
 gulp.task('build_lambda_pattern_tool', function () {
@@ -63,7 +63,7 @@ gulp.task('build_lambda_pattern_tool', function () {
             __filename: false,
             __dirname: false },
         target: 'node',
-        output: { filename: '_.js' } })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(gulp.dest('../../release'));
+        output: { filename: '_.js' } })).pipe(gulp.dest('../../release'));
 });
 
 gulp.task('copy_skel_to_parent', function () {

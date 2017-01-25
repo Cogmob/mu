@@ -118,7 +118,6 @@ gulp.task('build_updatables', () => {
                 __filename: true,
                 __dirname: true},
             output: {filename: 'tool_foundation.js'}}))
-        .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release/updatables'));});
 
 gulp.task('build_lambda_pattern_tool', () => {
@@ -129,7 +128,6 @@ gulp.task('build_lambda_pattern_tool', () => {
                 __dirname: false},
             target: 'node',
             output: {filename: '_.js'}}))
-        .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release'));});
 
 gulp.task('copy_skel_to_parent', () => {
