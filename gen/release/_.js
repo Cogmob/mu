@@ -1311,8 +1311,12 @@
 	var _ = function _(commander, mu_src_path, cb) {
 	    commander.command('create lambda_pattern').description('make a new lambda patern project').action(function (project_name) {
 	        create(mu_src_path, process.cwd(), project_name, 2000, function (err) {
-	            console.log('error');
-	            console.log(err);
+	            if (err) {
+	                console.log('error');
+	                console.log(err);
+	            } else {
+	                console.log('created a lambda pattern project in your cwd');
+	            }
 	        });
 	    });
 	};

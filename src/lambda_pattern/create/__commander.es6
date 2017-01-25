@@ -1,8 +1,10 @@
 const create = require('./_');
 
 const _ = (commander, mu_src_path, cb) => {
+    const success_message = 
+            'created a lambda pattern project in your current directory';
     commander
-        .command('create [project_name]')
+        .command('create lambda_pattern')
         .description('make a new lambda patern project')
         .action((project_name) => {
             create(
@@ -11,5 +13,8 @@ const _ = (commander, mu_src_path, cb) => {
                 project_name,
                 2000,
                 (err) => {
-                    console.log('error');
-                    console.log(err);});});};
+                    if (err) {
+                        console.log('error');
+                        console.log(err);
+                    } else {
+                        console.log(success_message}});});};
