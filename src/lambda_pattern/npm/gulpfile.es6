@@ -110,30 +110,24 @@ gulp.task('backup_gulpfile', ()=>{
     return gulp.src('[project_name]/npm/gulpfile.js')
             .pipe(gulp.dest('../../../src/[project_name]/npm'));});
 
-gulp.task('build_tools', () => {
-    return gulp.src('tools/tools.js')
+gulp.task('build_updatables', () => {
+    return gulp.src('[project_name]/updatables/_.js')
         .pipe(webpack({
             target: 'node',
-            entry: './tools.js',
-            output: {
-                library: 'library_name',
-                libraryTarget: 'commonjs2',
-                filename: 'tool_foundation.js'},
-            context: process.cwd() + '/tools'}))
-        .pipe(gulp.dest('tools'));});
+            output: {filename: 'tool_foundation.js'}}))
+        .pipe(gulp.dest('../../release/updatables'));});
 
 gulp.task('build_lambda_pattern_tool', () => {
-    return gulp.src('[project_name].js')
+    return gulp.src('[project_name]/_.js')
         .pipe(webpack({
             target: 'node',
-            output: {
-            filename: '[project_name]_tool_built.js'}}))
-        .pipe(gulp.dest('[project_name]'));});
+            output: {filename: '__built.js'}}))
+        .pipe(gulp.dest('../../release'));});
 
 gulp.task('send_built_tools_to_release', () => {
-    return gulp.src('[project_name]/[project_name]_tool_built.js')
+    return gulp.src('[project_name]/__built.js')
         .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
-        .pipe(gulp.dest('../../release/updatables'));});
+        .pipe(gulp.dest('../../release'));});
 
 gulp.task('copy_src', () => {
     return gulp.src('../../../src/**/*')
@@ -144,6 +138,6 @@ gulp.task('build', sequence(
     'tools_es6',
     'main_file',
     'backup_gulpfile',
-    'build_tools',
+    'build_updatables',
     'build_lambda_pattern_tool',
     'send_built_tools_to_release'));
