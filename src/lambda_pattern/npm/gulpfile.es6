@@ -115,29 +115,37 @@ gulp.task('build_updatables', () => {
         .pipe(webpack({
             target: 'node',
             output: {filename: 'tool_foundation.js'}}))
+        .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release/updatables'));});
 
 gulp.task('build_lambda_pattern_tool', () => {
     return gulp.src('[project_name]/_.js')
         .pipe(webpack({
             target: 'node',
-            output: {filename: '__built.js'}}))
-        .pipe(gulp.dest('../../release'));});
-
-gulp.task('send_built_tools_to_release', () => {
-    return gulp.src('[project_name]/__built.js')
+            output: {filename: '_.js'}}))
         .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release'));});
+
+gulp.task('copy_skel_to_parent', () => {
+    return gulp.src(['[project_name]/skeleton_data/**/*',
+            '[project_name]/skeleton_data/**/.*'])
+        .pipe(gulp.dest('skeleton_data'));});
+
+gulp.task('copy_skel_to_release', () => {
+    return gulp.src(['[project_name]/skeleton_data/**/*',
+            '[project_name]/skeleton_data/**/.*'])
+        .pipe(gulp.dest('../../release/skeleton_data'));});
 
 gulp.task('copy_src', () => {
     return gulp.src('../../../src/**/*')
         .pipe(gulp.dest('.'));});
 
 gulp.task('build', sequence(
+    'copy_skel_to_parent',
     'es6',
     'tools_es6',
     'main_file',
     'backup_gulpfile',
     'build_updatables',
     'build_lambda_pattern_tool',
-    'send_built_tools_to_release'));
+    'copy_skel_to_release'));

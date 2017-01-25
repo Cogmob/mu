@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 
 const _ = (mu_src_path, root_path, project_name, year, cb) => {
-    const skel_path = mu_src_path + '/lambda_pattern/skeleton_data';
+    const skel_path = mu_src_path + '/skeleton_data';
     const gen_path = root_path + '/' + project_name;
     fs.copy(skel_path, gen_path, cont(err));
 

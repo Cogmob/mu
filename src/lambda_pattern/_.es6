@@ -10,8 +10,8 @@ const cb = (err) => {
     if (err) {
         console.log(err);}};
 
-const set_up = (tool_root) => {
-    create_commander(commander, tool_root, cb);
+const set_up = (mu_src_path) => {
+    create_commander(commander, mu_src_path, cb);
     //build_dev_commander(commander, cb);
     }
 
@@ -21,5 +21,5 @@ module.exports = {
     run: () => commander.parse(process.argv)};
 
 if (!module.parent) {
-    set_up('../..');
+    set_up('.');
     commander.parse(process.argv);}

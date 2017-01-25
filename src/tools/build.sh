@@ -2,6 +2,7 @@
 cd ../..
 mv gen/dev/src/lambda_pattern/node_modules project_node_modules
 mv gen/dev/src/node_modules tools_node_modules
+rm -rf gen/release/test
 rm -rf gen/dev/src
 cp -r src gen/dev
 mv project_node_modules gen/dev/src/lambda_pattern/node_modules
