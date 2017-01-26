@@ -6,7 +6,7 @@ state_version_order:
 states:
   '12345':
     name: old
-    state_version: ccf6fa3
+    state_version: d601459
     dev_built: true
     dev_tests_passed: true
     release_built: true

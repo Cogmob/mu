@@ -29,6 +29,6 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
     npm.createNodeModulesDirectory();
     npm.install(cont(err));
     copy(
-        root_path + '/generated_local/lambda_updatables/tool_foundation.js',
+        root_path + '/generated_local/lambda_updatables/_.js',
         root_path + '/generated/tools.js',
         cb);};

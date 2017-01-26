@@ -34737,7 +34737,7 @@
 	              if (ERR(err, cb)) {
 	                return;
 	              }
-	              copy(root_path + '/generated_local/lambda_updatables/tool_foundation.js', root_path + '/generated/tools.js', cb);
+	              copy(root_path + '/generated_local/lambda_updatables/_.js', root_path + '/generated/tools.js', cb);
 	            }.bind(this, arguments));
 	          }.bind(this, arguments));
 	        }.bind(this, arguments));

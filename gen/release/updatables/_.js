@@ -1493,12 +1493,20 @@
 		    console.log(success_message);
 		  };
 		  commander.command('create project_name').description('make a new lambda patern project').action(function (project_name) {
-		    var err;
+		    var err, info;
 		    create(mu_src_path, process.cwd(), project_name, 2000, function (arguments, _$param0) {
 		      err = _$param0;
 		      if (ERR(err, cb)) {
 		        return;
 		      }
+		      get_metadata(__dirname + '/' + project_name, function (arguments, _$param1, _$param2) {
+		        err = _$param1;
+		        info = _$param2;
+		        if (ERR(err, cb)) {
+		          return;
+		        }
+		        set_up(mu_src_path, process.cwd() + '/' + project_name, info, cb);
+		      }.bind(this, arguments));
 		    }.bind(this, arguments));
 		  });
 		};
@@ -34923,7 +34931,7 @@
 		              if (ERR(err, cb)) {
 		                return;
 		              }
-		              copy(root_path + '/generated_local/lambda_updatables/tool_foundation.js', root_path + '/generated/tools.js', cb);
+		              copy(root_path + '/generated_local/lambda_updatables/_.js', root_path + '/generated/tools.js', cb);
 		            }.bind(this, arguments));
 		          }.bind(this, arguments));
 		        }.bind(this, arguments));
