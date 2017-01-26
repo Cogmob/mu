@@ -8,13 +8,10 @@ const _ = (add_other_commands) => {
         add_other_commands(commander, mu_src_path);
         return;}
 
-    const mu_src_path = __dirname;
-    console.log('mu src path');
-    console.log(mu_src_path);
-    create_commander(commander, mu_src_path);
+    create_commander(commander, __dirname);
     commander.parse(process.argv);}
 
 module.exports = _;
 
 if (!module.parent) {
-    _((a, b) => {});}
+    _();}

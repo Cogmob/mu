@@ -14,11 +14,11 @@ const _ = (mu_src_path, root_path, version, cb) => {
         mkdirp(root_path + '/generated_local', cont(err));
         find_project_root(mu_src_path + '/mu_sub_repo', cont(err, tool_root));
         archive({
-            repoPath: tool_root + '/.git',
-            commit: version,
-            outputPath: root_path + '/generated_local/updatables.tar'})
-        .then(move_updatables)
-        .fail(er => ERR(er, cb));})();
+                repoPath: tool_root + '/.git',
+                commit: version,
+                outputPath: root_path + '/generated_local/updatables.tar'},
+            cont(err));
+        move_updatables();})();
 
     const move_updatables = () => {
         mkdirp(root_path + '/generated_local/updatables', cont(err));
@@ -29,11 +29,11 @@ const _ = (mu_src_path, root_path, version, cb) => {
             .on('error', er => ERR(er, cb));};
 
     const cleanup = () => {
-            remove(root_path + '/generated_local/lambda_updatables', cont(err));
-            move(
-                root_path + '/generated_local/updatables/gen/release/updatables',
-                root_path + '/generated_local/lambda_updatables',
-                cont(err));
-            remove(root_path + '/generated_local/updatables.tar', cont(err));
-            remove(root_path + '/generated_local/updatables', cont(err));
-            cb();};};
+        remove(root_path + '/generated_local/lambda_updatables', cont(err));
+        move(
+            root_path + '/generated_local/updatables/gen/release/updatables',
+            root_path + '/generated_local/lambda_updatables',
+            cont(err));
+        remove(root_path + '/generated_local/updatables.tar', cont(err));
+        remove(root_path + '/generated_local/updatables', cont(err));
+        cb();};};

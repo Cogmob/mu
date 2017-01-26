@@ -113,21 +113,33 @@ gulp.task('backup_gulpfile', ()=>{
 gulp.task('build_updatables', () => {
     return gulp.src('[project_name]/updatables/_.js')
         .pipe(webpack({
-            target: 'node',
+            module: {
+                loaders: [{
+                    test: /\.jsx?$/,
+                    exclude: /node_modules/,
+                    loader: 'shebang'}]},
             node: {
-                __filename: true,
-                __dirname: true},
-            output: {filename: 'tool_foundation.js'}}))
+                __filename: false,
+                __dirname: false},
+            output: { filename: '_.js' },
+            target: 'node'}))
+        .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release/updatables'));});
 
 gulp.task('build_lambda_pattern_tool', () => {
     return gulp.src('[project_name]/_.js')
         .pipe(webpack({
+            module: {
+                loaders: [{
+                    test: /\.jsx?$/,
+                    exclude: /node_modules/,
+                    loader: 'shebang'}]},
             node: {
                 __filename: false,
                 __dirname: false},
-            target: 'node',
-            output: {filename: '_.js'}}))
+            output: { filename: '_.js' },
+            target: 'node'}))
+        .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release'));});
 
 gulp.task('copy_skel_to_parent', () => {
@@ -139,6 +151,13 @@ gulp.task('copy_skel_to_release', () => {
     return gulp.src(['[project_name]/skeleton_data/**/*',
             '[project_name]/skeleton_data/**/.*'])
         .pipe(gulp.dest('../../release/skeleton_data'));});
+
+gulp.task('copy_yaml_to_release', () => {
+    return gulp.src([
+            '[project_name]/shared/default_package_values.yaml',
+            '[project_name]/shared/package_template.json'])
+        .pipe(debug())
+        .pipe(gulp.dest('../../release/[project_name]/shared'));});
 
 gulp.task('copy_src', () => {
     return gulp.src('../../../src/**/*')
@@ -152,4 +171,5 @@ gulp.task('build', sequence(
     'backup_gulpfile',
     'build_updatables',
     'build_lambda_pattern_tool',
-    'copy_skel_to_release'));
+    'copy_skel_to_release',
+    'copy_yaml_to_release'));
