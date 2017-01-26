@@ -13,7 +13,7 @@ const _ = (root_path, cb) => {
     const gen_path = root_path + '/generated_local';
     const proj_path = gen_path + '/tools';
     move_if_exists(
-        root_path + '/generated/node_modules',
+        proj_path + '/node_modules',
         gen_path + '/tools_node_modules',
         cont(err));
 
@@ -26,7 +26,7 @@ const _ = (root_path, cb) => {
 
     move_if_exists(
         gen_path + '/tools_node_modules',
-        root_path + '/generated/node_modules',
+        proj_path + '/node_modules',
         cont(err));
 
     modify_es6(proj_path, cont(err));

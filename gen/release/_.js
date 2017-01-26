@@ -120,7 +120,7 @@
 	set_up = __webpack_require__(48);
 	get_metadata = __webpack_require__(393);
 	build_tools = __webpack_require__(394);
-	overwrite_tools = __webpack_require__(406);
+	overwrite_tools = __webpack_require__(412);
 	_ = function _(commander, mu_src_path) {
 	  var success_message, cb;
 	  success_message = 'created a lambda pattern project in your current directory';
@@ -154,13 +154,7 @@
 	            if (ERR(err, cb)) {
 	              return;
 	            }
-	            overwrite_tools(gen_path, function (arguments, _$param5) {
-	              err = _$param5;
-	              if (ERR(err, cb)) {
-	                return;
-	              }
-	              cb();
-	            }.bind(this, arguments));
+	            cb();
 	          }.bind(this, arguments));
 	        }.bind(this, arguments));
 	      }.bind(this, arguments));
@@ -18273,7 +18267,7 @@
 	copy_if_exists = __webpack_require__(76);
 	make_package_json = __webpack_require__(77);
 	_ = function _(mu_src_path, root_path, metadata, cb) {
-	  var gen_path, err, dev_deps, npm;
+	  var gen_path, err, dev_deps, npm, npm2;
 	  gen_path = root_path + '/generated_local/tools';
 	  remove(gen_path, function (arguments, _$param0) {
 	    err = _$param0;
@@ -18306,10 +18300,25 @@
 	              if (ERR(err, cb)) {
 	                return;
 	              }
-	              npm = new NPM();
-	              npm.cwd(root_path + '/generated/tools');
-	              npm.createNodeModulesDirectory();
-	              npm.install(cb);
+	              make_package_json(mu_src_path, metadata, gen_path, {}, yaml.safeLoad(dev_deps), function (arguments, _$param7) {
+	                err = _$param7;
+	                if (ERR(err, cb)) {
+	                  return;
+	                }
+	                npm = new NPM();
+	                npm.cwd(root_path + '/generated/tools');
+	                npm.createNodeModulesDirectory();
+	                npm.install(function (arguments, _$param8) {
+	                  err = _$param8;
+	                  if (ERR(err, cb)) {
+	                    return;
+	                  }
+	                  npm2 = new NPM();
+	                  npm2.cwd(gen_path);
+	                  npm2.createNodeModulesDirectory();
+	                  npm2.install(cb);
+	                }.bind(this, arguments));
+	              }.bind(this, arguments));
 	            }.bind(this, arguments));
 	          }.bind(this, arguments));
 	        }.bind(this, arguments));
@@ -18363,7 +18372,7 @@
 	  var gen_path, proj_path, err;
 	  gen_path = root_path + '/generated_local';
 	  proj_path = gen_path + '/tools';
-	  move_if_exists(root_path + '/generated/node_modules', gen_path + '/tools_node_modules', function (arguments, _$param0) {
+	  move_if_exists(proj_path + '/node_modules', gen_path + '/tools_node_modules', function (arguments, _$param0) {
 	    err = _$param0;
 	    if (ERR(err, cb)) {
 	      return;
@@ -18378,7 +18387,7 @@
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        move_if_exists(gen_path + '/tools_node_modules', root_path + '/generated/node_modules', function (arguments, _$param3) {
+	        move_if_exists(gen_path + '/tools_node_modules', proj_path + '/node_modules', function (arguments, _$param3) {
 	          err = _$param3;
 	          if (ERR(err, cb)) {
 	            return;
@@ -18528,23 +18537,30 @@
 	var ERR = __webpack_require__(2);
 	var word_wrap = __webpack_require__(3);
 	var gulp = __webpack_require__(397);
+	var node_externals = __webpack_require__(405);
 	var debug = __webpack_require__(398);
 	var insert = __webpack_require__(399);
 	var replace = __webpack_require__(400);
 	var babel = __webpack_require__(401);
 	var continuation = __webpack_require__(402);
-	var webpack = __webpack_require__(405);
+	var webpack = __webpack_require__(406);
+	var strip_shebang = __webpack_require__(407);
 
 	var _ = function _(root_path, cb) {
 	    gulp.task('_', function () {
-	        return gulp.src(root_path + '/_.js').pipe(webpack({
-	            quiet: true,
-	            target: 'node',
-	            output: {
-	                filename: '__built.js',
-	                library: 'library_name',
-	                libraryTarget: 'commonjs2' },
-	            context: root_path })).pipe(gulp.dest(root_path)).on('end', cb).on('error', cb);
+	        return gulp.src(root_path + '/_.js').pipe(strip_shebang()).pipe(webpack({
+	            context: root_path,
+	            externals: [node_externals()],
+	            module: {
+	                loaders: [{
+	                    test: /\.jsx?$/,
+	                    exclude: /node_modules/,
+	                    loader: 'shebang' }] },
+	            node: {
+	                __filename: false,
+	                __dirname: false },
+	            output: { filename: '_.js' },
+	            target: 'node' })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(gulp.dest(root_path)).on('end', cb).on('error', cb);
 	    });
 
 	    gulp.start('_');
@@ -18557,21 +18573,93 @@
 /* 405 */
 /***/ function(module, exports) {
 
-	module.exports = require("webpack-stream");
+	module.exports = require("webpack-node-externals");
 
 /***/ },
 /* 406 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-stream");
+
+/***/ },
+/* 407 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var gutil = __webpack_require__(408);
+	var through = __webpack_require__(409);
+	var stripShebang = __webpack_require__(410);
+
+	module.exports = function () {
+	  return through.obj(function (file, enc, cb) {
+	    if (file.isNull()) {
+	      cb(null, file);
+	      return;
+	    }
+
+	    if (file.isStream()) {
+	      cb(new gutil.PluginError('gulp-strip-shebang', 'Streaming not supported'));
+	      return;
+	    }
+
+	    try {
+	      file.contents = new Buffer(stripShebang(file.contents.toString()));
+	      this.push(file);
+	    } catch (err) {
+	      this.emit('error', new gutil.PluginError('gulp-strip-shebang', err));
+	    }
+
+	    cb();
+	  });
+	};
+
+
+/***/ },
+/* 408 */
+/***/ function(module, exports) {
+
+	module.exports = require("gulp-util");
+
+/***/ },
+/* 409 */
+/***/ function(module, exports) {
+
+	module.exports = require("through2");
+
+/***/ },
+/* 410 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var shebangRegex = __webpack_require__(411);
+
+	module.exports = function (str) {
+		return str.replace(shebangRegex, '');
+	};
+
+
+/***/ },
+/* 411 */
+/***/ function(module, exports) {
+
+	'use strict';
+	module.exports = /^#!(.*)/;
+
+
+/***/ },
+/* 412 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ERR, word_wrap, lambda_state_history, yaml, get_info, update_history, move_tools_scripts, _;
 	'use strict';
 	ERR = __webpack_require__(2);
 	word_wrap = __webpack_require__(3);
-	lambda_state_history = __webpack_require__(407);
+	lambda_state_history = __webpack_require__(413);
 	yaml = __webpack_require__(75);
-	get_info = __webpack_require__(408);
-	update_history = __webpack_require__(409);
-	move_tools_scripts = __webpack_require__(410);
+	get_info = __webpack_require__(414);
+	update_history = __webpack_require__(415);
+	move_tools_scripts = __webpack_require__(416);
 	_ = function _(root_path, cb) {
 	  var err, updatables_version, history;
 	  get_info(root_path, function (arguments, _$param0, _$param1, _$param2) {
@@ -18601,7 +18689,7 @@
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 407 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18619,7 +18707,7 @@
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 408 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ERR, word_wrap, fs, yaml, _;
@@ -18651,7 +18739,7 @@
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 409 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ERR, word_wrap, fs, yaml, _;
@@ -18686,7 +18774,7 @@
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 410 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ERR, word_wrap, fs, move_if_exists, ensure_dir, prepend_file, _;
@@ -18696,7 +18784,7 @@
 	fs = __webpack_require__(8);
 	move_if_exists = __webpack_require__(395);
 	ensure_dir = fs.mkdirp;
-	prepend_file = __webpack_require__(411);
+	prepend_file = __webpack_require__(417);
 	_ = function _(root_path, updatables_version, cb) {
 	  var err;
 	  ensure_dir(root_path + '/generated/tools/stored', function (arguments, _$param0) {
@@ -18723,7 +18811,7 @@
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 411 */
+/* 417 */
 /***/ function(module, exports) {
 
 	module.exports = require("prepend-file");

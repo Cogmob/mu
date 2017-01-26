@@ -21,5 +21,7 @@ const _ = (commander, mu_src_path) => {
             get_metadata(gen_path, cont(err, info));
             set_up(mu_src_path, gen_path, info, cont(err));
             build_tools(gen_path, cont(err));
+            /*
             overwrite_tools(gen_path, cont(err));
+           */
             cb();})};

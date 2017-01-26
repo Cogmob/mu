@@ -17,6 +17,7 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
     read_file(
         root_path + '/tools/npm_dev_dependencies.yaml', cont(err, dev_deps));
     mkdir(root_path + '/generated/tools', cont(err));
+
     make_package_json(
         mu_src_path,
         metadata,
@@ -25,7 +26,20 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
         yaml.safeLoad(dev_deps),
         cont(err));
 
+    make_package_json(
+        mu_src_path,
+        metadata,
+        gen_path,
+        {},
+        yaml.safeLoad(dev_deps),
+        cont(err));
+
     const npm = new NPM();
     npm.cwd(root_path + '/generated/tools');
     npm.createNodeModulesDirectory();
-    npm.install(cb);};
+    npm.install(cont(err));
+
+    const npm2 = new NPM();
+    npm2.cwd(gen_path);
+    npm2.createNodeModulesDirectory();
+    npm2.install(cb);};
