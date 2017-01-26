@@ -1299,19 +1299,26 @@
 	    console.log(success_message);
 	  };
 	  commander.command('create project_name').description('make a new lambda patern project').action(function (project_name) {
-	    var err, info;
+	    var err, gen_path, info;
 	    create(mu_src_path, process.cwd(), project_name, 2000, function (arguments, _$param0) {
 	      err = _$param0;
 	      if (ERR(err, cb)) {
 	        return;
 	      }
-	      get_metadata(__dirname + '/' + project_name, function (arguments, _$param1, _$param2) {
+	      gen_path = __dirname + '/' + project_name;
+	      get_metadata(gen_path, function (arguments, _$param1, _$param2) {
 	        err = _$param1;
 	        info = _$param2;
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        set_up(mu_src_path, process.cwd() + '/' + project_name, info, cb);
+	        set_up(mu_src_path, gen_path, info, function (arguments, _$param3) {
+	          err = _$param3;
+	          if (ERR(err, cb)) {
+	            return;
+	          }
+	          cb();
+	        }.bind(this, arguments));
 	      }.bind(this, arguments));
 	    }.bind(this, arguments));
 	  });
@@ -34687,15 +34694,15 @@
 /* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ERR, word_wrap, fs, copy, read_file, remove, mkdir, NPM, yaml, copy_if_exists, make_package_json, _;
+	var ERR, word_wrap, fs, read_file, remove, mkdir, copy, NPM, yaml, copy_if_exists, make_package_json, _;
 	'use strict';
 	ERR = __webpack_require__(2);
 	word_wrap = __webpack_require__(3);
 	fs = __webpack_require__(11);
-	copy = fs.copy;
 	read_file = fs.readFile;
 	remove = fs.remove;
 	mkdir = fs.mkdirp;
+	copy = fs.copy;
 	NPM = __webpack_require__(101);
 	yaml = __webpack_require__(103);
 	copy_if_exists = __webpack_require__(134);
@@ -34732,13 +34739,7 @@
 	            npm = new NPM();
 	            npm.cwd(gen_path);
 	            npm.createNodeModulesDirectory();
-	            npm.install(function (arguments, _$param6) {
-	              err = _$param6;
-	              if (ERR(err, cb)) {
-	                return;
-	              }
-	              copy(root_path + '/generated_local/lambda_updatables/_.js', root_path + '/generated/tools.js', cb);
-	            }.bind(this, arguments));
+	            npm.install(cb);
 	          }.bind(this, arguments));
 	        }.bind(this, arguments));
 	      }.bind(this, arguments));

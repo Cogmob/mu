@@ -1,6 +1,7 @@
 const create = require('./_');
 const set_up = require('../set_up/_');
 const get_metadata = require('../shared/get_metadata');
+//const build_tools = require('../build_tools/_');
 
 const _ = (commander, mu_src_path) => {
     const success_message =
@@ -20,9 +21,16 @@ const _ = (commander, mu_src_path) => {
                 project_name,
                 2000,
                 cont(err));
-            get_metadata(__dirname + '/' + project_name, cont(err, info));
+            const gen_path = __dirname + '/' + project_name;
+            get_metadata(gen_path, cont(err, info));
             set_up(
                 mu_src_path,
-                process.cwd() + '/' + project_name,
+                gen_path,
                 info,
-                cb);})};
+                cont(err));
+                /*
+            build_tools(
+                gen_path,
+                cont(err));
+               */
+            cb();})};
