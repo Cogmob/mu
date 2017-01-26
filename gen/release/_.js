@@ -18288,15 +18288,21 @@
 	          if (ERR(err, cb)) {
 	            return;
 	          }
-	          make_package_json(mu_src_path, metadata, gen_path, {}, yaml.safeLoad(dev_deps), function (arguments, _$param5) {
+	          mkdir(root_path + '/generated/tools', function (arguments, _$param5) {
 	            err = _$param5;
 	            if (ERR(err, cb)) {
 	              return;
 	            }
-	            npm = new NPM();
-	            npm.cwd(gen_path);
-	            npm.createNodeModulesDirectory();
-	            npm.install(cb);
+	            make_package_json(mu_src_path, metadata, root_path + '/generated/tools', {}, yaml.safeLoad(dev_deps), function (arguments, _$param6) {
+	              err = _$param6;
+	              if (ERR(err, cb)) {
+	                return;
+	              }
+	              npm = new NPM();
+	              npm.cwd(root_path + '/generated/tools');
+	              npm.createNodeModulesDirectory();
+	              npm.install(cb);
+	            }.bind(this, arguments));
 	          }.bind(this, arguments));
 	        }.bind(this, arguments));
 	      }.bind(this, arguments));
@@ -18349,7 +18355,7 @@
 	  var gen_path, proj_path, err;
 	  gen_path = root_path + '/generated_local';
 	  proj_path = gen_path + '/tools';
-	  move_if_exists(proj_path + '/node_modules', gen_path + '/tools_node_modules', function (arguments, _$param0) {
+	  move_if_exists(root_path + '/generated/node_modules', gen_path + '/tools_node_modules', function (arguments, _$param0) {
 	    err = _$param0;
 	    if (ERR(err, cb)) {
 	      return;
@@ -18364,7 +18370,7 @@
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        move_if_exists(root_path + '/tools_node_modules', proj_path + '/node_modules', function (arguments, _$param3) {
+	        move_if_exists(gen_path + '/tools_node_modules', root_path + '/generated/node_modules', function (arguments, _$param3) {
 	          err = _$param3;
 	          if (ERR(err, cb)) {
 	            return;

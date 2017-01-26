@@ -16,15 +16,16 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
     copy_if_exists(root_path + '/tools', gen_path, cont(err));
     read_file(
         root_path + '/tools/npm_dev_dependencies.yaml', cont(err, dev_deps));
+    mkdir(root_path + '/generated/tools', cont(err));
     make_package_json(
         mu_src_path,
         metadata,
-        gen_path,
+        root_path + '/generated/tools',
         {},
         yaml.safeLoad(dev_deps),
         cont(err));
 
     const npm = new NPM();
-    npm.cwd(gen_path);
+    npm.cwd(root_path + '/generated/tools');
     npm.createNodeModulesDirectory();
     npm.install(cb);};

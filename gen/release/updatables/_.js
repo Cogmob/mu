@@ -18370,15 +18370,21 @@
 		          if (ERR(err, cb)) {
 		            return;
 		          }
-		          make_package_json(mu_src_path, metadata, gen_path, {}, yaml.safeLoad(dev_deps), function (arguments, _$param5) {
+		          mkdir(root_path + '/generated/tools', function (arguments, _$param5) {
 		            err = _$param5;
 		            if (ERR(err, cb)) {
 		              return;
 		            }
-		            npm = new NPM();
-		            npm.cwd(gen_path);
-		            npm.createNodeModulesDirectory();
-		            npm.install(cb);
+		            make_package_json(mu_src_path, metadata, root_path + '/generated/tools', {}, yaml.safeLoad(dev_deps), function (arguments, _$param6) {
+		              err = _$param6;
+		              if (ERR(err, cb)) {
+		                return;
+		              }
+		              npm = new NPM();
+		              npm.cwd(root_path + '/generated/tools');
+		              npm.createNodeModulesDirectory();
+		              npm.install(cb);
+		            }.bind(this, arguments));
 		          }.bind(this, arguments));
 		        }.bind(this, arguments));
 		      }.bind(this, arguments));
@@ -18417,71 +18423,64 @@
 	/* 394 */
 	/***/ function(module, exports, __webpack_require__) {
 
+		var ERR, word_wrap, fs, move_if_exists, copy_if_exists, modify_es6, convert_es6, webpack, _;
 		'use strict';
-
-		var ERR = __webpack_require__(2);
-		var word_wrap = __webpack_require__(3);
-		var fs = __webpack_require__(8);
-
-		var move_if_exists = __webpack_require__(395);
-		var copy_if_exists = __webpack_require__(76);
-		var modify_es6 = __webpack_require__(396);
-		var gulp = __webpack_require__(397);
-		/*
-		const convert_es6 = require('../shared/convert_es6');
-		const webpack = require('./webpack');
-
-		const _ = (root_path, cb) => {
-		    // TODO: handle errors without leaving node_modules in wrong place
-		    // TODO: replace with config file for what will be saved as in spec
-		    
-		    const gen_path = root_path + '/generated_local';
-		    const proj_path = gen_path + '/tools';
-		    move_if_exists(
-		        proj_path + '/node_modules',
-		        gen_path + '/tools_node_modules',
-		        cont(err));
+		ERR = __webpack_require__(2);
+		word_wrap = __webpack_require__(3);
+		fs = __webpack_require__(8);
+		move_if_exists = __webpack_require__(395);
+		copy_if_exists = __webpack_require__(76);
+		modify_es6 = __webpack_require__(396);
+		convert_es6 = __webpack_require__(403);
+		webpack = __webpack_require__(404);
+		_ = function _(root_path, cb) {
+		  var gen_path, proj_path, err;
+		  gen_path = root_path + '/generated_local';
+		  proj_path = gen_path + '/tools';
+		  move_if_exists(root_path + '/generated/node_modules', gen_path + '/tools_node_modules', function (arguments, _$param0) {
+		    err = _$param0;
+		    if (ERR(err, cb)) {
+		      return;
+		    }
+		    fs.remove(proj_path, function (arguments, _$param1) {
+		      err = _$param1;
+		      if (ERR(err, cb)) {
+		        return;
+		      }
+		      copy_if_exists(root_path + '/tools', proj_path, function (arguments, _$param2) {
+		        err = _$param2;
+		        if (ERR(err, cb)) {
+		          return;
+		        }
+		        move_if_exists(gen_path + '/tools_node_modules', root_path + '/generated/node_modules', function (arguments, _$param3) {
+		          err = _$param3;
+		          if (ERR(err, cb)) {
+		            return;
+		          }
+		          modify_es6(proj_path, function (arguments, _$param4) {
+		            err = _$param4;
 		            if (ERR(err, cb)) {
-		                return;}
-		                
-
-		    fs.remove(proj_path, cont(err));
-		            if (ERR(err, cb)) {
-		                return;}
-		                
-
-		    copy_if_exists(
-		        root_path + '/tools',
-		        proj_path,
-		        cont(err));
-		            if (ERR(err, cb)) {
-		                return;}
-		                
-
-		    move_if_exists(
-		        root_path + '/tools_node_modules',
-		        proj_path + '/node_modules',
-		        cont(err));
-		            if (ERR(err, cb)) {
-		                return;}
-		                
-
-		    modify_es6(proj_path, cont(err));
-		            if (ERR(err, cb)) {
-		                return;}
-		                
-		    convert_es6(proj_path, cont(err));
-		            if (ERR(err, cb)) {
-		                return;}
-		                
-		    webpack(proj_path, cont(err));
-		            if (ERR(err, cb)) {
-		                return;}
-		                
-
-		    cb(null);};
-		   */
-
+		              return;
+		            }
+		            convert_es6(proj_path, function (arguments, _$param5) {
+		              err = _$param5;
+		              if (ERR(err, cb)) {
+		                return;
+		              }
+		              webpack(proj_path, function (arguments, _$param6) {
+		                err = _$param6;
+		                if (ERR(err, cb)) {
+		                  return;
+		                }
+		                cb(null);
+		              }.bind(this, arguments));
+		            }.bind(this, arguments));
+		          }.bind(this, arguments));
+		        }.bind(this, arguments));
+		      }.bind(this, arguments));
+		    }.bind(this, arguments));
+		  }.bind(this, arguments));
+		};
 		module.exports = _;
 		/* Generated by Continuation.js v0.1.7 */
 
@@ -18514,50 +18513,20 @@
 
 		var ERR = __webpack_require__(2);
 		var word_wrap = __webpack_require__(3);
-		/*
-		const gulp = require('gulp');
-		const debug = require('gulp-debug');
-		const insert = require('gulp-insert');
-		const replace = require('gulp-replace');
-		const babel = require('gulp-babel');
-		const continuation = require('gulp-continuation');
+		var gulp = __webpack_require__(397);
+		var debug = __webpack_require__(398);
+		var insert = __webpack_require__(399);
+		var replace = __webpack_require__(400);
+		var babel = __webpack_require__(401);
+		var continuation = __webpack_require__(402);
 
-		const _ = (root_path, cb) => {
-		    gulp.task('a', ()=>{
-		        return gulp.src([
-		                root_path + '/**' + '/*.es6',
-		                '!*' + '*/expected; /**',
-		                                    '!**' + '/node_modules/**',
-		                                    '!**' + '/*_data/**' + '/*'])
-		                                    .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
-		                                    .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
-		                                    .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
-		                                    .pipe(replace(
-		                                    /cont\(.*err.*\).*;/g,
-		                                    `$&
-		                                    if (ERR(err, cb)) {
-		                                    return;}
-		                                    `))
-		                                    .pipe(replace(
-		                                    /const cb = \(err.*\) \=> \{/g,
-		                                    `$&
-		                                    if (err) {
-		                                    console.log(word_wrap(err.stack.replace(/\\\\/g, '\\\\ '), {
-		                                    trim: true,
-		                                    width: 80})
-		                                    .split('\\n').forEach((stack_line) => {
-		                                    console.log(stack_line
-		                                    .replace(/\\\\ /g, '\\\\')
-		                                    .replace(/ at/g, '\\nat')
-		                                    .replace(/Error:/g, '\\nError:'));}));
-		                                    t.fail();
-		                                    return t.end();}
-		                                    `)) 
-		                                    .pipe(gulp.dest(root_path))
-		                                    .on('end', cb)
-		                                    .on('error', cb);});
-		                                    gulp.start('a');};
-		                                    */
+		var _ = function _(root_path, cb) {
+		    gulp.task('a', function () {
+		        return gulp.src([root_path + '/**' + '/*.es6', '!*' + '*/expected/**', '!**' + '/node_modules/**', '!**' + '/*_data/**' + '/*']).pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n                if (ERR(err, cb)) {\n                    return;}\n                    ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n            if (err) {\n                console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                    trim: true,\n                    width: 80})\n                .split(\'\\n\').forEach((stack_line) => {\n                    console.log(stack_line\n                        .replace(/\\\\ /g, \'\\\\\')\n                        .replace(/ at/g, \'\\nat\')\n                        .replace(/Error:/g, \'\\nError:\'));}));\n                t.fail();\n                return t.end();}\n            ')).pipe(gulp.dest(root_path)).on('end', cb).on('error', cb);
+		    });
+
+		    gulp.start('a');
+		};
 
 		module.exports = _;
 		/* Generated by Continuation.js v0.1.7 */
@@ -18567,6 +18536,102 @@
 	/***/ function(module, exports) {
 
 		module.exports = __webpack_require__(24);
+
+	/***/ },
+	/* 398 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(25);
+
+	/***/ },
+	/* 399 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(26);
+
+	/***/ },
+	/* 400 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(27);
+
+	/***/ },
+	/* 401 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(28);
+
+	/***/ },
+	/* 402 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(29);
+
+	/***/ },
+	/* 403 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		'use strict';
+
+		var ERR = __webpack_require__(2);
+		var word_wrap = __webpack_require__(3);
+		var gulp = __webpack_require__(397);
+		var debug = __webpack_require__(398);
+		var insert = __webpack_require__(399);
+		var replace = __webpack_require__(400);
+		var babel = __webpack_require__(401);
+		var continuation = __webpack_require__(402);
+
+		var _ = function _(root_path, cb) {
+		    gulp.task('_', function () {
+		        return gulp.src([root_path + '/**/*.es6', '!**/expected/**', '!**/node_modules/**', '!**/*_data/**/*']).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest(root_path)).on('end', cb).on('error', cb);
+		    });
+
+		    gulp.start('_');
+		};
+
+		module.exports = _;
+		/* Generated by Continuation.js v0.1.7 */
+
+	/***/ },
+	/* 404 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		'use strict';
+
+		var ERR = __webpack_require__(2);
+		var word_wrap = __webpack_require__(3);
+		var gulp = __webpack_require__(397);
+		var debug = __webpack_require__(398);
+		var insert = __webpack_require__(399);
+		var replace = __webpack_require__(400);
+		var babel = __webpack_require__(401);
+		var continuation = __webpack_require__(402);
+		var webpack = __webpack_require__(405);
+
+		var _ = function _(root_path, cb) {
+		    gulp.task('_', function () {
+		        return gulp.src(root_path + '/_.js').pipe(webpack({
+		            quiet: true,
+		            target: 'node',
+		            output: {
+		                filename: '__built.js',
+		                library: 'library_name',
+		                libraryTarget: 'commonjs2' },
+		            context: root_path })).pipe(gulp.dest(root_path)).on('end', cb).on('error', cb);
+		    });
+
+		    gulp.start('_');
+		};
+
+		module.exports = _;
+		/* Generated by Continuation.js v0.1.7 */
+
+	/***/ },
+	/* 405 */
+	/***/ function(module, exports) {
+
+		module.exports = __webpack_require__(30);
 
 	/***/ }
 	/******/ ]);
@@ -18696,6 +18761,42 @@
 /***/ function(module, exports) {
 
 	module.exports = require("gulp");
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	module.exports = require("gulp-debug");
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = require("gulp-insert");
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	module.exports = require("gulp-replace");
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	module.exports = require("gulp-babel");
+
+/***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	module.exports = require("gulp-continuation");
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	module.exports = require("webpack-stream");
 
 /***/ }
 /******/ ]);
