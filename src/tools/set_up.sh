@@ -3,9 +3,10 @@ cd ../..
 rm -rf gen/dev
 mkdir -p gen/dev/src/lambda_pattern
 cp -r src gen/dev
-mkdir -p gen/release/cached
-cp -r src gen/release/cached
-cd gen/dev/src
+cp src/package.json gen/release
+cd gen/release
+npm install
+cd ../dev/src
 npm install
 cd lambda_pattern
 npm install

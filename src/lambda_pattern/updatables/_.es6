@@ -1,11 +1,6 @@
-const mu = require('../../../../release/_');
-/*
-
 const build_all = require('../build_all/__commander');
 
-const _ = (commander, mu_src_path) => {
+const _ = (commander, mu_src_path, config) => {
+    console.log('config:');
+    console.log(config);
     build_all(commander, mu_src_path);};
-
-if (!module.parent) {
-    mu(_);}
-   */

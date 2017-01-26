@@ -1,6 +1,5 @@
-module.exports = {
-    before_processing: function (project_path, cb) {
-        return cb();},
-    after_processing: function(project_path, cb) {
-        return cb();},
-    modify_tools: function(tools) {return tools;}};
+const updatables = require('../../generated_local/lambda_updatables/_');
+const lambda_pattern = require('lambda_pattern');
+
+if (!module.parent) {
+    lambda_pattern(updatables, config);}
