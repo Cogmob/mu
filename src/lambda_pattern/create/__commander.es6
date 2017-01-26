@@ -1,7 +1,7 @@
 const create = require('./_');
 const set_up = require('../set_up/_');
 const get_metadata = require('../shared/get_metadata');
-//const build_tools = require('../build_tools/_');
+const build_tools = require('../build_tools/_');
 
 const _ = (commander, mu_src_path) => {
     const success_message =

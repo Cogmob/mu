@@ -1,4 +1,5 @@
 const webpack = require('webpack-stream');
+const node_externals = require('webpack-node-externals');
 const insert = require('gulp-insert');
 const footer = require('gulp-footer');
 const gulp = require('gulp');
@@ -113,6 +114,7 @@ gulp.task('backup_gulpfile', ()=>{
 gulp.task('build_updatables', () => {
     return gulp.src('[project_name]/updatables/_.js')
         .pipe(webpack({
+            externals: [node_externals()],
             module: {
                 loaders: [{
                     test: /\.jsx?$/,
@@ -129,6 +131,7 @@ gulp.task('build_updatables', () => {
 gulp.task('build_lambda_pattern_tool', () => {
     return gulp.src('[project_name]/_.js')
         .pipe(webpack({
+            externals: [node_externals()],
             module: {
                 loaders: [{
                     test: /\.jsx?$/,

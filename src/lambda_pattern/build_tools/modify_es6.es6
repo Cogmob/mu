@@ -8,10 +8,10 @@ const continuation = require('gulp-continuation');
 const _ = (root_path, cb) => {
     gulp.task('a', ()=>{
         return gulp.src([
-                root_path + '/**/*.es6',
-                '!**/expected/**',
-                '!**/node_modules/**',
-                '!**/*_data/**/*'])
+                root_path + '/**' + '/*.es6',
+                '!*' + '*/expected/**',
+                '!**' + '/node_modules/**',
+                '!**' + '/*_data/**' + '/*'])
             .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
             .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
             .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))

@@ -3,6 +3,7 @@
 var ERR = require('async-stacktrace');
 var word_wrap = require('word-wrap');
 var webpack = require('webpack-stream');
+var node_externals = require('webpack-node-externals');
 var insert = require('gulp-insert');
 var footer = require('gulp-footer');
 var gulp = require('gulp');
@@ -50,6 +51,7 @@ gulp.task('backup_gulpfile', function () {
 
 gulp.task('build_updatables', function () {
     return gulp.src('lambda_pattern/updatables/_.js').pipe(webpack({
+        externals: [node_externals()],
         module: {
             loaders: [{
                 test: /\.jsx?$/,
@@ -64,6 +66,7 @@ gulp.task('build_updatables', function () {
 
 gulp.task('build_lambda_pattern_tool', function () {
     return gulp.src('lambda_pattern/_.js').pipe(webpack({
+        externals: [node_externals()],
         module: {
             loaders: [{
                 test: /\.jsx?$/,
