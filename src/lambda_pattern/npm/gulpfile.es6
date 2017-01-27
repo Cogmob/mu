@@ -166,6 +166,10 @@ gulp.task('copy_main_to_release', () => {
             '[project_name]/_.js'])
         .pipe(gulp.dest('../../release'));});
 
+gulp.task('copy_ignore_to_release', () => {
+    return gulp.src('[project_name]/.npmignore')
+        .pipe(gulp.dest('../../release'));});
+
 gulp.task('copy_src', () => {
     return gulp.src('../../../src/**/*')
         .pipe(gulp.dest('.'));});
@@ -178,6 +182,7 @@ gulp.task('build', sequence(
     'backup_gulpfile',
     'build_updatables',
     'build_lambda_pattern_tool',
+    'copy_ignore_to_release',
     'copy_main_to_release',
     'copy_skel_to_release',
     'copy_yaml_to_release'));
