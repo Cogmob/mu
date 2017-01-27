@@ -1,10 +1,10 @@
 {
   "name": "lambda_pattern",
-  "version": "0.0.15",
+  "version": "0.0.20",
   "description": "module used for automating the lambda pattern of development",
   "main": "src/lambda_pattern/lambda_pattern",
   "bin": {
-    "lambda_pattern": "./src/lambda_pattern/lambda_pattern.js"
+    "lambda_pattern": "bin.js"
   },
   "scripts": {
     "test": "ava"
