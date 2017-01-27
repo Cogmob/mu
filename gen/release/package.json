@@ -1,8 +1,8 @@
 {
   "name": "lambda_pattern",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "module used for automating the lambda pattern of development",
-  "main": "src/lambda_pattern/lambda_pattern",
+  "main": "_.js",
   "bin": {
     "lambda_pattern": "bin.js"
   },
@@ -74,7 +74,6 @@
     "open": "0.0.5",
     "osenv": "^0.1.3",
     "path": "^0.12.7",
-    "prepend-file": "^1.3.1",
     "prompt": "^1.0.0",
     "ramda": "^0.23.0",
     "rollup": "^0.38.2",
@@ -93,8 +92,6 @@
     "user-home": "^2.0.0",
     "vargs-callback": "^0.2.4",
     "vinyl-transform": "^1.0.0",
-    "webpack-node-externals": "^1.5.4",
-    "webpack-stream": "^3.2.0",
     "word-wrap": "^1.1.0"
   }
 }
