@@ -1,6 +1,6 @@
 {
   "name": "lambda_pattern",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "module used for automating the lambda pattern of development",
   "main": "_.js",
   "bin": {
