@@ -5,6 +5,9 @@ var word_wrap = require('word-wrap');
 var commander = require('commander');
 
 var _ = function _(updatables, config) {
+    console.log('mu');
+    console.log(updatables);
+    console.log(config);
     updatables(commander, __dirname, config);
 };
 

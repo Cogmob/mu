@@ -18344,7 +18344,7 @@
 	webpack = __webpack_require__(402);
 	_ = function _(root_path, cb) {
 	  var err;
-	  move_if_exists(root_path + 'generated_local/tools/package.json', root_path + 'generated_local/tools_package.json', function (arguments, _$param0) {
+	  move_if_exists(root_path + '/generated_local/tools/package.json', root_path + '/generated_local/tools_package.json', function (arguments, _$param0) {
 	    err = _$param0;
 	    if (ERR(err, cb)) {
 	      return;

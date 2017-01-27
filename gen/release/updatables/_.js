@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};

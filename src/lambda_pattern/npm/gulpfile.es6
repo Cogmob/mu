@@ -125,7 +125,6 @@ gulp.task('build_updatables', () => {
                 __dirname: false},
             output: { filename: '_.js' },
             target: 'node'}))
-        .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release/updatables'));});
 
 gulp.task('build_lambda_pattern_tool', () => {

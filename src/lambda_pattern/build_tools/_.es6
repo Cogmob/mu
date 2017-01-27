@@ -11,8 +11,8 @@ const _ = (root_path, cb) => {
     // TODO: replace with config file for what will be saved as in spec
     
     move_if_exists(
-        root_path + 'generated_local/tools/package.json',
-        root_path + 'generated_local/tools_package.json',
+        root_path + '/generated_local/tools/package.json',
+        root_path + '/generated_local/tools_package.json',
         cont(err));
 
     move_if_exists(
