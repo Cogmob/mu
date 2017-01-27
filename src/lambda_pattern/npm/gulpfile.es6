@@ -123,7 +123,10 @@ gulp.task('build_updatables', () => {
             node: {
                 __filename: false,
                 __dirname: false},
-            output: { filename: '_.js' },
+            output: {
+                filename: '_.js',
+                libraryTarget: 'commonjs2',
+                library: true},
             target: 'node'}))
         .pipe(gulp.dest('../../release/updatables'));});
 
