@@ -10,27 +10,35 @@ const _ = (root_path, cb) => {
     // TODO: handle errors without leaving node_modules in wrong place
     // TODO: replace with config file for what will be saved as in spec
     
-    const gen_path = root_path + '/generated_local';
-    const proj_path = gen_path + '/tools';
     move_if_exists(
-        proj_path + '/node_modules',
-        gen_path + '/tools_node_modules',
+        root_path + 'generated_local/tools/package.json',
+        root_path + 'generated_local/tools_package.json',
         cont(err));
 
-    fs.remove(proj_path, cont(err));
+    move_if_exists(
+        root_path + '/generated_local/tools/node_modules',
+        root_path + '/generated_local/tools_node_modules',
+        cont(err));
+
+    fs.remove(root_path + '/generated_local/tools', cont(err));
 
     copy_if_exists(
         root_path + '/tools',
-        proj_path,
+        root_path + '/generated_local/tools',
         cont(err));
 
     move_if_exists(
-        gen_path + '/tools_node_modules',
-        proj_path + '/node_modules',
+        root_path + '/generated_local/tools_node_modules',
+        root_path + '/generated_local/tools/node_modules',
         cont(err));
 
-    modify_es6(proj_path, cont(err));
-    convert_es6(proj_path, cont(err));
-    webpack(proj_path, cont(err));
+    move_if_exists(
+        root_path + '/generated_local/tools_package.json',
+        root_path + '/generated_local/tools/package.json',
+        cont(err));
+
+    modify_es6(root_path + '/generated_local/tools', cont(err));
+    convert_es6(root_path + '/generated_local/tools', cont(err));
+    webpack(root_path + '/generated_local/tools', cont(err));
 
     cb(null);};

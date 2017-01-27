@@ -9,6 +9,7 @@ const webpack = require('webpack-stream');
 
 const _ = (root_path, cb) => {
     gulp.task('_', () => {
+        process.chdir(root_path);
         return gulp.src(root_path + '/_.js')
             .pipe(webpack({
                 context: root_path,
@@ -21,7 +22,7 @@ const _ = (root_path, cb) => {
                 node: {
                     __filename: false,
                     __dirname: false},
-                output: { filename: '_.js' },
+                output: { filename: '__built.js' },
                 target: 'node'}))
             .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
             .pipe(gulp.dest(root_path))

@@ -122,7 +122,13 @@
 	            if (ERR(err, cb)) {
 	              return;
 	            }
-	            cb();
+	            overwrite_tools(gen_path, function (arguments, _$param5) {
+	              err = _$param5;
+	              if (ERR(err, cb)) {
+	                return;
+	              }
+	              cb();
+	            }.bind(this, arguments));
 	          }.bind(this, arguments));
 	        }.bind(this, arguments));
 	      }.bind(this, arguments));
@@ -18337,45 +18343,55 @@
 	convert_es6 = __webpack_require__(401);
 	webpack = __webpack_require__(402);
 	_ = function _(root_path, cb) {
-	  var gen_path, proj_path, err;
-	  gen_path = root_path + '/generated_local';
-	  proj_path = gen_path + '/tools';
-	  move_if_exists(proj_path + '/node_modules', gen_path + '/tools_node_modules', function (arguments, _$param0) {
+	  var err;
+	  move_if_exists(root_path + 'generated_local/tools/package.json', root_path + 'generated_local/tools_package.json', function (arguments, _$param0) {
 	    err = _$param0;
 	    if (ERR(err, cb)) {
 	      return;
 	    }
-	    fs.remove(proj_path, function (arguments, _$param1) {
+	    move_if_exists(root_path + '/generated_local/tools/node_modules', root_path + '/generated_local/tools_node_modules', function (arguments, _$param1) {
 	      err = _$param1;
 	      if (ERR(err, cb)) {
 	        return;
 	      }
-	      copy_if_exists(root_path + '/tools', proj_path, function (arguments, _$param2) {
+	      fs.remove(root_path + '/generated_local/tools', function (arguments, _$param2) {
 	        err = _$param2;
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        move_if_exists(gen_path + '/tools_node_modules', proj_path + '/node_modules', function (arguments, _$param3) {
+	        copy_if_exists(root_path + '/tools', root_path + '/generated_local/tools', function (arguments, _$param3) {
 	          err = _$param3;
 	          if (ERR(err, cb)) {
 	            return;
 	          }
-	          modify_es6(proj_path, function (arguments, _$param4) {
+	          move_if_exists(root_path + '/generated_local/tools_node_modules', root_path + '/generated_local/tools/node_modules', function (arguments, _$param4) {
 	            err = _$param4;
 	            if (ERR(err, cb)) {
 	              return;
 	            }
-	            convert_es6(proj_path, function (arguments, _$param5) {
+	            move_if_exists(root_path + '/generated_local/tools_package.json', root_path + '/generated_local/tools/package.json', function (arguments, _$param5) {
 	              err = _$param5;
 	              if (ERR(err, cb)) {
 	                return;
 	              }
-	              webpack(proj_path, function (arguments, _$param6) {
+	              modify_es6(root_path + '/generated_local/tools', function (arguments, _$param6) {
 	                err = _$param6;
 	                if (ERR(err, cb)) {
 	                  return;
 	                }
-	                cb(null);
+	                convert_es6(root_path + '/generated_local/tools', function (arguments, _$param7) {
+	                  err = _$param7;
+	                  if (ERR(err, cb)) {
+	                    return;
+	                  }
+	                  webpack(root_path + '/generated_local/tools', function (arguments, _$param8) {
+	                    err = _$param8;
+	                    if (ERR(err, cb)) {
+	                      return;
+	                    }
+	                    cb(null);
+	                  }.bind(this, arguments));
+	                }.bind(this, arguments));
 	              }.bind(this, arguments));
 	            }.bind(this, arguments));
 	          }.bind(this, arguments));
@@ -18515,6 +18531,7 @@
 
 	var _ = function _(root_path, cb) {
 	    gulp.task('_', function () {
+	        process.chdir(root_path);
 	        return gulp.src(root_path + '/_.js').pipe(webpack({
 	            context: root_path,
 	            externals: [node_externals()],
@@ -18526,7 +18543,7 @@
 	            node: {
 	                __filename: false,
 	                __dirname: false },
-	            output: { filename: '_.js' },
+	            output: { filename: '__built.js' },
 	            target: 'node' })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(gulp.dest(root_path)).on('end', cb).on('error', cb);
 	    });
 
@@ -18678,14 +18695,13 @@
 /* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ERR, word_wrap, fs, move_if_exists, ensure_dir, prepend_file, _;
+	var ERR, word_wrap, fs, move_if_exists, ensure_dir, _;
 	'use strict';
 	ERR = __webpack_require__(1);
 	word_wrap = __webpack_require__(2);
 	fs = __webpack_require__(6);
 	move_if_exists = __webpack_require__(393);
 	ensure_dir = fs.mkdirp;
-	prepend_file = __webpack_require__(410);
 	_ = function _(root_path, updatables_version, cb) {
 	  var err;
 	  ensure_dir(root_path + '/generated/tools/stored', function (arguments, _$param0) {
@@ -18698,24 +18714,12 @@
 	      if (ERR(err, cb)) {
 	        return;
 	      }
-	      prepend_file(root_path + '/generated_local/tools/__built.js', '#!/usr/bin/env node\n\n', function (arguments, _$param2) {
-	        err = _$param2;
-	        if (ERR(err, cb)) {
-	          return;
-	        }
-	        fs.move(root_path + '/generated_local/tools/__built.js', root_path + '/generated/tools/_.js', cb);
-	      }.bind(this, arguments));
+	      fs.move(root_path + '/generated_local/tools/__built.js', root_path + '/generated/tools/_.js', cb);
 	    }.bind(this, arguments));
 	  }.bind(this, arguments));
 	};
 	module.exports = _;
 	/* Generated by Continuation.js v0.1.7 */
-
-/***/ },
-/* 410 */
-/***/ function(module, exports) {
-
-	module.exports = require("prepend-file");
 
 /***/ }
 /******/ ]);
