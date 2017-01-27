@@ -1,6 +1,4 @@
-const build_all = require('../build_all/__commander');
+const build_all_commander = require('../build_all/__commander');
 
 const _ = (commander, mu_src_path, config) => {
-    console.log('config:');
-    console.log(config);
-    build_all(commander, mu_src_path);};
+    build_all_commander(commander, mu_src_path);};

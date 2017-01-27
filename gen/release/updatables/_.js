@@ -49,12 +49,10 @@ module.exports =
 
 	var ERR = __webpack_require__(1);
 	var word_wrap = __webpack_require__(2);
-	var build_all = __webpack_require__(3);
+	var build_all_commander = __webpack_require__(3);
 
 	var _ = function _(commander, mu_src_path, config) {
-	    console.log('config:');
-	    console.log(config);
-	    build_all(commander, mu_src_path);
+	    build_all_commander(commander, mu_src_path);
 	};
 
 	module.exports = _;
