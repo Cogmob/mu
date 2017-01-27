@@ -129,7 +129,7 @@ gulp.task('build_updatables', () => {
         .pipe(gulp.dest('../../release/updatables'));});
 
 gulp.task('build_lambda_pattern_tool', () => {
-    return gulp.src('[project_name]/_.js')
+    return gulp.src('[project_name]/bin.js')
         .pipe(webpack({
             externals: [node_externals()],
             module: {
@@ -140,7 +140,7 @@ gulp.task('build_lambda_pattern_tool', () => {
             node: {
                 __filename: false,
                 __dirname: false},
-            output: { filename: '_.js' },
+            output: { filename: 'bin.js' },
             target: 'node'}))
         .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
         .pipe(gulp.dest('../../release'));});
@@ -159,8 +159,12 @@ gulp.task('copy_yaml_to_release', () => {
     return gulp.src([
             '[project_name]/shared/default_package_values.yaml',
             '[project_name]/shared/package_template.json'])
-        .pipe(debug())
         .pipe(gulp.dest('../../release/[project_name]/shared'));});
+
+gulp.task('copy_main_to_release', () => {
+    return gulp.src([
+            '[project_name]/_.js'])
+        .pipe(gulp.dest('../../release'));});
 
 gulp.task('copy_src', () => {
     return gulp.src('../../../src/**/*')
@@ -174,5 +178,6 @@ gulp.task('build', sequence(
     'backup_gulpfile',
     'build_updatables',
     'build_lambda_pattern_tool',
+    'copy_main_to_release',
     'copy_skel_to_release',
     'copy_yaml_to_release'));
