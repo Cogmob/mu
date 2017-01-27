@@ -96,7 +96,7 @@ gulp.task('copy_main_to_release', function () {
 });
 
 gulp.task('copy_ignore_to_release', function () {
-    return gulp.src('lambda_pattern/.npmignore').pipe(gulp.dest('../../release'));
+    return gulp.src('lambda_pattern/.gitignore').pipe(gulp.dest('../../release'));
 });
 
 gulp.task('copy_src', function () {

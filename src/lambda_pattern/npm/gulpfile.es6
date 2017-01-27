@@ -167,7 +167,7 @@ gulp.task('copy_main_to_release', () => {
         .pipe(gulp.dest('../../release'));});
 
 gulp.task('copy_ignore_to_release', () => {
-    return gulp.src('[project_name]/.npmignore')
+    return gulp.src('[project_name]/.gitignore')
         .pipe(gulp.dest('../../release'));});
 
 gulp.task('copy_src', () => {
