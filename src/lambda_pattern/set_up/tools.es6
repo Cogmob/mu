@@ -3,7 +3,7 @@ const read_file = fs.readFile;
 const remove = fs.remove;
 const mkdir = fs.mkdirp;
 const copy = fs.copy;
-const yarn_install = require('../shared/yarn_install');
+const install = require('../shared/install');
 const yaml = require('js-yaml');
 
 const copy_if_exists = require('../shared/copy_if_exists');
@@ -34,17 +34,14 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
         yaml.safeLoad(dev_deps),
         cont(err));
 
-    console.log('====== yarn 2 started');
-    yarn_install(root_path + '/generated/tools', cont(err));
-    console.log('====== yarn 2 finished');
-    console.log('====== yarn 3 started');
-    /*
-    yarn_install(gen_path, cont(err));
-    */
+    console.log('====== install 2 started');
+    install(root_path + '/generated/tools', cont(err));
+    console.log('====== install 2 finished');
+    console.log('====== install 3 started');
     copy(
         root_path + '/generated/tools/node_modules',
         gen_path + '/node_modules',
         cont(err));
-    console.log('====== yarn 3 finished');
+    console.log('====== install 3 finished');
     cb();
     };

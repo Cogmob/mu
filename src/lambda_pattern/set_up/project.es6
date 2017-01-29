@@ -3,7 +3,7 @@ const read_file = fs.readFile;
 const remove = fs.remove;
 const mkdir = fs.mkdirp;
 const copy = fs.copy;
-const yarn_install = require('../shared/yarn_install');
+const install = require('../shared/install');
 const yaml = require('js-yaml');
 
 const download_updatables = require('../set_updatables_version/_');
@@ -29,7 +29,7 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
         yaml.safeLoad(dev_deps),
         cont(err));
 
-    console.log('===== yarn 1 starting');
-    yarn_install(gen_path, cont(err));
-    console.log('===== yarn 1 finished');
+    console.log('===== install 1 starting');
+    install(gen_path, cont(err));
+    console.log('===== install 1 finished');
     cb();};
