@@ -1,3 +1,4 @@
+const tar = require('tar-fs')
 const archive = require('git-archive')
 const fs = require('fs-extra');
 const mkdirp = fs.mkdirp;

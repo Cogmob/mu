@@ -1,6 +1,6 @@
 {
   "name": "lambda_pattern",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "module used for automating the lambda pattern of development",
   "main": "_.js",
   "bin": {
@@ -58,7 +58,6 @@
     "string-template": "^1.0.0",
     "tap-difflet": "^0.7.0",
     "tape": "^4.6.3",
-    "tar": "^2.2.1",
     "tar-fs": "^1.15.0",
     "tarball-extract": "0.0.3",
     "try-thread-sleep": "^1.0.0",
