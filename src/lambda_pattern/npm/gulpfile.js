@@ -10,7 +10,6 @@ var gulp = require('gulp');
 var replace = require('gulp-replace');
 var sequence = require('gulp-sequence');
 var babel = require('gulp-babel');
-var del = require('del');
 var debug = require('gulp-debug');
 var continuation = require('gulp-continuation');
 var vmap = require('vinyl-map');
