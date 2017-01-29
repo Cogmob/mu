@@ -39,6 +39,8 @@ const _ = (root_path, cb) => {
 
     modify_es6(root_path + '/generated_local/tools', cont(err));
     convert_es6(root_path + '/generated_local/tools', cont(err));
+    console.log('++++ A');
     webpack(root_path + '/generated_local/tools', cont(err));
+    console.log('++++ B');
 
     cb(null);};

@@ -3,7 +3,7 @@ const read_file = fs.readFile;
 const remove = fs.remove;
 const mkdir = fs.mkdirp;
 const copy = fs.copy;
-const NPM = require('npm-helper');
+const yarn_install = require('../shared/yarn_install');
 const yaml = require('js-yaml');
 
 const download_updatables = require('../set_updatables_version/_');
@@ -29,7 +29,7 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
         yaml.safeLoad(dev_deps),
         cont(err));
 
-    const npm = new NPM();
-    npm.cwd(gen_path);
-    npm.createNodeModulesDirectory();
-    npm.install(cb);};
+    console.log('===== yarn 1 starting');
+    yarn_install(gen_path, cont(err));
+    console.log('===== yarn 1 finished');
+    cb();};

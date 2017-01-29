@@ -1,5 +1,3 @@
-const tar = require('tar-fs')
-const rsv = require('path').resolve;
 const archive = require('git-archive')
 const fs = require('fs-extra');
 const mkdirp = fs.mkdirp;
