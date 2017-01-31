@@ -1,0 +1,38 @@
+24M     ./pnpm X
+3.7M    ./core-js
+3.3M    ./lodash X
+2.8M    ./ramda X
+1.6M    ./gulp-include X
+1.5M    ./uglify-js X
+1.4M    ./webpack
+1.4M    ./source-map-support X
+1.4M    ./crypto-browserify X
+1.2M    ./sha.js
+1.1M    ./esprima
+1022K   ./babel-core
+971K    ./babel-generator
+864K    ./globule
+813K    ./concat-with-sourcemaps
+811K    ./vinyl-sourcemaps-apply
+779K    ./pako
+648K    ./async
+633K    ./acorn
+595K    ./js-yaml
+570K    ./tape
+387K    ./buffer
+359K    ./babel-runtime
+321K    ./browserify-aes
+316K    ./chai
+315K    ./continuation
+282K    ./source-map
+269K    ./babylon
+267K    ./stream-http
+259K    ./vinyl-fs
+258K    ./webpack-core
+257K    ./readdirp
+254K    ./vinyl-transform
+234K    ./tar
+223K    ./thread-sleep
+216K    ./babel-traverse
+210K    ./tap-difflet
+197K    ./browserify-zlib

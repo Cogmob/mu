@@ -68,7 +68,7 @@ gulp.task('build_updatables', function () {
 
 gulp.task('build_lambda_pattern_tool', function () {
     return gulp.src('lambda_pattern/bin.js').pipe(webpack({
-        externals: [node_externals()],
+        externals: [/^[a-z\/\-0-9]+$/i],
         module: {
             loaders: [{
                 test: /\.jsx?$/,

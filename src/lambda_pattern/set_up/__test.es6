@@ -6,7 +6,7 @@ const create = require('../create/_');
 const get_metadata = require('../shared/get_metadata');
 const _ = require('./_');
 
-test('[module]', {timeout: 9000}, t => {
+test('[module]', {timeout: 90000}, t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};

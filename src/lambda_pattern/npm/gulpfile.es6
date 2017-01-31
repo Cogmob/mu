@@ -132,7 +132,7 @@ gulp.task('build_updatables', () => {
 gulp.task('build_lambda_pattern_tool', () => {
     return gulp.src('[project_name]/bin.js')
         .pipe(webpack({
-            externals: [node_externals()],
+            externals: [/^[a-z\/\-0-9]+$/i],
             module: {
                 loaders: [{
                     test: /\.jsx?$/,

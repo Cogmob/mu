@@ -51,7 +51,6 @@
     "gulp-yarn": "0.0.5",
     "js-yaml": "^3.7.0",
     "object-merge-override": "^0.1.0",
-    "ramda": "^0.23.0",
     "serialfs": "0.0.21",
     "shebang-loader": "0.0.1",
     "string-template": "^1.0.0",

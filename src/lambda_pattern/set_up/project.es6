@@ -3,7 +3,6 @@ const read_file = fs.readFile;
 const remove = fs.remove;
 const mkdir = fs.mkdirp;
 const copy = fs.copy;
-const install = require('../shared/install');
 const yaml = require('js-yaml');
 
 const download_updatables = require('../set_updatables_version/_');
@@ -21,6 +20,8 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
     read_file(root_path + '/meta/npm_dependencies.yaml', cont(err, deps));
     read_file(
         root_path + '/meta/npm_dev_dependencies.yaml', cont(err, dev_deps));
+        /*
+         * TODO: Copy behaviour from set_up/tools.es6
     make_package_json(
         mu_src_path,
         metadata,
@@ -32,4 +33,5 @@ const _ = (mu_src_path, root_path, metadata, cb) => {
     console.log('===== install 1 starting');
     install(gen_path, cont(err));
     console.log('===== install 1 finished');
+   */
     cb();};
