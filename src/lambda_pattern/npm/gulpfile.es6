@@ -10,6 +10,12 @@ const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
 const vmap = require('vinyl-map');
 const S = require('string');
+const fs = require('fs-extra');
+
+var module_map = fs.readFileSync(__dirname + '/lambda_pattern/module_map.yaml', 'utf8');
+
+const add_includes = (ret, map) => {
+    return ret + module_map.toString();}
 
 gulp.task('tools_es6', ()=>{
     return gulp.src(['tools/*.es6'])
@@ -53,7 +59,7 @@ gulp.task('es6', ()=>{
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
         .pipe(vmap((code, filename) => {
-            var ret = code.toString();
+            var ret = code.toString() + '//a';
             filename = filename.split('.');
             filename = filename[filename.length - 2];
             filename = filename.split('\\');
@@ -67,7 +73,12 @@ gulp.task('es6', ()=>{
             if (!ret.includes('module.exports') && ret.includes('const _ =')) {
                 ret += '\nmodule.exports = _;';}
 
+            ret = add_includes(ret, module_map);
             return ret;}))
+        .pipe(debug())
+        .pipe(vmap((code, filename) => {
+            console.log(code.toString());
+            return code.toString();}))
         .pipe(replace(
             /cont\(.*err.*\).*;/g,
             `$&
@@ -92,7 +103,8 @@ gulp.task('es6', ()=>{
         .pipe(gulp.dest('[project_name]'))
         .pipe(babel({ presets: ['es2015'] }))
         .pipe(continuation())
-        .pipe(gulp.dest('[project_name]'));});
+        .pipe(gulp.dest('[project_name]'))
+        ;});
 
 gulp.task('main_file', ()=>{
     return gulp.src('[project_name]/[project_name].js')
@@ -178,12 +190,13 @@ gulp.task('copy_src', () => {
 gulp.task('build', sequence(
     'copy_skel_to_parent',
     'es6',
-    'tools_es6',
-    'main_file',
+    //'tools_es6',
+    //'main_file',
     'backup_gulpfile',
-    'build_updatables',
-    'build_lambda_pattern_tool',
-    'copy_ignore_to_release',
-    'copy_main_to_release',
-    'copy_skel_to_release',
-    'copy_yaml_to_release'));
+    //'build_updatables',
+    //'build_lambda_pattern_tool',
+    //'copy_ignore_to_release',
+    //'copy_main_to_release',
+    //'copy_skel_to_release',
+    //'copy_yaml_to_release'
+));

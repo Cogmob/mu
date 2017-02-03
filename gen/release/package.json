@@ -1,41 +1,18 @@
 {
-  "name": "lambda_pattern",
-  "version": "0.0.31",
-  "description": "module used for automating the lambda pattern of development",
-  "main": "_.js",
-  "bin": {
-    "lambda_pattern": "bin.js"
-  },
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "dependencies for the tools used for developing the lambda pattern repo",
+  "main": "tools.js",
   "scripts": {
-    "test": "ava"
+    "test": "tools_test.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "-"
-  },
-  "keywords": [
-    "-"
-  ],
-  "author": "cogmob",
-  "license": "Apache-2.0",
   "devDependencies": {
-    "continuation": "^0.1.7",
-    "vinyl-transform": "^1.0.0"
-  },
-  "ava": {
-    "files": [
-      "src/**/*test.js"
-    ],
-    "tap": true,
-    "verbose": true,
-    "powerAssert": true
-  },
-  "dependencies": {
     "async-stacktrace": "0.0.2",
-    "babel-preset-es2015": "^6.18.0",
-    "continuation": "^0.1.7",
-    "fs-extra": "^1.0.0",
-    "git-archive": "^0.1.4",
+    "babel-preset-es2015": "^6.16.0",
+    "del": "^2.2.2",
+    "fs-extra": "^2.0.0",
+    "get-stack": "^1.0.2",
+    "git-download-archive": "^0.1.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-continuation": "^1.1.1",
@@ -48,22 +25,24 @@
     "gulp-insert-lines": "0.0.4",
     "gulp-replace": "^0.5.4",
     "gulp-sequence": "^0.4.6",
-    "gulp-yarn": "0.0.5",
-    "js-yaml": "^3.7.0",
-    "object-merge-override": "^0.1.0",
-    "serialfs": "0.0.21",
+    "is-function": "^1.0.1",
+    "longjohn": "^0.2.11",
+    "path": "^0.12.7",
+    "prepend-file": "^1.3.1",
+    "rollup-plugin-commonjs": "^6.0.1",
+    "rollup-plugin-node-resolve": "^2.0.0",
     "shebang-loader": "0.0.1",
-    "string-template": "^1.0.0",
+    "string": "^3.3.3",
+    "superstack": "0.0.4",
+    "tap": "^7.1.2",
     "tap-difflet": "^0.7.0",
     "tape": "^4.6.3",
-    "tar-fs": "^1.15.0",
-    "tarball-extract": "0.0.3",
-    "try-thread-sleep": "^1.0.0",
-    "user-home": "^2.0.0",
-    "vargs-callback": "^0.2.4",
-    "vinyl-transform": "^1.0.0",
+    "vinyl-map": "^1.0.2",
     "webpack-node-externals": "^1.5.4",
     "webpack-stream": "^3.2.0",
     "word-wrap": "^1.1.0"
-  }
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
 }
