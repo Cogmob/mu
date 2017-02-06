@@ -1,3 +1,5 @@
+const get_metadata = . ../shared/get_metadat;
+
 .. tape('[module]', {timeout: 90000}, t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
@@ -6,7 +8,7 @@
     const mu_src_path = __dirname + '/../..';
 
     . ../create/_(mu_src_path, __dirname, 'test_project', 2000, cont(err));
-    . ../shared/get_metadata(__dirname + '/test_project', cont(err, info));
+    . get_metadata(__dirname + '/test_project', cont(err, info));
     . _(mu_src_path, __dirname + '/test_project', info, cont(err));
 
     const contents = {

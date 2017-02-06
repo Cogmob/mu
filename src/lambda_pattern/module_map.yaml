@@ -1,34 +1,40 @@
-async_stacktrace: 'async-stacktrace@0.0.2'
-babel_preset_es2015: 'babel-preset-es2015@^6.18.0'
-continuation: 'continuation@^0.1.7'
-fs: 'fs-extra@^1.0.0'
-git_archive: 'git-archive@^0.1.4'
-gulp: 'gulp@^3.9.1'
-gulp_babel: 'gulp-babel@^6.1.2'
-gulp_continuation: 'gulp-continuation@^1.1.1'
-gulp_debug: 'gulp-debug@^2.1.2'
-gulp_footer: 'gulp-footer@^1.0.5'
-gulp_header: 'gulp-header@^1.8.8'
-gulp_include: 'gulp-include@^2.3.1'
-gulp_inject_string: 'gulp-inject-string@^1.1.0'
-gulp_insert: 'gulp-insert@^0.5.0'
-gulp_insert_lines: 'gulp-insert-lines@0.0.4'
-gulp_replace: 'gulp-replace@^0.5.4'
-gulp_sequence: 'gulp-sequence@^0.4.6'
-gulp_yarn: 'gulp-yarn@0.0.5'
-js_yaml: 'js-yaml@^3.7.0'
-object_merge_override: 'object-merge-override@^0.1.0'
-serialfs: 'serialfs@0.0.21'
-shebang_loader: 'shebang-loader@0.0.1'
-string_template: 'string-template@^1.0.0'
-tap_difflet: 'tap-difflet@^0.7.0'
-tape: 'tape@^4.6.3'
-tar_fs: 'tar-fs@^1.15.0'
-tarball_extract: 'tarball-extract@0.0.3'
-try_thread_sleep: 'try-thread-sleep@^1.0.0'
-user_home: 'user-home@^2.0.0'
-vargs_callback: 'vargs-callback@^0.2.4'
-vinyl_transform: 'vinyl-transform@^1.0.0'
-webpack_node_externals: 'webpack-node-externals@^1.5.4'
-webpack_stream: 'webpack-stream@^3.2.0'
-word_wrap: 'word-wrap@^1.1.0'
+async_stacktrace: ['async-stacktrace@0.0.2']
+babel_preset_es2015: ['babel-preset-es2015@^6.18.0']
+continuation: ['continuation@^0.1.7']
+fs: ['fs-extra@^1.0.0']
+copy_path: ['fs-extra@^1.0.0', 'copy']
+remove_path: ['fs-extra@^1.0.0', 'remove']
+make_dir: ['fs-extra@^1.0.0', 'mkdirp']
+read_file: ['fs-extra@^1.0.0', 'readFile']
+write_file: ['fs-extra@^1.0.0', 'writeFile']
+file_exists: ['fs-extra@^1.0.0', 'stat']
+git_archive: ['git-archive@^0.1.4']
+gulp: ['gulp@^3.9.1']
+gulp_babel: ['gulp-babel@^6.1.2']
+gulp_continuation: ['gulp-continuation@^1.1.1']
+gulp_debug: ['gulp-debug@^2.1.2']
+gulp_footer: ['gulp-footer@^1.0.5']
+gulp_header: ['gulp-header@^1.8.8']
+gulp_include: ['gulp-include@^2.3.1']
+gulp_inject_string: ['gulp-inject-string@^1.1.0']
+gulp_insert: ['gulp-insert@^0.5.0']
+gulp_insert_lines: ['gulp-insert-lines@0.0.4']
+gulp_replace: ['gulp-replace@^0.5.4']
+gulp_sequence: ['gulp-sequence@^0.4.6']
+gulp_yarn: ['gulp-yarn@0.0.5']
+js_yaml: ['js-yaml@^3.7.0']
+object_merge_override: ['object-merge-override@^0.1.0']
+serialfs: ['serialfs@0.0.21']
+shebang_loader: ['shebang-loader@0.0.1']
+string_template: ['string-template@^1.0.0']
+tap_difflet: ['tap-difflet@^0.7.0']
+tape: ['tape@^4.6.3']
+tar_fs: ['tar-fs@^1.15.0']
+tarball_extract: ['tarball-extract@0.0.3']
+try_thread_sleep: ['try-thread-sleep@^1.0.0']
+user_home: ['user-home@^2.0.0']
+vargs_callback: ['vargs-callback@^0.2.4']
+vinyl_transform: ['vinyl-transform@^1.0.0']
+webpack_node_externals: ['webpack-node-externals@^1.5.4']
+webpack_stream: ['webpack-stream@^3.2.0']
+word_wrap: ['word-wrap@^1.1.0']

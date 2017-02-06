@@ -6,12 +6,12 @@ const _ = (
             .. ramda.toPairs(i));
         return ret.join(',\n    ');}
 
-    .. fs.readFile(
+    .. read_file(
         mu_src_path + '/lambda_pattern/shared/default_package_values.yaml',
         'utf8',
         cont(err, def_vals_yaml));
     const def_vals = .. js-yaml.safeLoad(def_vals_yaml);
-    .. fs.readFile(
+    .. read_file(
         mu_src_path + '/lambda_pattern/shared/package_template.json',
         'utf8',
         cont(err, template));
@@ -19,7 +19,7 @@ const _ = (
     replace.dependencies = map_to_str(deps);
     replace.dev_dependencies = map_to_str(dev_deps);
     const s = .. string-template(template, replace);
-    .. fs.writeFile(
+    .. write_file(
         gen_path + '/package.json',
         s,
         cb);};

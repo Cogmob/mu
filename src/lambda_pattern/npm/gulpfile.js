@@ -33,11 +33,15 @@ var add_includes = function add_includes(ret, map) {
     if (imports.length > 0) {
         var imports_string = '// load jspm\n';
         for (var i in imports) {
+            var require_string = 'jspm.require(\'';
+            require_string += module_map[imports[i][0]] + '\')';
             ret = ret.replace('.. ' + imports[i], imports[i]);
-            if (!imports_string.includes('require(\'' + imports[i])) {
+            if (imports[i].length > 1) {
+                require_string += '.' + module_map[imports[i]];
+            }
+            if (!imports_string.includes(require_string)) {
                 imports_string += '// const ' + imports[i];
-                imports_string += ' = jspm.require(\'';
-                imports_string += module_map[imports[i]] + '\');\n';
+                imports_string += ' = ' + require_string + ';\n';
             }
         }
         ret = imports_string + ret;

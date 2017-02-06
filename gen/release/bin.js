@@ -158,55 +158,55 @@
 	  var skel_path, gen_path, err, readme, index, test_file, meta;
 	  skel_path = mu_src_path + '/skeleton_data';
 	  gen_path = root_path + '/' + project_name;
-	  fs.copy(skel_path, gen_path, function (arguments, _$param0) {
+	  copy_file(skel_path, gen_path, function (arguments, _$param0) {
 	    err = _$param0;
 	    if (ERR(err, cb)) {
 	      return;
 	    }
-	    fs.readFile(gen_path + '/readme.md', 'utf8', function (arguments, _$param1, _$param2) {
+	    read_file(gen_path + '/readme.md', 'utf8', function (arguments, _$param1, _$param2) {
 	      err = _$param1;
 	      readme = _$param2;
 	      if (ERR(err, cb)) {
 	        return;
 	      }
 	      readme = readme.replace(/\[\[project_name\]\]/g, project_name);
-	      fs.writeFile(gen_path + '/readme.md', readme, function (arguments, _$param3) {
+	      write_file(gen_path + '/readme.md', readme, function (arguments, _$param3) {
 	        err = _$param3;
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        fs.readFile(gen_path + '/_.es6', 'utf8', function (arguments, _$param4, _$param5) {
+	        read_file(gen_path + '/_.es6', 'utf8', function (arguments, _$param4, _$param5) {
 	          err = _$param4;
 	          index = _$param5;
 	          if (ERR(err, cb)) {
 	            return;
 	          }
 	          index = index.replace(/\[\[project_name\]\]/g, project_name);
-	          fs.writeFile(gen_path + '/_.es6', index, function (arguments, _$param6) {
+	          write_file(gen_path + '/_.es6', index, function (arguments, _$param6) {
 	            err = _$param6;
 	            if (ERR(err, cb)) {
 	              return;
 	            }
-	            fs.readFile(gen_path + '/__test.es6', 'utf8', function (arguments, _$param7, _$param8) {
+	            read_file(gen_path + '/__test.es6', 'utf8', function (arguments, _$param7, _$param8) {
 	              err = _$param7;
 	              test_file = _$param8;
 	              if (ERR(err, cb)) {
 	                return;
 	              }
 	              test_file = test_file.replace(/\[\[project_name\]\]/g, project_name);
-	              fs.writeFile(gen_path + '/__test.es6', test_file, function (arguments, _$param9) {
+	              write_file(gen_path + '/__test.es6', test_file, function (arguments, _$param9) {
 	                err = _$param9;
 	                if (ERR(err, cb)) {
 	                  return;
 	                }
-	                fs.readFile(gen_path + '/meta/data.yaml', 'utf8', function (arguments, _$param10, _$param11) {
+	                read_file(gen_path + '/meta/data.yaml', 'utf8', function (arguments, _$param10, _$param11) {
 	                  err = _$param10;
 	                  meta = _$param11;
 	                  if (ERR(err, cb)) {
 	                    return;
 	                  }
 	                  meta = meta.replace(/\[\[project_name\]\]/g, project_name);
-	                  fs.writeFile(gen_path + '/meta/data.yaml', meta, function (arguments, _$param12) {
+	                  write_file(gen_path + '/meta/data.yaml', meta, function (arguments, _$param12) {
 	                    err = _$param12;
 	                    if (ERR(err, cb)) {
 	                      return;
@@ -235,7 +235,7 @@
 	word_wrap = __webpack_require__(2);
 	_ = function _(root_path, cb) {
 	  var err, metadata;
-	  fs.readFile(root_path + '/meta/data.yaml', 'utf8', function (arguments, _$param0, _$param1) {
+	  read_file(root_path + '/meta/data.yaml', 'utf8', function (arguments, _$param0, _$param1) {
 	    err = _$param0;
 	    metadata = _$param1;
 	    if (ERR(err, cb)) {
@@ -260,7 +260,7 @@
 	word_wrap = __webpack_require__(2);
 	_ = function _(mu_src_path, root_path, metadata, cb) {
 	  var err;
-	  fs.mkdirp(root_path + '/generated_local', function (arguments, _$param0) {
+	  make_dir(root_path + '/generated_local', function (arguments, _$param0) {
 	    err = _$param0;
 	    if (ERR(err, cb)) {
 	      return;
@@ -287,20 +287,18 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ERR, word_wrap, mkdirp, create_read_stream, remove, move, find_project_root, _;
+	var __sharedfind_project_root, ERR, word_wrap, move, find_project_root, _;
 	'use strict';
+	__sharedfind_project_root = __webpack_require__(9);
 	ERR = __webpack_require__(1);
 	word_wrap = __webpack_require__(2);
-	mkdirp = fs.mkdirp;
-	create_read_stream = fs.createReadStream;
-	remove = fs.remove;
 	move = fs.move;
-	find_project_root = __webpack_require__(9);
+	find_project_root = __sharedfind_project_root;
 	_ = function _(mu_src_path, root_path, version, cb) {
 	  var move_updatables, cleanup;
 	  (function () {
 	    var err, tool_root;
-	    mkdirp(root_path + '/generated_local', function (arguments, _$param0) {
+	    make_dir(root_path + '/generated_local', function (arguments, _$param0) {
 	      err = _$param0;
 	      if (ERR(err, cb)) {
 	        return;
@@ -327,19 +325,19 @@
 	  }());
 	  move_updatables = function move_updatables() {
 	    var err;
-	    mkdirp(root_path + '/generated_local/updatables', function (arguments, _$param4) {
+	    make_dir(root_path + '/generated_local/updatables', function (arguments, _$param4) {
 	      err = _$param4;
 	      if (ERR(err, cb)) {
 	        return;
 	      }
-	      create_read_stream(root_path + '/generated_local/updatables.tar').pipe(tar - fs.extract(root_path + '/generated_local/updatables')).on('finish', cleanup).on('error', function (er) {
+	      fs.create_read_stream(root_path + '/generated_local/updatables.tar').pipe(tar - fs.extract(root_path + '/generated_local/updatables')).on('finish', cleanup).on('error', function (er) {
 	        return ERR(er, cb);
 	      });
 	    }.bind(this, arguments));
 	  };
 	  cleanup = function cleanup() {
 	    var err;
-	    remove(root_path + '/generated_local/lambda_updatables', function (arguments, _$param5) {
+	    remove_path(root_path + '/generated_local/lambda_updatables', function (arguments, _$param5) {
 	      err = _$param5;
 	      if (ERR(err, cb)) {
 	        return;
@@ -349,12 +347,12 @@
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        remove(root_path + '/generated_local/updatables.tar', function (arguments, _$param7) {
+	        remove_path(root_path + '/generated_local/updatables.tar', function (arguments, _$param7) {
 	          err = _$param7;
 	          if (ERR(err, cb)) {
 	            return;
 	          }
-	          remove(root_path + '/generated_local/updatables', function (arguments, _$param8) {
+	          remove_path(root_path + '/generated_local/updatables', function (arguments, _$param8) {
 	            err = _$param8;
 	            if (ERR(err, cb)) {
 	              return;
@@ -379,7 +377,7 @@
 	word_wrap = __webpack_require__(2);
 	_ = function _(curr_path, cb) {
 	  var err, exists;
-	  fs.stat(curr_path + '/.git', function (arguments, _$param0, _$param1) {
+	  file_exists(curr_path + '/.git', function (arguments, _$param0, _$param1) {
 	    err = _$param0;
 	    exists = _$param1;
 	    if (exists) {
@@ -395,41 +393,38 @@
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __sharedcopy_if_exists, __set_updatables_version_, __sharedmake_package_json, ERR, word_wrap, read_file, remove, mkdir, copy, _;
+	var __sharedcopy_if_exists, __set_updatables_version_, __sharedmake_package_json, ERR, word_wrap, copy_if_exists, _;
 	'use strict';
 	__sharedcopy_if_exists = __webpack_require__(11);
 	__set_updatables_version_ = __webpack_require__(8);
 	__sharedmake_package_json = __webpack_require__(12);
 	ERR = __webpack_require__(1);
 	word_wrap = __webpack_require__(2);
-	read_file = fs.readFile;
-	remove = fs.remove;
-	mkdir = fs.mkdirp;
-	copy = fs.copy;
+	copy_if_exists = __sharedcopy_if_exists;
 	_ = function _(mu_src_path, root_path, metadata, cb) {
 	  var gen_path, err, deps, dev_deps;
 	  gen_path = root_path + '/generated_local/project';
-	  remove(gen_path, function (arguments, _$param0) {
+	  remove_path(gen_path, function (arguments, _$param0) {
 	    err = _$param0;
 	    if (ERR(err, cb)) {
 	      return;
 	    }
-	    mkdir(gen_path, function (arguments, _$param1) {
+	    make_dir(gen_path, function (arguments, _$param1) {
 	      err = _$param1;
 	      if (ERR(err, cb)) {
 	        return;
 	      }
-	      __sharedcopy_if_exists(root_path + '/submodules', gen_path, function (arguments, _$param2) {
+	      copy_if_exists(root_path + '/submodules', gen_path, function (arguments, _$param2) {
 	        err = _$param2;
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        copy(root_path + '/_.es6', gen_path + '/_.es6', function (arguments, _$param3) {
+	        copy_path(root_path + '/_.es6', gen_path + '/_.es6', function (arguments, _$param3) {
 	          err = _$param3;
 	          if (ERR(err, cb)) {
 	            return;
 	          }
-	          copy(root_path + '/__test.es6', gen_path + '/__test.es6', function (arguments, _$param4) {
+	          copy_path(root_path + '/__test.es6', gen_path + '/__test.es6', function (arguments, _$param4) {
 	            err = _$param4;
 	            if (ERR(err, cb)) {
 	              return;
@@ -471,7 +466,7 @@
 	'use strict';
 
 	// load jspm
-	// const fs = jspm.require('fs-extra@^1.0.0');
+	// const fs = jspm.require('undefined').fs-extra@^1.0.0;
 	// imports for all files
 	var ERR = __webpack_require__(1);
 	var word_wrap = __webpack_require__(2);
@@ -503,14 +498,14 @@
 	    }, ramda.toPairs(i));
 	    return ret.join(',\n    ');
 	  };
-	  fs.readFile(mu_src_path + '/lambda_pattern/shared/default_package_values.yaml', 'utf8', function (arguments, _$param0, _$param1) {
+	  read_file(mu_src_path + '/lambda_pattern/shared/default_package_values.yaml', 'utf8', function (arguments, _$param0, _$param1) {
 	    err = _$param0;
 	    def_vals_yaml = _$param1;
 	    if (ERR(err, cb)) {
 	      return;
 	    }
 	    def_vals = js - yaml.safeLoad(def_vals_yaml);
-	    fs.readFile(mu_src_path + '/lambda_pattern/shared/package_template.json', 'utf8', function (arguments, _$param2, _$param3) {
+	    read_file(mu_src_path + '/lambda_pattern/shared/package_template.json', 'utf8', function (arguments, _$param2, _$param3) {
 	      err = _$param2;
 	      template = _$param3;
 	      if (ERR(err, cb)) {
@@ -523,7 +518,7 @@
 	      replace.dependencies = map_to_str(deps);
 	      replace.dev_dependencies = map_to_str(dev_deps);
 	      s = string - template(template, replace);
-	      fs.writeFile(gen_path + '/package.json', s, cb);
+	      write_file(gen_path + '/package.json', s, cb);
 	    }.bind(this, arguments));
 	  }.bind(this, arguments));
 	};
@@ -534,25 +529,23 @@
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ERR, word_wrap, read_file, remove, mkdir, copy, copy_if_exists, make_package_json, _;
+	var __sharedcopy_if_exists, __sharedmake_package_json, ERR, word_wrap, copy_if_exists, make_package_json, _;
 	'use strict';
+	__sharedcopy_if_exists = __webpack_require__(11);
+	__sharedmake_package_json = __webpack_require__(12);
 	ERR = __webpack_require__(1);
 	word_wrap = __webpack_require__(2);
-	read_file = fs.readFile;
-	remove = fs.remove;
-	mkdir = fs.mkdirp;
-	copy = fs.copy;
-	copy_if_exists = __webpack_require__(11);
-	make_package_json = __webpack_require__(12);
+	copy_if_exists = __sharedcopy_if_exists;
+	make_package_json = __sharedmake_package_json;
 	_ = function _(mu_src_path, root, metadata, cb) {
 	  var gen_path, err, dev_deps, deps, packages;
 	  gen_path = root + '/generated_local/tools';
-	  remove(gen_path, function (arguments, _$param0) {
+	  remove_path(gen_path, function (arguments, _$param0) {
 	    err = _$param0;
 	    if (ERR(err, cb)) {
 	      return;
 	    }
-	    mkdir(gen_path, function (arguments, _$param1) {
+	    make_dir(gen_path, function (arguments, _$param1) {
 	      err = _$param1;
 	      if (ERR(err, cb)) {
 	        return;
@@ -568,7 +561,7 @@
 	          if (ERR(err, cb)) {
 	            return;
 	          }
-	          mkdir(root + '/generated/tools', function (arguments, _$param5) {
+	          make_dir(root + '/generated/tools', function (arguments, _$param5) {
 	            err = _$param5;
 	            if (ERR(err, cb)) {
 	              return;
@@ -591,7 +584,7 @@
 	                }
 	                console.log('====== install 2 finished');
 	                console.log('====== install 3 started');
-	                copy(root + '/generated/tools/node_modules', gen_path + '/node_modules', function (arguments, _$param8) {
+	                copy_path(root + '/generated/tools/node_modules', gen_path + '/node_modules', function (arguments, _$param8) {
 	                  err = _$param8;
 	                  if (ERR(err, cb)) {
 	                    return;
@@ -614,33 +607,36 @@
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __sharedmove_if_exists, __sharedcopy_if_exists, __modify_es6, __sharedconvert_es6, __webpack, ERR, word_wrap, _;
+	var __sharedcopy_if_exists, __sharedmove_if_exists, __sharedconvert_es6, __modify_es6, __webpack, ERR, word_wrap, copy_if_exists, move_if_exists, convert_es6, _;
 	'use strict';
-	__sharedmove_if_exists = __webpack_require__(15);
 	__sharedcopy_if_exists = __webpack_require__(11);
-	__modify_es6 = __webpack_require__(16);
-	__sharedconvert_es6 = __webpack_require__(17);
+	__sharedmove_if_exists = __webpack_require__(15);
+	__sharedconvert_es6 = __webpack_require__(16);
+	__modify_es6 = __webpack_require__(17);
 	__webpack = __webpack_require__(18);
 	ERR = __webpack_require__(1);
 	word_wrap = __webpack_require__(2);
+	copy_if_exists = __sharedcopy_if_exists;
+	move_if_exists = __sharedmove_if_exists;
+	convert_es6 = __sharedconvert_es6;
 	_ = function _(root, cb) {
 	  var err;
-	  __sharedmove_if_exists(root + '/generated_local/tools/node_modules', root + '/generated_local/tools_node_modules', function (arguments, _$param0) {
+	  move_if_exists(root + '/generated_local/tools/node_modules', root + '/generated_local/tools_node_modules', function (arguments, _$param0) {
 	    err = _$param0;
 	    if (ERR(err, cb)) {
 	      return;
 	    }
-	    fs.remove(root + '/generated_local/tools', function (arguments, _$param1) {
+	    remove_file(root + '/generated_local/tools', function (arguments, _$param1) {
 	      err = _$param1;
 	      if (ERR(err, cb)) {
 	        return;
 	      }
-	      __sharedcopy_if_exists(root + '/tools', root + '/generated_local/tools', function (arguments, _$param2) {
+	      copy_if_exists(root + '/tools', root + '/generated_local/tools', function (arguments, _$param2) {
 	        err = _$param2;
 	        if (ERR(err, cb)) {
 	          return;
 	        }
-	        __sharedmove_if_exists(root + '/generated_local/tools_node_modules', root + '/generated_local/tools/node_modules', function (arguments, _$param3) {
+	        move_if_exists(root + '/generated_local/tools_node_modules', root + '/generated_local/tools/node_modules', function (arguments, _$param3) {
 	          err = _$param3;
 	          if (ERR(err, cb)) {
 	            return;
@@ -650,7 +646,7 @@
 	            if (ERR(err, cb)) {
 	              return;
 	            }
-	            __sharedconvert_es6(root + '/generated_local/tools', function (arguments, _$param5) {
+	            convert_es6(root + '/generated_local/tools', function (arguments, _$param5) {
 	              err = _$param5;
 	              if (ERR(err, cb)) {
 	                return;
@@ -681,7 +677,7 @@
 	'use strict';
 
 	// load jspm
-	// const fs = jspm.require('fs-extra@^1.0.0');
+	// const move_path = jspm.require('undefined').undefined;
 	// imports for all files
 	var ERR = __webpack_require__(1);
 	var word_wrap = __webpack_require__(2);
@@ -690,7 +686,7 @@
 	        cb();
 	    };
 
-	    fs.move(from, to, handle_response);
+	    move_path(from, to, handle_response);
 	};
 	//a
 	module.exports = _;
@@ -703,32 +699,9 @@
 	'use strict';
 
 	// load jspm
-	// const gulp = jspm.require('gulp@^3.9.1');
-	// const gulp-insert = jspm.require('undefined');
-	// imports for all files
-	var ERR = __webpack_require__(1);
-	var word_wrap = __webpack_require__(2);
-	var _ = function _(root_path, cb) {
-	    gulp.task('a', function () {
-	        return gulp.src([root_path + '/**' + '/*.es6', '!*' + '*/expected/**', '!**' + '/node_modules/**', '!**' + '/*_data/**' + '/*']).pipe(gulp - insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(gulp - insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(gulp - replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(gulp - replace(/cont\(.*err.*\).*;/g, '$&\n                if (ERR(err, cb)) {\n                    return;}\n                    ')).pipe(gulp - replace(/const cb = \(err.*\) \=> \{/g, '$&\n            if (err) {\n                console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                    trim: true,\n                    width: 80})\n                .split(\'\\n\').forEach((stack_line) => {\n                    console.log(stack_line\n                        .replace(/\\\\ /g, \'\\\\\')\n                        .replace(/ at/g, \'\\nat\')\n                        .replace(/Error:/g, \'\\nError:\'));}));\n                t.fail();\n                return t.end();}\n            ')).pipe(gulp.dest(root_path)).on('end', cb).on('error', cb);
-	    });
-
-	    gulp.start('a');
-	};
-	//a
-	module.exports = _;
-	/* Generated by Continuation.js v0.1.7 */
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	// load jspm
-	// const gulp = jspm.require('gulp@^3.9.1');
-	// const gulp-babel = jspm.require('undefined');
-	// const continuation = jspm.require('continuation@^0.1.7');
+	// const gulp = jspm.require('undefined').gulp@^3.9.1;
+	// const gulp-babel = jspm.require('undefined').undefined;
+	// const continuation = jspm.require('undefined').continuation@^0.1.7;
 	// imports for all files
 	var ERR = __webpack_require__(1);
 	var word_wrap = __webpack_require__(2);
@@ -744,16 +717,37 @@
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	// load jspm
+	// const gulp = jspm.require('undefined').gulp@^3.9.1;
+	// const gulp-insert = jspm.require('undefined').undefined;
+	// imports for all files
+	var ERR = __webpack_require__(1);
+	var word_wrap = __webpack_require__(2);
+	var _ = function _(root_path, cb) {
+	    gulp.task('a', function () {
+	        return gulp.src([root_path + '/**' + '/*.es6', '!*' + '*/expected/**', '!**' + '/node_modules/**', '!**' + '/*_data/**' + '/*']).pipe(gulp - insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(gulp - insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(gulp - replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(gulp - replace(/cont\(.*err.*\).*;/g, '$&\n                if (ERR(err, cb)) {\n                    return;}\n                    ')).pipe(gulp - replace(/const cb = \(err.*\) \=> \{/g, '$&\n            if (err) {\n                console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                    trim: true,\n                    width: 80})\n                .split(\'\\n\').forEach((stack_line) => {\n                    console.log(stack_line\n                        .replace(/\\\\ /g, \'\\\\\')\n                        .replace(/ at/g, \'\\nat\')\n                        .replace(/Error:/g, \'\\nError:\'));}));\n                t.fail();\n                return t.end();}\n            ')).pipe(gulp.dest(root_path)).on('end', cb).on('error', cb);
+	    });
+
+	    gulp.start('a');
+	};
+	//a
+	module.exports = _;
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ },
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	// load jspm
-	// const gulp = jspm.require('gulp@^3.9.1');
-	// const webpack-stream = jspm.require('undefined');
-	// const webpack-node-externals = jspm.require('undefined');
-	// const gulp-insert = jspm.require('undefined');
+	// const gulp = jspm.require('undefined').gulp@^3.9.1;
+	// const webpack-stream = jspm.require('undefined').undefined;
 	// imports for all files
 	var ERR = __webpack_require__(1);
 	var word_wrap = __webpack_require__(2);

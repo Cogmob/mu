@@ -1,7 +1,7 @@
 'use strict';
 
 // load jspm
-// const commander = jspm.require('undefined');
+// const commander = jspm.require('undefined').undefined;
 // imports for all files
 var ERR = require('async-stacktrace');
 var word_wrap = require('word-wrap');

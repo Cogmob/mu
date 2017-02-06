@@ -1,12 +1,11 @@
 const _ = (root_path, cb) => {
-    const main_path = root_path + '/_.es6';
-    .. fs.readFile(main_path, cont(err, main_file));
+    .. read_file(root_path + '/_.es6', cont(err, main_file));
     main_file = main_file + `
-if (!module.parent) {
-    lambda_pattern(function (er) {
-        if (er) {
-           console.log(er.toString());
-        }
-    });
-}`
-    fs.writeFile(main_path, main_file, cb);};
+        if (!module.parent) {
+            lambda_pattern(function (er) {
+                if (er) {
+                   console.log(er.toString());
+                }
+            });
+        }`
+    .. write_file(root_path + '/_.es6', main_file, cb);};

@@ -10,8 +10,8 @@
         2000,
         cont(err));
 
-    .. fs.mkdirp(__dirname + '/test_project/submodules');
-    .. fs.copy(__dirname + '/test_module_data',
+    .. make_dir(__dirname + '/test_project/submodules');
+    .. copy_file(__dirname + '/test_module_data',
             __dirname + '/test_project/submodules/test_module',
             cont(err));
     const metadata = {project_name: 'test_project'};

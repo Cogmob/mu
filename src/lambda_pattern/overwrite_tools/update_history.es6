@@ -11,7 +11,7 @@ const _ = (root_path, history, updatables_version, cb) => {
         release_built: false,
         release_tests_passed: false};
 
-    .. fs.writeFile(
+    .. write_file(
         root_path + '/generated/lambda_state_history.yaml',
         js-yaml.safeDump(history),
         'utf8',
