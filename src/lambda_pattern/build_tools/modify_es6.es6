@@ -1,27 +1,22 @@
-const gulp = require('gulp');
-const debug = require('gulp-debug');
-const insert = require('gulp-insert');
-const replace = require('gulp-replace');
-const babel = require('gulp-babel');
-const continuation = require('gulp-continuation');
-
 const _ = (root_path, cb) => {
-    gulp.task('a', ()=>{
-        return gulp.src([
+    .. gulp.task('a', ()=>{
+        return .. gulp.src([
                 root_path + '/**' + '/*.es6',
                 '!*' + '*/expected/**',
                 '!**' + '/node_modules/**',
                 '!**' + '/*_data/**' + '/*'])
-            .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
-            .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
-            .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
-            .pipe(replace(
+            .pipe(.. gulp-insert.prepend(
+                'const word_wrap = require(\'word-wrap\');\n'))
+            .pipe(gulp-insert.prepend(
+                'const ERR = require(\'async-stacktrace\');\n'))
+            .pipe(gulp-replace(/\[project\_name\]/g, 'lambda_pattern'))
+            .pipe(gulp-replace(
                 /cont\(.*err.*\).*;/g,
                 `$&
                 if (ERR(err, cb)) {
                     return;}
                     `))
-            .pipe(replace(
+            .pipe(gulp-replace(
                 /const cb = \(err.*\) \=> \{/g,
                 `$&
             if (err) {

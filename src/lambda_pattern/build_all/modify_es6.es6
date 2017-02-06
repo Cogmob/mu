@@ -1,13 +1,6 @@
-const gulp = require('gulp');
-const debug = require('gulp-debug');
-const insert = require('gulp-insert');
-const replace = require('gulp-replace');
-const babel = require('gulp-babel');
-const continuation = require('gulp-continuation');
-
 const _ = (root_path, cb) => {
-    gulp.task('_', ()=>{
-        return gulp.src([
+    .. gulp.task('_', ()=>{
+        return .. gulp.src([
                 root_path + '/**/*.es6',
                 '!**/expected/**',
                 '!**/node_modules/**',
@@ -36,8 +29,8 @@ const _ = (root_path, cb) => {
                 t.fail();
                 return t.end();}
             `)) 
-            .pipe(gulp.dest(root_path))
+            .pipe(.. gulp.dest(root_path))
             .on('end', cb)
             .on('error', cb);});
 
-        gulp.start('_');};
+        .. gulp.start('_');};

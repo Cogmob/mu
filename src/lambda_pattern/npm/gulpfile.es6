@@ -10,17 +10,59 @@ const debug = require('gulp-debug');
 const continuation = require('gulp-continuation');
 const vmap = require('vinyl-map');
 const S = require('string');
-const fs = require('fs-extra');
+const fs = require('fs');
+const yaml = require('js-yaml').safeLoad;
 
-var module_map = fs.readFileSync(__dirname + '/lambda_pattern/module_map.yaml', 'utf8');
+var module_map = yaml(
+    fs.readFileSync(__dirname + '/lambda_pattern/module_map.yaml', 'utf8'));
 
 const add_includes = (ret, map) => {
-    return ret + module_map.toString();}
+    const re = /[^a-zA-Z0-9]\.\. [-a-zA-Z0-9_]+/g;
+    var imports = [];
+    var m;
+    do {
+        m = re.exec(ret);
+        if (m) {
+            imports.push(m[0].substring(4));}} while (m);
+    if (imports.length > 0) {
+        var imports_string = '// load jspm\n';
+        for (var i in imports) {
+            ret = ret.replace('.. ' + imports[i], imports[i]);
+            if (!imports_string.includes('require(\'' + imports[i])) {
+                imports_string += '// const ' + imports[i];
+                imports_string += ' = jspm.require(\'';
+                imports_string +=  module_map[imports[i]] + '\');\n';}}
+        ret = imports_string + ret;
+    }
+    return ret;
+}
+
+const add_local_includes = (ret, map) => {
+    const re = /[^a-zA-Z0-9]\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/]*/g;
+    var imports = [];
+    var m;
+    do {
+        m = re.exec(ret);
+        if (m) {
+            imports.push(m[0].substring(3));}} while (m);
+    if (imports.length > 0) {
+        var imports_string = '// load local\n';
+        for (var i in imports) {
+            const varname = '__' + imports[i].replace(/\W/g, '');
+            ret = ret.replace('. ' + imports[i], varname);
+            if (!imports_string.includes(imports[i])) {
+                imports_string += 'const ' + varname;
+                imports_string += ' = require(\'./' + imports[i] + '\');\n';}}
+        ret = imports_string + ret;
+    }
+    return ret;
+}
 
 gulp.task('tools_es6', ()=>{
     return gulp.src(['tools/*.es6'])
         .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
+        .pipe(insert.prepend('// imports for all files\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
         .pipe(replace(/\[filename\]/g, 'lambda_pattern'))
         .pipe(replace(
@@ -57,6 +99,7 @@ gulp.task('es6', ()=>{
             '!**/*_data/**/*'])
         .pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n'))
         .pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n'))
+        .pipe(insert.prepend('// imports for all files\n'))
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
         .pipe(vmap((code, filename) => {
             var ret = code.toString() + '//a';
@@ -74,10 +117,9 @@ gulp.task('es6', ()=>{
                 ret += '\nmodule.exports = _;';}
 
             ret = add_includes(ret, module_map);
+            ret = add_local_includes(ret, module_map);
             return ret;}))
-        .pipe(debug())
         .pipe(vmap((code, filename) => {
-            console.log(code.toString());
             return code.toString();}))
         .pipe(replace(
             /cont\(.*err.*\).*;/g,
@@ -190,13 +232,13 @@ gulp.task('copy_src', () => {
 gulp.task('build', sequence(
     'copy_skel_to_parent',
     'es6',
-    //'tools_es6',
-    //'main_file',
+    'tools_es6',
+    'main_file',
     'backup_gulpfile',
-    //'build_updatables',
-    //'build_lambda_pattern_tool',
-    //'copy_ignore_to_release',
-    //'copy_main_to_release',
-    //'copy_skel_to_release',
-    //'copy_yaml_to_release'
+    'build_updatables',
+    'build_lambda_pattern_tool',
+    'copy_ignore_to_release',
+    'copy_main_to_release',
+    'copy_skel_to_release',
+    'copy_yaml_to_release'
 ));

@@ -1,32 +1,23 @@
-const fs = require('fs-extra');
-const serialfs = require('serialfs');
-const test = require('tape');
-
-const create = require('../create/_');
-const set_up = require('../set_up/_');
-const _ = require('./_');
-const set_updatables_version = require('../set_updatables_version/_');
-
-test('[module]', t => {
+.. tape('[module]', t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};
 
-    create(
+    . ../create/_(
         __dirname + '/../..',
         __dirname,
         'test_project',
         2000,
         cont(err));
 
-    fs.mkdirp(__dirname + '/test_project/submodules');
-    fs.copy(__dirname + '/test_module_data',
+    .. fs.mkdirp(__dirname + '/test_project/submodules');
+    .. fs.copy(__dirname + '/test_module_data',
             __dirname + '/test_project/submodules/test_module',
             cont(err));
     const metadata = {project_name: 'test_project'};
-    set_up(
+    . ../set_up/_(
         __dirname + '/../..', __dirname + '/test_project', metadata, cont(err));
-    _(__dirname + '/test_project', cont(err));
+    . _(__dirname + '/test_project', cont(err));
 
     // TODO: add extra comparisons for content
     // TODO: create deep equal function which doesn't hang on fail
@@ -45,10 +36,10 @@ test('[module]', t => {
                     'metadata.yaml': false }}},
             stored: {'lambda_state_history.yaml': true}}};
 
-    const generated = serialfs.obj(
+    const generated = .. serialfs.obj(
         __dirname + '/test_project', contents, true,
         cont(err, generated));
-    const expected = serialfs.obj(
+    const expected = .. serialfs.obj(
         __dirname + '/expected_data', contents, true,
         cont(err, expected));
     cb(null, generated, expected);});

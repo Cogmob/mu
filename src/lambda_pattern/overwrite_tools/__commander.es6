@@ -1,5 +1,3 @@
-const create = require('./_');
-
 const _ = (commander, mu_src_path) => {
     const success_message =
             'replaced the tools scripts';

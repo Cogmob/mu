@@ -1,5 +1,6 @@
 'use strict';
 
+// imports for all files
 var ERR = require('async-stacktrace');
 var word_wrap = require('word-wrap');
 var webpack = require('webpack-stream');
@@ -13,21 +14,68 @@ var babel = require('gulp-babel');
 var debug = require('gulp-debug');
 var continuation = require('gulp-continuation');
 var vmap = require('vinyl-map');
-var fs = require('fs-extra');
 var S = require('string');
+var fs = require('fs');
+var yaml = require('js-yaml').safeLoad;
 
-var module_map = fs.readFileSync(__dirname + '/lambda_pattern/module_map.yaml', 'utf8');
+var module_map = yaml(fs.readFileSync(__dirname + '/lambda_pattern/module_map.yaml', 'utf8'));
 
 var add_includes = function add_includes(ret, map) {
-    return ret + module_map['a'];
+    var re = /[^a-zA-Z0-9]\.\. [-a-zA-Z0-9_]+/g;
+    var imports = [];
+    var m;
+    do {
+        m = re.exec(ret);
+        if (m) {
+            imports.push(m[0].substring(4));
+        }
+    } while (m);
+    if (imports.length > 0) {
+        var imports_string = '// load jspm\n';
+        for (var i in imports) {
+            ret = ret.replace('.. ' + imports[i], imports[i]);
+            if (!imports_string.includes('require(\'' + imports[i])) {
+                imports_string += '// const ' + imports[i];
+                imports_string += ' = jspm.require(\'';
+                imports_string += module_map[imports[i]] + '\');\n';
+            }
+        }
+        ret = imports_string + ret;
+    }
+    return ret;
+};
+
+var add_local_includes = function add_local_includes(ret, map) {
+    var re = /[^a-zA-Z0-9]\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/]*/g;
+    var imports = [];
+    var m;
+    do {
+        m = re.exec(ret);
+        if (m) {
+            imports.push(m[0].substring(3));
+        }
+    } while (m);
+    if (imports.length > 0) {
+        var imports_string = '// load local\n';
+        for (var i in imports) {
+            var varname = '__' + imports[i].replace(/\W/g, '');
+            ret = ret.replace('. ' + imports[i], varname);
+            if (!imports_string.includes(imports[i])) {
+                imports_string += 'const ' + varname;
+                imports_string += ' = require(\'./' + imports[i] + '\');\n';
+            }
+        }
+        ret = imports_string + ret;
+    }
+    return ret;
 };
 
 gulp.task('tools_es6', function () {
-    return gulp.src(['tools/*.es6']).pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/\[filename\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('tools'));
+    return gulp.src(['tools/*.es6']).pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(insert.prepend('// imports for all files\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/\[filename\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('tools'));
 });
 
 gulp.task('es6', function () {
-    return gulp.src(['lambda_pattern/**/*.es6', '!**/expected/**', '!**/node_modules/**', '!**/*_data/**/*']).pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(vmap(function (code, filename) {
+    return gulp.src(['lambda_pattern/**/*.es6', '!**/expected/**', '!**/node_modules/**', '!**/*_data/**/*']).pipe(insert.prepend('const word_wrap = require(\'word-wrap\');\n')).pipe(insert.prepend('const ERR = require(\'async-stacktrace\');\n')).pipe(insert.prepend('// imports for all files\n')).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(vmap(function (code, filename) {
         var ret = code.toString() + '//a';
         filename = filename.split('.');
         filename = filename[filename.length - 2];
@@ -44,9 +92,9 @@ gulp.task('es6', function () {
         }
 
         ret = add_includes(ret, module_map);
+        ret = add_local_includes(ret, module_map);
         return ret;
-    })).pipe(debug()).pipe(vmap(function (code, filename) {
-        console.log(code.toString());
+    })).pipe(vmap(function (code, filename) {
         return code.toString();
     })).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('lambda_pattern')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('lambda_pattern'));
 });
@@ -116,9 +164,6 @@ gulp.task('copy_src', function () {
     return gulp.src('../../../src/**/*').pipe(gulp.dest('.'));
 });
 
-gulp.task('build', sequence('copy_skel_to_parent', 'es6',
-//'tools_es6',
-//'main_file',
-'backup_gulpfile'));
-//a//abcd
+gulp.task('build', sequence('copy_skel_to_parent', 'es6', 'tools_es6', 'main_file', 'backup_gulpfile', 'build_updatables', 'build_lambda_pattern_tool', 'copy_ignore_to_release', 'copy_main_to_release', 'copy_skel_to_release', 'copy_yaml_to_release'));
+//a
 /* Generated by Continuation.js v0.1.7 */

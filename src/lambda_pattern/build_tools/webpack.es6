@@ -1,19 +1,10 @@
-const gulp = require('gulp');
-const node_externals = require('webpack-node-externals');
-const debug = require('gulp-debug');
-const insert = require('gulp-insert');
-const replace = require('gulp-replace');
-const babel = require('gulp-babel');
-const continuation = require('gulp-continuation');
-const webpack = require('webpack-stream');
-
 const _ = (root_path, cb) => {
-    gulp.task('_', () => {
+    .. gulp.task('_', () => {
         process.chdir(root_path);
-        return gulp.src(root_path + '/_.js')
-            .pipe(webpack({
+        return .. gulp.src(root_path + '/_.js')
+            .pipe(.. webpack-stream({
                 context: root_path,
-                externals: [node_externals()],
+                externals: [.. webpack-node-externals()],
                 module: {
                     loaders: [{
                         test: /\.jsx?$/,
@@ -24,9 +15,9 @@ const _ = (root_path, cb) => {
                     __dirname: false},
                 output: { filename: '__built.js' },
                 target: 'node'}))
-            .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
-            .pipe(gulp.dest(root_path))
+            .pipe(.. gulp-insert.prepend('#!/usr/bin/env node\n\n'))
+            .pipe(.. gulp.dest(root_path))
             .on('end', cb)
             .on('error', cb);});
 
-    gulp.start('_');};
+    .. gulp.start('_');};

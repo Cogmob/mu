@@ -1,6 +1,3 @@
-const fs = require('fs-extra');
-const yaml = require('js-yaml');
-
 const _ = (root_path, history, updatables_version, cb) => {
     const state_version = history['newest_state_version'] + 1;
     history['current_state_version'] = state_version;
@@ -14,9 +11,9 @@ const _ = (root_path, history, updatables_version, cb) => {
         release_built: false,
         release_tests_passed: false};
 
-    fs.writeFile(
+    .. fs.writeFile(
         root_path + '/generated/lambda_state_history.yaml',
-        yaml.safeDump(history),
+        js-yaml.safeDump(history),
         'utf8',
         cont(err));
 
