@@ -6,7 +6,7 @@ const _ = (mu_src_path, root_path, version, cb) => {
     (() => {
         make_dir(root_path + '/generated_local', cont(err));
         find_project_root(mu_src_path + '/mu_sub_repo', cont(err, tool_root));
-        .. git-archive({
+        .. git_archive({
                 repoPath: tool_root + '/.git',
                 commit: version,
                 outputPath: root_path + '/generated_local/updatables.tar'},
@@ -16,7 +16,7 @@ const _ = (mu_src_path, root_path, version, cb) => {
     const move_updatables = () => {
         make_dir(root_path + '/generated_local/updatables', cont(err));
         .. fs.create_read_stream(root_path + '/generated_local/updatables.tar')
-            .pipe(.. tar-fs.extract(
+            .pipe(.. tar_fs.extract(
                 root_path + '/generated_local/updatables'))
             .on('finish', cleanup)
             .on('error', er => ERR(er, cb));};

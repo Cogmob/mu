@@ -5,18 +5,18 @@ const _ = (root_path, cb) => {
                 '!*' + '*/expected/**',
                 '!**' + '/node_modules/**',
                 '!**' + '/*_data/**' + '/*'])
-            .pipe(.. gulp-insert.prepend(
+            .pipe(.. gulp_insert.prepend(
                 'const word_wrap = require(\'word-wrap\');\n'))
-            .pipe(gulp-insert.prepend(
+            .pipe(gulp_insert.prepend(
                 'const ERR = require(\'async-stacktrace\');\n'))
-            .pipe(gulp-replace(/\[project\_name\]/g, 'lambda_pattern'))
-            .pipe(gulp-replace(
+            .pipe(gulp_replace(/\[project\_name\]/g, 'lambda_pattern'))
+            .pipe(gulp_replace(
                 /cont\(.*err.*\).*;/g,
                 `$&
                 if (ERR(err, cb)) {
                     return;}
                     `))
-            .pipe(gulp-replace(
+            .pipe(gulp_replace(
                 /const cb = \(err.*\) \=> \{/g,
                 `$&
             if (err) {

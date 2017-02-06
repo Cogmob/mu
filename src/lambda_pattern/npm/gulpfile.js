@@ -20,6 +20,8 @@ var yaml = require('js-yaml').safeLoad;
 
 var module_map = yaml(fs.readFileSync(__dirname + '/lambda_pattern/module_map.yaml', 'utf8'));
 
+var include_prefix = 'const jspm = require(\n    process.env[\'HOME\'] + \'/.jspm_global_packages/node_modules/jspm/api.js\');\njspm.setPackagePath(process.env[\'HOME\'] + \'/.jspm_global_packages\');\n';
+
 var add_includes = function add_includes(ret, map) {
     var re = /[^a-zA-Z0-9]\.\. [-a-zA-Z0-9_]+/g;
     var imports = [];
@@ -31,18 +33,24 @@ var add_includes = function add_includes(ret, map) {
         }
     } while (m);
     if (imports.length > 0) {
-        var imports_string = '// load jspm\n';
+        var imports_string = '// load jspm\n' + include_prefix;
+
         for (var i in imports) {
-            var require_string = 'jspm.require(\'';
-            require_string += module_map[imports[i][0]] + '\')';
+            var require_string = 'jspm.import(\'';
+            if (imports[i] in module_map) {
+                require_string += module_map[imports[i]][0] + '\')';
+                if (imports[i].length > 1) {
+                    require_string += '.' + module_map[imports[i]][1];
+                }
+            } else {
+                require_string += imports[i] + '\')';
+            }
             ret = ret.replace('.. ' + imports[i], imports[i]);
-            if (imports[i].length > 1) {
-                require_string += '.' + module_map[imports[i]];
-            }
             if (!imports_string.includes(require_string)) {
-                imports_string += '// const ' + imports[i];
-                imports_string += ' = ' + require_string + ';\n';
+                imports_string += 'const ' + imports[i];
+                imports_string += ' = ' + require_string;
             }
+            imports_string += ';\n';
         }
         ret = imports_string + ret;
     }

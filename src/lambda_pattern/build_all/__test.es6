@@ -11,7 +11,7 @@
         cont(err));
 
     .. make_dir(__dirname + '/test_project/submodules');
-    .. copy_file(__dirname + '/test_module_data',
+    .. copy_path(__dirname + '/test_module_data',
             __dirname + '/test_project/submodules/test_module',
             cont(err));
     const metadata = {project_name: 'test_project'};

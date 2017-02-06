@@ -5,7 +5,7 @@ const _ = (root_path, cb) => {
                 '!**/expected/**',
                 '!**/node_modules/**',
                 '!**/*_data/**/*'])
-            .pipe(.. gulp-babel({ presets: ['es2015'] }))
+            .pipe(.. gulp_babel({ presets: ['es2015'] }))
             .pipe(.. continuation())
             .pipe(.. gulp.dest(root_path))
             .on('end', cb)

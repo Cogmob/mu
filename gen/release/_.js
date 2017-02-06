@@ -1,7 +1,9 @@
 'use strict';
 
 // load jspm
-// const commander = jspm.require('undefined').undefined;
+var jspm = require(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+var commander = jspm.import('commander').undefined;
 // imports for all files
 var ERR = require('async-stacktrace');
 var word_wrap = require('word-wrap');

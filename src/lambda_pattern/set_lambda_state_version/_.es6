@@ -3,7 +3,7 @@ const _ = (mu_src_path, root_path, version_number, cb) => {
         root_path + '/generated/lambda_state_history.yaml',
         'utf8',
         cont(err, history));
-    history = .. js_yaml.safeLoad(history);
+    history = .. yaml.safeLoad(history);
 
     const updatables_num = history['states'][version_number]['state_version'];
     . ../set_updatables_version/_(

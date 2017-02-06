@@ -12,14 +12,14 @@ const _ = (root_path, cb) => {
         gen_path + '/project_node_modules',
         cont(err));
 
-    .. remove_file(proj_path, cont(err));
+    .. remove_path(proj_path, cont(err));
     .. make_dir(proj_path, cont(err));
 
-    .. copy_file(
+    .. copy_path(
         root_path + '/_.es6',
         proj_path + '/_.es6',
         cont(err));
-    .. copy_file(
+    .. copy_path(
         root_path + '/__test.es6',
         proj_path + '/__test.es6',
         cont(err));

@@ -9,6 +9,6 @@ const _ = (root_path, cb) => {
         'utf8',
         cont(err, history));
 
-    history = .. js-yaml.safeLoad(history);
+    history = .. yaml.safeLoad(history);
 
     cb(null, updatables_version, history);}

@@ -1,7 +1,7 @@
 const _ = (mu_src_path, root_path, project_name, year, cb) => {
     const skel_path = mu_src_path + '/skeleton_data';
     const gen_path = root_path + '/' + project_name;
-    .. copy_file(skel_path, gen_path, cont(err));
+    .. copy_path(skel_path, gen_path, cont(err));
 
     .. read_file(gen_path + '/readme.md', 'utf8', cont(err, readme));
     readme = readme.replace(/\[\[project_name\]\]/g, project_name);
