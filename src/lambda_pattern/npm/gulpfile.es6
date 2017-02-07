@@ -21,25 +21,33 @@ const add_module = (code, imports_code, assign_code, key) => {
 
     var mod_varname = 'module_' + key.replace(/[^a-zA-Z0-9_]/g, '');
     var varname = 'import_' + modname;
+    var ext = null;
 
     if (key in module_map) {
         modname =  module_map[key][0];
         mod_varname = 'module_' + modname.replace(/[^a-zA-Z0-9_]/g, '');
         if (module_map[key].length > 1) {
             code = code.replace('.. ' + key, varname);
-            const ext = module_map[key][1];
+            ext = module_map[key][1];
             varname += ext.replace(/[^a-zA-Z0-9_]/g, '');
-            const assign_string = `const ${varname} = ${mod_varname}.${ext}`;
-            if (!assign_code.includes(assign_string)) {
-                assign_code += assign_string + '\n';}
         } else {
             code = code.replace('.. ' + key, mod_varname);}
     } else {
         code = code.replace('.. ' + key, mod_varname);}
 
-    const require_string = `const ${mod_varname} = jspm.import('${modname}');`;
+    const require_string = `    ${mod_varname}: jspm.import('${modname}'),`;
     if (!imports_code.includes(require_string)) {
         imports_code += require_string + '\n';}
+
+    var assign_string = '';
+    if (ext) {
+        assign_string = `const ${varname} = jspm_res.${mod_varname}.${ext}`;
+    } else {
+        const assign_string = `const ${varname} = jspm_res.${mod_varname}`;}
+
+    if (!assign_code.includes(assign_string)) {
+        assign_code += assign_string + '\n';}
+
     return [code, imports_code, assign_code];}
 
 const add_includes = (ret, map) => {
@@ -56,13 +64,13 @@ const add_includes = (ret, map) => {
     var imports_code = '';
     var assign_code = '';
     if (imports.length > 0) {
-        imports_code = '// load jspm\n';
+        imports_code = '    // load jspm\n';
         for (var i in imports) {
             [ret, imports_code, assign_code] = add_module(
                 ret, imports_code, assign_code, imports[i])}}
-    return imports_code + assign_code + ret;}
+    return [ret, imports_code, assign_code];}
 
-const add_local_includes = (ret, map) => {
+const add_local_includes = (ret, map, imports_code, assign_code) => {
     const re = /(^|[^a-zA-Z0-9])\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/]*/g;
     var imports = [];
     var m;
@@ -74,25 +82,37 @@ const add_local_includes = (ret, map) => {
             } else {
                 imports.push(m[0].substring(3));}}} while (m);
     if (imports.length > 0) {
-        var imports_string = '// load local\n';
+        var imports_string = '    // load local\n';
         for (var i in imports) {
             const varname = 'local_include_'
                     + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
             ret = ret.replace('. ' + imports[i], varname);
             if (!imports_string.includes(imports[i])) {
-                imports_string += 'const ' + varname;
-                imports_string += ' = require(\'./' + imports[i] + '\');\n';}}
-        ret = imports_string + ret;
-    }
-    return ret;
+                const imports_string =
+                    `    ${varname}: require('./${imports[i]}'),` + '\n';
+                if (!imports_code.includes(assign_string)) {
+                    imports_code += imports_string;}
+                const assign_string =
+                    `const ${varname} = jspm_res.${varname};` + '\n';
+                if (!assign_code.includes(assign_string)) {
+                    assign_code += assign_string;}}}}
+    return [ret, imports_code, assign_code];
 }
 
 const es6_prefix = `const jspm = eval('require')(
     process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+const q = eval('require')(
+    process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-const word_wrap = jspm.import('word-wrap');
-const ERR = jspm.import('async-stacktrace');
+const promises = {
+    word_wrap: jspm.import('word-wrap'),
 `
+
+const jspm_promise = `ERR: jspm.import('async-stacktrace')
+};
+module.exports = q.all(promises).then((jspm_res) => {
+`
+
 gulp.task('tools_es6', ()=>{
     return gulp.src(['tools/*.es6'])
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
@@ -118,7 +138,6 @@ gulp.task('tools_es6', ()=>{
             t.fail();
             return t.end();}
         `)) 
-        .pipe(insert.prepend(es6_prefix))
         .pipe(gulp.dest('.'))
         .pipe(babel({ presets: ['es2015'] }))
         .pipe(continuation())
@@ -132,23 +151,30 @@ gulp.task('es6', ()=>{
             '!**/*_data/**/*'])
         .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
         .pipe(vmap((code, filename) => {
-            var ret = code.toString();
+            var code = code.toString();
             filename = filename.split('.');
             filename = filename[filename.length - 2];
             filename = filename.split('\\');
             const last = filename.length - 1
 
             const name = filename[last];
-            ret = S(ret).replaceAll('[file' + 'name]', name).s;
+            code = S(code).replaceAll('[file' + 'name]', name).s;
             const module = filename[last - 1];
-            ret = S(ret).replace('[mod' + 'ule]', module).s;
+            code = S(code).replace('[mod' + 'ule]', module).s;
 
-            if (!ret.includes('module.exports') && ret.includes('const _ =')) {
-                ret += '\nmodule.exports = _;';}
+            if (!code.includes('module.exports') && code.includes('const _ =')) {
+                code += '\n    return _;';}
+            code += '\n});\n';
 
-            ret = add_includes(ret, module_map);
-            ret = add_local_includes(ret, module_map);
-            return ret;}))
+            var imports_code, assign_code;
+            [code, imports_code, assign_code] = add_includes(code, module_map);
+            [code, imports_code, assign_code]  = add_local_includes(
+                code, module_map, imports_code, assign_code);
+            return es6_prefix
+                + imports_code
+                + jspm_promise
+                + assign_code
+                + code;}))
         .pipe(vmap((code, filename) => {
             return code.toString();}))
         .pipe(replace(
@@ -172,7 +198,6 @@ gulp.task('es6', ()=>{
             t.fail();
             return t.end();}
         `)) 
-        .pipe(insert.prepend(es6_prefix))
         .pipe(gulp.dest('[project_name]'))
         .pipe(babel({ presets: ['es2015'] }))
         .pipe(continuation())

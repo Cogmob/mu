@@ -6,6 +6,7 @@ const _ = (commander, mu_src_path) => {
             return console.log(e);}
         console.log(success_message)};
 
+    console.log(commander);
     commander
         .command('create project_name')
         .description('make a new lambda patern project')

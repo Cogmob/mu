@@ -15,7 +15,7 @@ const _ = (
         mu_src_path + '/lambda_pattern/shared/default_package_values.yaml',
         'utf8',
         cont(err, def_vals_yaml));
-    const def_vals = .. js_yaml.safeLoad(def_vals_yaml);
+    const def_vals = .. yaml.safeLoad(def_vals_yaml);
     .. read_file(
         mu_src_path + '/lambda_pattern/shared/package_template.json',
         'utf8',
