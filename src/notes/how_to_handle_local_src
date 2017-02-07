@@ -4,3 +4,9 @@ use estree ast
 store with message pack
 use acorn / babel.fromAst to allow es6 editing + compiling
 use js-astify and then simple code modification to make my ls variant
+
+esprima for making ast?
+
+sweet.js?
+
+babel-generator for write?

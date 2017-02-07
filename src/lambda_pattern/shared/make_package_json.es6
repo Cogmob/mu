@@ -1,5 +1,10 @@
 const _ = (
-    mu_src_path, metadata, gen_path, deps, dev_deps, cb) => {
+        mu_src_path,
+        metadata,
+        gen_path,
+        deps,
+        dev_deps,
+        cb) => {
     const map_to_str = (i) => {
         const ret = .. ramda.map(
             pair => '"' + pair[0] + '": "' + pair[1] + '"',
