@@ -8,4 +8,5 @@ mv project_node_modules gen/dev/src/lambda_pattern/node_modules
 mv tools_node_modules gen/dev/src/node_modules
 cp src/lambda_pattern/npm/gulpfile.js gen/dev/src
 cd gen/dev/src
-./node_modules/.bin/gulp build
+#./node_modules/.bin/gulp build
+node lambda_pattern/npm/gulpfile.js

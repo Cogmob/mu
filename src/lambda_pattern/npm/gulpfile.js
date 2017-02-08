@@ -5,11 +5,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
 var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-var promises = {
-    word_wrap: jspm.import('word-wrap'),
-    ERR: jspm.import('async-stacktrace')
-};
-module.exports = q.all(promises).then(function (jspm_res) {
+var promises = [
+// other
+jspm.import('async-stacktrace'), jspm.import('word-wrap')];
+module.exports = q.all(promises).spread(function (ERR, word_wrap) {
     var webpack = require('webpack-stream');
     var node_externals = require('webpack-node-externals');
     var insert = require('gulp-insert');
@@ -24,10 +23,11 @@ module.exports = q.all(promises).then(function (jspm_res) {
     var S = require('string');
     var fs = require('fs');
     var yaml = require('js-yaml').safeLoad;
+    var strip = require('gulp-strip-comments');
 
-    var module_map = yaml(fs.readFileSync(__dirname + '/lambda_pattern/module_map.yaml', 'utf8'));
+    var module_map = yaml(fs.readFileSync('lambda_pattern/module_map.yaml', 'utf8'));
 
-    var add_module = function add_module(code, imports_code, assign_code, key) {
+    var add_module = function add_module(code, imports_code, assign_code, alias_code, key) {
         var modname = key;
 
         var mod_varname = 'module_' + key.replace(/[^a-zA-Z0-9_]/g, '');
@@ -38,9 +38,9 @@ module.exports = q.all(promises).then(function (jspm_res) {
             modname = module_map[key][0];
             mod_varname = 'module_' + modname.replace(/[^a-zA-Z0-9_]/g, '');
             if (module_map[key].length > 1) {
-                code = code.replace('.. ' + key, varname);
                 ext = module_map[key][1];
                 varname += ext.replace(/[^a-zA-Z0-9_]/g, '');
+                code = code.replace('.. ' + key, varname);
             } else {
                 code = code.replace('.. ' + key, mod_varname);
             }
@@ -48,23 +48,24 @@ module.exports = q.all(promises).then(function (jspm_res) {
             code = code.replace('.. ' + key, mod_varname);
         }
 
-        var require_string = '    ' + mod_varname + ': jspm.import(\'' + modname + '\'),';
+        var require_string = 'jspm.import(\'' + modname + '\')';
         if (!imports_code.includes(require_string)) {
-            imports_code += require_string + '\n';
+            imports_code += '    ' + require_string + ',\n';
         }
 
-        var assign_string = '';
-        if (ext) {
-            assign_string = 'const ' + varname + ' = jspm_res.' + mod_varname + '.' + ext;
-        } else {
-            var _assign_string = 'const ' + varname + ' = jspm_res.' + mod_varname;
-        }
-
+        var assign_string = '' + mod_varname;
         if (!assign_code.includes(assign_string)) {
-            assign_code += assign_string + '\n';
+            assign_code += '    ' + assign_string + ',\n';
         }
 
-        return [code, imports_code, assign_code];
+        if (ext) {
+            var alias_string = 'const ' + varname + ' = ' + mod_varname + '.' + ext + ';';
+            if (!alias_code.includes(alias_string)) {
+                alias_code += '    ' + alias_string + '\n';
+            }
+        }
+
+        return [code, imports_code, assign_code, alias_code];
     };
 
     var add_includes = function add_includes(ret, map) {
@@ -83,19 +84,21 @@ module.exports = q.all(promises).then(function (jspm_res) {
         } while (m);
         var imports_code = '';
         var assign_code = '';
+        var alias_code = '';
         if (imports.length > 0) {
             imports_code = '    // load jspm\n';
             for (var i in imports) {
-                var _add_module = add_module(ret, imports_code, assign_code, imports[i]);
+                var _add_module = add_module(ret, imports_code, assign_code, alias_code, imports[i]);
 
-                var _add_module2 = _slicedToArray(_add_module, 3);
+                var _add_module2 = _slicedToArray(_add_module, 4);
 
                 ret = _add_module2[0];
                 imports_code = _add_module2[1];
                 assign_code = _add_module2[2];
+                alias_code = _add_module2[3];
             }
         }
-        return [ret, imports_code, assign_code];
+        return [ret, imports_code, assign_code, alias_code];
     };
 
     var add_local_includes = function add_local_includes(ret, map, imports_code, assign_code) {
@@ -113,35 +116,35 @@ module.exports = q.all(promises).then(function (jspm_res) {
             }
         } while (m);
         if (imports.length > 0) {
-            var imports_string = '    // load local\n';
+            imports_code += '    // load local\n';
             for (var i in imports) {
                 var varname = 'local_include_' + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
                 ret = ret.replace('. ' + imports[i], varname);
-                if (!imports_string.includes(imports[i])) {
-                    var _imports_string = '    ' + varname + ': require(\'./' + imports[i] + '\'),' + '\n';
-                    if (!imports_code.includes(assign_string)) {
-                        imports_code += _imports_string;
-                    }
-                    var assign_string = 'const ' + varname + ' = jspm_res.' + varname + ';' + '\n';
-                    if (!assign_code.includes(assign_string)) {
-                        assign_code += assign_string;
-                    }
+                var imports_string = 'require(\'./' + imports[i] + '\')';
+                if (!imports_code.includes(imports_string)) {
+                    imports_code += '    ' + imports_string + ',\n';
+                }
+                var assign_string = varname;
+                if (!assign_code.includes(assign_string)) {
+                    assign_code += '    ' + assign_string + ',\n';
                 }
             }
         }
         return [ret, imports_code, assign_code];
     };
 
-    var es6_prefix = 'const jspm = eval(\'require\')(\n    process.env[\'HOME\'] + \'/.jspm_global_packages/node_modules/jspm/api.js\');\nconst q = eval(\'require\')(\n    process.env[\'HOME\'] + \'/.jspm_global_packages/node_modules/q/q.js\');\njspm.setPackagePath(process.env[\'HOME\'] + \'/.jspm_global_packages\');\nconst promises = {\n    word_wrap: jspm.import(\'word-wrap\'),\n';
+    var es6_prefix = 'const jspm = eval(\'require\')(\n    process.env[\'HOME\'] + \'/.jspm_global_packages/node_modules/jspm/api.js\');\nconst q = eval(\'require\')(\n    process.env[\'HOME\'] + \'/.jspm_global_packages/node_modules/q/q.js\');\njspm.setPackagePath(process.env[\'HOME\'] + \'/.jspm_global_packages\');\nconst promises = [\n';
 
-    var jspm_promise = 'ERR: jspm.import(\'async-stacktrace\')\n};\nmodule.exports = q.all(promises).then((jspm_res) => {\n';
+    var jspm_promise_a = '    // other\n    jspm.import(\'async-stacktrace\'),\n    jspm.import(\'word-wrap\')];\nmodule.exports = q.all(promises).spread((\n';
+
+    var jspm_promise_b = '    ERR,\n    word_wrap) => {\n';
 
     gulp.task('tools_es6', function () {
         return gulp.src(['tools/*.es6']).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/\[filename\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('tools'));
     });
 
     gulp.task('es6', function () {
-        return gulp.src(['lambda_pattern/**/*.es6', '!**/expected/**', '!**/node_modules/**', '!**/*_data/**/*']).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(vmap(function (code, filename) {
+        return gulp.src(['lambda_pattern/**/*.es6', '!**/expected/**', '!**/node_modules/**', '!**/*_data/**/*']).pipe(strip()).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(vmap(function (code, filename) {
             var code = code.toString();
             filename = filename.split('.');
             filename = filename[filename.length - 2];
@@ -156,17 +159,18 @@ module.exports = q.all(promises).then(function (jspm_res) {
             if (!code.includes('module.exports') && code.includes('const _ =')) {
                 code += '\n    return _;';
             }
-            code += '\n});\n';
+            code += '}).catch((err) => {console.log(err);});\n';
 
-            var imports_code, assign_code;
+            var imports_code, assign_code, alias_code;
 
             var _add_includes = add_includes(code, module_map);
 
-            var _add_includes2 = _slicedToArray(_add_includes, 3);
+            var _add_includes2 = _slicedToArray(_add_includes, 4);
 
             code = _add_includes2[0];
             imports_code = _add_includes2[1];
             assign_code = _add_includes2[2];
+            alias_code = _add_includes2[3];
 
             var _add_local_includes = add_local_includes(code, module_map, imports_code, assign_code);
 
@@ -176,7 +180,7 @@ module.exports = q.all(promises).then(function (jspm_res) {
             imports_code = _add_local_includes2[1];
             assign_code = _add_local_includes2[2];
 
-            return es6_prefix + imports_code + jspm_promise + assign_code + code;
+            return es6_prefix + imports_code + jspm_promise_a + assign_code + jspm_promise_b + alias_code + code;
         })).pipe(vmap(function (code, filename) {
             return code.toString();
         })).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('lambda_pattern')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('lambda_pattern'));
@@ -216,8 +220,6 @@ module.exports = q.all(promises).then(function (jspm_res) {
         console.log(process.env['HOME']);
         return gulp.src('lambda_pattern/bin.js').pipe(webpack({
             externals: [node_externals()],
-            //plugins: [
-            //    new webpack.IgnorePlugin(/.*/)],
             module: {
                 loaders: [{
                     test: /\.jsx?$/,
@@ -257,5 +259,9 @@ module.exports = q.all(promises).then(function (jspm_res) {
     });
 
     gulp.task('build', sequence('copy_skel_to_parent', 'es6', 'tools_es6', 'main_file', 'backup_gulpfile', 'build_updatables', 'build_lambda_pattern_tool', 'copy_ignore_to_release', 'copy_main_to_release', 'copy_skel_to_release', 'copy_yaml_to_release'));
+
+    gulp.start('build');
+}).catch(function (err) {
+    console.log(err);
 });
 /* Generated by Continuation.js v0.1.7 */
