@@ -7,5 +7,4 @@ const _ = (mu_src_path, root, metadata, cb) => {
     .. make_dir(gen_path, cont(err));
     copy_if_exists(root + '/tools', gen_path, cont(err));
     .. make_dir(root + '/generated/tools', cont(err));
-    cb();
-};
+    cb();};
