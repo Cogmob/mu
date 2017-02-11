@@ -39,3 +39,4 @@ cd ~/.jspm_global_packages
 ~/.jspm_global_packages/node_modules/.bin/jspm install npm:word-wrap
 ~/.jspm_global_packages/node_modules/.bin/jspm install npm:gulp-strip-comments
 ~/.jspm_global_packages/node_modules/.bin/jspm install npm:ramda
+~/.jspm_global_packages/node_modules/.bin/jspm install npm:vargs-callback

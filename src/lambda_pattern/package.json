@@ -20,6 +20,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "continuation": "^0.1.7",
+    "vargs-callback": "^0.2.4",
     "vinyl-transform": "^1.0.0"
   },
   "ava": {

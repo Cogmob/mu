@@ -40,6 +40,7 @@
     "tap": "^7.1.2",
     "tap-difflet": "^0.7.0",
     "tape": "^4.6.3",
+    "vargs-callback": "^0.2.4",
     "vinyl-map": "^1.0.2",
     "webpack-node-externals": "^1.5.4",
     "webpack-stream": "^3.2.0",
