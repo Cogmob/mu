@@ -75,14 +75,14 @@ root
 
 ### conveyor belt
 
-display
-generated display
-ast transformed display
-ast display
-pre ast display
--src
-pre ast release
-ast release
-ast transformed release
-generated release
-release
+display  
+generated display  
+ast transformed display  
+ast display  
+pre ast display  
+-src  
+pre ast release  
+ast release  
+ast transformed release  
+generated release  
+release  
