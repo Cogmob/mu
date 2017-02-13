@@ -36,6 +36,7 @@
     "rollup-plugin-node-resolve": "^2.0.0",
     "shebang-loader": "0.0.1",
     "string": "^3.3.3",
+    "strip-comments": "^0.4.4",
     "superstack": "0.0.4",
     "tap": "^7.1.2",
     "tap-difflet": "^0.7.0",

@@ -66,7 +66,7 @@ const add_includes = (ret, map) => {
     var assign_code = '';
     var alias_code = '';
     if (imports.length > 0) {
-        imports_code = '    // load jspm\n';
+        imports_code = '    /' + '/ load jspm\n';
         for (var i in imports) {
             [ret, imports_code, assign_code, alias_code] = add_module(
                 ret, imports_code, assign_code, alias_code, imports[i])}}
@@ -84,7 +84,7 @@ const add_local_includes = (ret, map, imports_code, assign_code) => {
             } else {
                 imports.push(m[0].substring(3));}}} while (m);
     if (imports.length > 0) {
-        imports_code += '    // load local\n';
+        imports_code += '    /' + '/ load local\n';
         for (var i in imports) {
             const varname = 'local_include_'
                     + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
@@ -152,8 +152,11 @@ gulp.task('es6', ()=>{
             '!**/expected/**',
             '!**/node_modules/**',
             '!**/*_data/**/*'])
-        .pipe(strip())
-        .pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
+        .pipe(vmap((code, filename) => {
+            var code = code.toString();
+            return code.replace(
+                /^\s*\/\*[\s\S]*?\*\/|^\s*([^\\:]|^)\/\/.*$/gm, '$1');
+        })).pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
         .pipe(vmap((code, filename) => {
             var code = code.toString();
             filename = filename.split('.');
@@ -201,9 +204,7 @@ gulp.task('es6', ()=>{
                 console.log(stack_line
                     .replace(/\\\\ /g, '\\\\')
                     .replace(/ at/g, '\\nat')
-                    .replace(/Error:/g, '\\nError:'));}));
-            t.fail();
-            return t.end();}
+                    .replace(/Error:/g, '\\nError:'));}));}
         `)) 
         .pipe(gulp.dest('[project_name]'))
         .pipe(babel({ presets: ['es2015'] }))

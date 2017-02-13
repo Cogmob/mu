@@ -1,4 +1,7 @@
-require('./conveyor_to_display/__test');
+const cb = (err) => {};
+
+. conveyor_to_display/__test(cont(err));
+
 //require('./set_up/__test');
 //require('./set_lambda_state_version/__test');
 //require('./build_all/__test');
