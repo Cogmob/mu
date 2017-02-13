@@ -1,4 +1,6 @@
-a.es6: ''
+a.es6: |
+    const a = (a, b) => {
+        console.log(a);}
 b.es6: ''
 c.es6: ''
 not_code.abc: ''

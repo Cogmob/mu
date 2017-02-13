@@ -4,4 +4,8 @@ const _ = (cb) => {
         __dirname + '/after_data/1_pre_ast.yaml',
         'utf8',
         cont(err, expected));
-    cb(.. diff(.. yaml_read(expected), code));}
+    const d = .. diff(.. yaml_read(expected), code);
+    if (d) {
+        cb(.. yaml_write(d));
+    } else {
+        cb();}}

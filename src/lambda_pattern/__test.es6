@@ -8,3 +8,5 @@ const cb = (err) => {};
 //require('./build_tools/__test');
 //require('./overwrite_tools/__test');
 //require('./set_updatables_version/__test');
+
+console.log('all tests passed');
