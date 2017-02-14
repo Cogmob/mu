@@ -1,4 +1,4 @@
-const cb = (err) => {};
+const cb = (err) => {console.log('error');};
 
 . conveyor_to_display/__test(cont(err));
 

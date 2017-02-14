@@ -54,8 +54,8 @@ module.exports =
 	// load local
 	__webpack_require__(1),
 	// other
-	jspm.import('async-stacktrace'), jspm.import('word-wrap')];
-	module.exports = q.all(promises).spread(function (local_include_build_all__commander, ERR, word_wrap) {
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (local_include_build_all__commander, ERR, wordwrap) {
 	    var _ = function _(commander, mu_src_path, config) {
 	        local_include_build_all__commander(commander, mu_src_path);
 	    };
@@ -77,8 +77,8 @@ module.exports =
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
 	// other
-	jspm.import('async-stacktrace'), jspm.import('word-wrap')];
-	module.exports = q.all(promises).spread(function (ERR, word_wrap) {
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
 	    var _ = function _(commander, mu_src_path) {
 	        var success_message = 'build the tools and the project';
 	        commander.command('build all').description('built the code and the project').action(function (project_name) {

@@ -7,8 +7,8 @@ var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modul
 jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 var promises = [
 // other
-jspm.import('async-stacktrace'), jspm.import('word-wrap')];
-module.exports = q.all(promises).spread(function (ERR, word_wrap) {
+jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+module.exports = q.all(promises).spread(function (ERR, wordwrap) {
     var webpack = require('webpack-stream');
     var node_externals = require('webpack-node-externals');
     var insert = require('gulp-insert');
@@ -135,12 +135,12 @@ module.exports = q.all(promises).spread(function (ERR, word_wrap) {
 
     var es6_prefix = 'const jspm = eval(\'require\')(\n    process.env[\'HOME\'] + \'/.jspm_global_packages/node_modules/jspm/api.js\');\nconst q = eval(\'require\')(\n    process.env[\'HOME\'] + \'/.jspm_global_packages/node_modules/q/q.js\');\njspm.setPackagePath(process.env[\'HOME\'] + \'/.jspm_global_packages\');\nconst promises = [\n';
 
-    var jspm_promise_a = '    // other\n    jspm.import(\'async-stacktrace\'),\n    jspm.import(\'word-wrap\')];\nmodule.exports = q.all(promises).spread((\n';
+    var jspm_promise_a = '    // other\n    jspm.import(\'async-stacktrace\'),\n    jspm.import(\'wordwrap\')];\nmodule.exports = q.all(promises).spread((\n';
 
-    var jspm_promise_b = '    ERR,\n    word_wrap) => {\n';
+    var jspm_promise_b = '    ERR,\n    wordwrap) => {\n';
 
     gulp.task('tools_es6', function () {
-        return gulp.src(['tools/*.es6']).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/\[filename\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('tools'));
+        return gulp.src(['tools/*.es6']).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(replace(/\[filename\]/g, 'lambda_pattern')).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(wordwrap(20, 81)(\n                err.stack.replace(/\\\\/g, \'\\\\ \').replace(/^/gm, \'.\'))\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));}\n            t.fail();\n            return t.end();}\n        ')).pipe(gulp.dest('.')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('tools'));
     });
 
     gulp.task('es6', function () {
@@ -186,7 +186,7 @@ module.exports = q.all(promises).spread(function (ERR, word_wrap) {
             return es6_prefix + imports_code + jspm_promise_a + assign_code + jspm_promise_b + alias_code + code;
         })).pipe(vmap(function (code, filename) {
             return code.toString();
-        })).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(word_wrap(err.stack.replace(/\\\\/g, \'\\\\ \'), {\n                trim: true,\n                width: 80})\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));}\n        ')).pipe(gulp.dest('lambda_pattern')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('lambda_pattern'));
+        })).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(wordwrap(20, 81)(\n                err.stack.replace(/\\\\/g, \'\\\\ \').replace(/^/gm, \'.\'))\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));}\n        ')).pipe(gulp.dest('lambda_pattern')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('lambda_pattern'));
     });
 
     gulp.task('main_file', function () {

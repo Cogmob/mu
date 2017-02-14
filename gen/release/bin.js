@@ -57,8 +57,8 @@
 	// load local
 	__webpack_require__(1),
 	// other
-	jspm.import('async-stacktrace'), jspm.import('word-wrap')];
-	module.exports = q.all(promises).spread(function (module_commander, local_include_create__commander, ERR, word_wrap) {
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (module_commander, local_include_create__commander, ERR, wordwrap) {
 	    local_include_create__commander(module_commander, __dirname);
 	    module_commander.parse(process.argv);
 	}).catch(function (err) {
@@ -80,9 +80,9 @@
 	  __webpack_require__(3),
 	  __webpack_require__(4),
 	  jspm.import('async-stacktrace'),
-	  jspm.import('word-wrap')
+	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (local_include__, local_include_sharedget_metadata, local_include_set_up_, ERR, word_wrap) {
+	module.exports = q.all(promises).spread(function (local_include__, local_include_sharedget_metadata, local_include_set_up_, ERR, wordwrap) {
 	  var _;
 	  _ = function _(commander, mu_src_path) {
 	    var success_message, cb;
@@ -141,9 +141,9 @@
 	promises = [
 	  jspm.import('fs-extra@^1.0.0'),
 	  jspm.import('async-stacktrace'),
-	  jspm.import('word-wrap')
+	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (module_fsextra100, ERR, word_wrap) {
+	module.exports = q.all(promises).spread(function (module_fsextra100, ERR, wordwrap) {
 	  var import_copy_pathcopy, import_read_filereadFile, import_write_filewriteFile, _;
 	  import_copy_pathcopy = module_fsextra100.copy;
 	  import_read_filereadFile = module_fsextra100.readFile;
@@ -235,9 +235,9 @@
 	  jspm.import('fs-extra@^1.0.0'),
 	  jspm.import('js-yaml@^3.7.0'),
 	  jspm.import('async-stacktrace'),
-	  jspm.import('word-wrap')
+	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (module_fsextra100, module_jsyaml370, ERR, word_wrap) {
+	module.exports = q.all(promises).spread(function (module_fsextra100, module_jsyaml370, ERR, wordwrap) {
 	  var import_read_filereadFile, _;
 	  import_read_filereadFile = module_fsextra100.readFile;
 	  _ = function _(root_path, cb) {
@@ -272,9 +272,9 @@
 	  __webpack_require__(7),
 	  __webpack_require__(9),
 	  jspm.import('async-stacktrace'),
-	  jspm.import('word-wrap')
+	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_set_updatables_version_, local_include_project, local_include_tools, ERR, word_wrap) {
+	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_set_updatables_version_, local_include_project, local_include_tools, ERR, wordwrap) {
 	  var import_make_dirmkdirp, _;
 	  import_make_dirmkdirp = module_fsextra100.mkdirp;
 	  _ = function _(mu_src_path, root_path, metadata, cb) {
@@ -326,9 +326,9 @@
 	  jspm.import('tar-fs@^1.15.0'),
 	  __webpack_require__(6),
 	  jspm.import('async-stacktrace'),
-	  jspm.import('word-wrap')
+	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (module_fsextra100, module_gitarchive014, module_tarfs1150, local_include_sharedfind_project_root, ERR, word_wrap) {
+	module.exports = q.all(promises).spread(function (module_fsextra100, module_gitarchive014, module_tarfs1150, local_include_sharedfind_project_root, ERR, wordwrap) {
 	  var import_make_dirmkdirp, import_remove_pathremove, import_move_pathmove, move, find_project_root, _;
 	  import_make_dirmkdirp = module_fsextra100.mkdirp;
 	  import_remove_pathremove = module_fsextra100.remove;
@@ -423,9 +423,9 @@
 	promises = [
 	  jspm.import('fs-extra@^1.0.0'),
 	  jspm.import('async-stacktrace'),
-	  jspm.import('word-wrap')
+	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (module_fsextra100, ERR, word_wrap) {
+	module.exports = q.all(promises).spread(function (module_fsextra100, ERR, wordwrap) {
 	  var import_file_existsstat, _;
 	  import_file_existsstat = module_fsextra100.stat;
 	  _ = function _(curr_path, cb) {
@@ -459,9 +459,9 @@
 	  __webpack_require__(8),
 	  __webpack_require__(5),
 	  jspm.import('async-stacktrace'),
-	  jspm.import('word-wrap')
+	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_sharedcopy_if_exists, local_include_set_updatables_version_, ERR, word_wrap) {
+	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_sharedcopy_if_exists, local_include_set_updatables_version_, ERR, wordwrap) {
 	  var import_remove_pathremove, import_make_dirmkdirp, import_copy_pathcopy, copy_if_exists, _;
 	  import_remove_pathremove = module_fsextra100.remove;
 	  import_make_dirmkdirp = module_fsextra100.mkdirp;
@@ -527,8 +527,8 @@
 	// load jspm
 	jspm.import('fs-extra@^1.0.0'),
 	// other
-	jspm.import('async-stacktrace'), jspm.import('word-wrap')];
-	module.exports = q.all(promises).spread(function (module_fsextra100, ERR, word_wrap) {
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (module_fsextra100, ERR, wordwrap) {
 	    var _ = function _(from, to, cb) {
 	        var handle_response = function handle_response() {
 	            cb();
@@ -557,9 +557,9 @@
 	  __webpack_require__(8),
 	  __webpack_require__(10),
 	  jspm.import('async-stacktrace'),
-	  jspm.import('word-wrap')
+	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_sharedcopy_if_exists, local_include_sharedmake_package_json, ERR, word_wrap) {
+	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_sharedcopy_if_exists, local_include_sharedmake_package_json, ERR, wordwrap) {
 	  var import_remove_pathremove, import_make_dirmkdirp, copy_if_exists, make_package_json, _;
 	  import_remove_pathremove = module_fsextra100.remove;
 	  import_make_dirmkdirp = module_fsextra100.mkdirp;
@@ -616,9 +616,9 @@
 	  jspm.import('object-merge-override@^0.1.0'),
 	  jspm.import('string-template@^1.0.0'),
 	  jspm.import('async-stacktrace'),
-	  jspm.import('word-wrap')
+	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (module_ramda, module_fsextra100, module_jsyaml370, module_objectmergeoverride010, module_stringtemplate100, ERR, word_wrap) {
+	module.exports = q.all(promises).spread(function (module_ramda, module_fsextra100, module_jsyaml370, module_objectmergeoverride010, module_stringtemplate100, ERR, wordwrap) {
 	  var import_read_filereadFile, import_write_filewriteFile, _;
 	  import_read_filereadFile = module_fsextra100.readFile;
 	  import_write_filewriteFile = module_fsextra100.writeFile;

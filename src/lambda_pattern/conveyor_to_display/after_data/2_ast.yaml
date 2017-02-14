@@ -1,0 +1,552 @@
+---
+  - 
+    path: "a.es6"
+    contents: 
+      metadata: 
+        usedHelpers: []
+        marked: []
+        modules: 
+          imports: []
+          exports: 
+            exported: []
+            specifiers: []
+      options: 
+        filename: "unknown"
+        filenameRelative: "unknown"
+        env: {}
+        retainLines: false
+        highlightCode: true
+        suppressDeprecationMessages: false
+        presets: []
+        plugins: []
+        ignore: []
+        code: true
+        metadata: true
+        ast: true
+        comments: true
+        compact: "auto"
+        minified: false
+        sourceMapTarget: "unknown"
+        sourceFileName: "unknown"
+        babelrc: true
+        sourceType: "module"
+        moduleIds: false
+        passPerPreset: false
+        parserOpts: false
+        generatorOpts: false
+        basename: "unknown"
+      ignored: false
+      code: "const a = (a, b) => {\n  console.log(a);\n};"
+      ast: 
+        type: "File"
+        program: 
+          type: "Program"
+          start: 0
+          end: 43
+          loc: 
+            start: 
+              line: 1
+              column: 0
+            end: 
+              line: 2
+              column: 20
+          range: 
+            - 0
+            - 42
+          body: 
+            - 
+              type: "VariableDeclaration"
+              start: 0
+              end: 42
+              loc: 
+                start: 
+                  line: 1
+                  column: 0
+                end: 
+                  line: 2
+                  column: 20
+              range: 
+                - 0
+                - 42
+              declarations: 
+                - 
+                  type: "VariableDeclarator"
+                  start: 6
+                  end: 42
+                  loc: 
+                    start: 
+                      line: 1
+                      column: 6
+                    end: 
+                      line: 2
+                      column: 20
+                  range: 
+                    - 6
+                    - 42
+                  id: 
+                    type: "Identifier"
+                    start: 6
+                    end: 7
+                    loc: 
+                      start: 
+                        line: 1
+                        column: 6
+                      end: 
+                        line: 1
+                        column: 7
+                    range: 
+                      - 6
+                      - 7
+                    name: "a"
+                  init: 
+                    type: "ArrowFunctionExpression"
+                    start: 10
+                    end: 42
+                    loc: 
+                      start: 
+                        line: 1
+                        column: 10
+                      end: 
+                        line: 2
+                        column: 20
+                    range: 
+                      - 10
+                      - 42
+                    id: null
+                    generator: false
+                    expression: false
+                    params: 
+                      - 
+                        type: "Identifier"
+                        start: 11
+                        end: 12
+                        loc: 
+                          start: 
+                            line: 1
+                            column: 11
+                          end: 
+                            line: 1
+                            column: 12
+                        range: 
+                          - 11
+                          - 12
+                        name: "a"
+                      - 
+                        type: "Identifier"
+                        start: 14
+                        end: 15
+                        loc: 
+                          start: 
+                            line: 1
+                            column: 14
+                          end: 
+                            line: 1
+                            column: 15
+                        range: 
+                          - 14
+                          - 15
+                        name: "b"
+                    body: 
+                      type: "BlockStatement"
+                      start: 20
+                      end: 42
+                      loc: 
+                        start: 
+                          line: 1
+                          column: 20
+                        end: 
+                          line: 2
+                          column: 20
+                      range: 
+                        - 20
+                        - 42
+                      body: 
+                        - 
+                          type: "ExpressionStatement"
+                          start: 26
+                          end: 41
+                          loc: 
+                            start: 
+                              line: 2
+                              column: 4
+                            end: 
+                              line: 2
+                              column: 19
+                          range: 
+                            - 26
+                            - 41
+                          expression: 
+                            type: "CallExpression"
+                            start: 26
+                            end: 40
+                            loc: 
+                              start: 
+                                line: 2
+                                column: 4
+                              end: 
+                                line: 2
+                                column: 18
+                            range: 
+                              - 26
+                              - 40
+                            callee: 
+                              type: "MemberExpression"
+                              start: 26
+                              end: 37
+                              loc: 
+                                start: 
+                                  line: 2
+                                  column: 4
+                                end: 
+                                  line: 2
+                                  column: 15
+                              range: 
+                                - 26
+                                - 37
+                              object: 
+                                type: "Identifier"
+                                start: 26
+                                end: 33
+                                loc: 
+                                  start: 
+                                    line: 2
+                                    column: 4
+                                  end: 
+                                    line: 2
+                                    column: 11
+                                range: 
+                                  - 26
+                                  - 33
+                                name: "console"
+                              property: 
+                                type: "Identifier"
+                                start: 34
+                                end: 37
+                                loc: 
+                                  start: 
+                                    line: 2
+                                    column: 12
+                                  end: 
+                                    line: 2
+                                    column: 15
+                                range: 
+                                  - 34
+                                  - 37
+                                name: "log"
+                              computed: false
+                            arguments: 
+                              - 
+                                type: "Identifier"
+                                start: 38
+                                end: 39
+                                loc: 
+                                  start: 
+                                    line: 2
+                                    column: 16
+                                  end: 
+                                    line: 2
+                                    column: 17
+                                range: 
+                                  - 38
+                                  - 39
+                                name: "a"
+              kind: "const"
+          sourceType: "script"
+        comments: []
+        tokens: []
+      map: null
+  - 
+    path: "b.es6"
+    contents: 
+      metadata: 
+        usedHelpers: []
+        marked: []
+        modules: 
+          imports: []
+          exports: 
+            exported: []
+            specifiers: []
+      options: 
+        filename: "unknown"
+        filenameRelative: "unknown"
+        env: {}
+        retainLines: false
+        highlightCode: true
+        suppressDeprecationMessages: false
+        presets: []
+        plugins: []
+        ignore: []
+        code: true
+        metadata: true
+        ast: true
+        comments: true
+        compact: "auto"
+        minified: false
+        sourceMapTarget: "unknown"
+        sourceFileName: "unknown"
+        babelrc: true
+        sourceType: "module"
+        moduleIds: false
+        passPerPreset: false
+        parserOpts: false
+        generatorOpts: false
+        basename: "unknown"
+      ignored: false
+      code: ""
+      ast: 
+        type: "File"
+        program: 
+          type: "Program"
+          start: 0
+          end: 0
+          loc: 
+            start: 
+              line: 1
+              column: 0
+            end: 
+              line: 1
+              column: 0
+          range: 
+            - 0
+            - 0
+          body: []
+          sourceType: "script"
+        comments: []
+        tokens: []
+      map: null
+  - 
+    path: "c.es6"
+    contents: 
+      metadata: 
+        usedHelpers: []
+        marked: []
+        modules: 
+          imports: []
+          exports: 
+            exported: []
+            specifiers: []
+      options: 
+        filename: "unknown"
+        filenameRelative: "unknown"
+        env: {}
+        retainLines: false
+        highlightCode: true
+        suppressDeprecationMessages: false
+        presets: []
+        plugins: []
+        ignore: []
+        code: true
+        metadata: true
+        ast: true
+        comments: true
+        compact: "auto"
+        minified: false
+        sourceMapTarget: "unknown"
+        sourceFileName: "unknown"
+        babelrc: true
+        sourceType: "module"
+        moduleIds: false
+        passPerPreset: false
+        parserOpts: false
+        generatorOpts: false
+        basename: "unknown"
+      ignored: false
+      code: ""
+      ast: 
+        type: "File"
+        program: 
+          type: "Program"
+          start: 0
+          end: 0
+          loc: 
+            start: 
+              line: 1
+              column: 0
+            end: 
+              line: 1
+              column: 0
+          range: 
+            - 0
+            - 0
+          body: []
+          sourceType: "script"
+        comments: []
+        tokens: []
+      map: null
+  - 
+    path: "not_code.abc"
+    contents: 
+      metadata: 
+        usedHelpers: []
+        marked: []
+        modules: 
+          imports: []
+          exports: 
+            exported: []
+            specifiers: []
+      options: 
+        filename: "unknown"
+        filenameRelative: "unknown"
+        env: {}
+        retainLines: false
+        highlightCode: true
+        suppressDeprecationMessages: false
+        presets: []
+        plugins: []
+        ignore: []
+        code: true
+        metadata: true
+        ast: true
+        comments: true
+        compact: "auto"
+        minified: false
+        sourceMapTarget: "unknown"
+        sourceFileName: "unknown"
+        babelrc: true
+        sourceType: "module"
+        moduleIds: false
+        passPerPreset: false
+        parserOpts: false
+        generatorOpts: false
+        basename: "unknown"
+      ignored: false
+      code: ""
+      ast: 
+        type: "File"
+        program: 
+          type: "Program"
+          start: 0
+          end: 0
+          loc: 
+            start: 
+              line: 1
+              column: 0
+            end: 
+              line: 1
+              column: 0
+          range: 
+            - 0
+            - 0
+          body: []
+          sourceType: "script"
+        comments: []
+        tokens: []
+      map: null
+  - 
+    path: "sub_folder/d.es6"
+    contents: 
+      metadata: 
+        usedHelpers: []
+        marked: []
+        modules: 
+          imports: []
+          exports: 
+            exported: []
+            specifiers: []
+      options: 
+        filename: "unknown"
+        filenameRelative: "unknown"
+        env: {}
+        retainLines: false
+        highlightCode: true
+        suppressDeprecationMessages: false
+        presets: []
+        plugins: []
+        ignore: []
+        code: true
+        metadata: true
+        ast: true
+        comments: true
+        compact: "auto"
+        minified: false
+        sourceMapTarget: "unknown"
+        sourceFileName: "unknown"
+        babelrc: true
+        sourceType: "module"
+        moduleIds: false
+        passPerPreset: false
+        parserOpts: false
+        generatorOpts: false
+        basename: "unknown"
+      ignored: false
+      code: ""
+      ast: 
+        type: "File"
+        program: 
+          type: "Program"
+          start: 0
+          end: 0
+          loc: 
+            start: 
+              line: 1
+              column: 0
+            end: 
+              line: 1
+              column: 0
+          range: 
+            - 0
+            - 0
+          body: []
+          sourceType: "script"
+        comments: []
+        tokens: []
+      map: null
+  - 
+    path: "sub_folder/e.es6"
+    contents: 
+      metadata: 
+        usedHelpers: []
+        marked: []
+        modules: 
+          imports: []
+          exports: 
+            exported: []
+            specifiers: []
+      options: 
+        filename: "unknown"
+        filenameRelative: "unknown"
+        env: {}
+        retainLines: false
+        highlightCode: true
+        suppressDeprecationMessages: false
+        presets: []
+        plugins: []
+        ignore: []
+        code: true
+        metadata: true
+        ast: true
+        comments: true
+        compact: "auto"
+        minified: false
+        sourceMapTarget: "unknown"
+        sourceFileName: "unknown"
+        babelrc: true
+        sourceType: "module"
+        moduleIds: false
+        passPerPreset: false
+        parserOpts: false
+        generatorOpts: false
+        basename: "unknown"
+      ignored: false
+      code: ""
+      ast: 
+        type: "File"
+        program: 
+          type: "Program"
+          start: 0
+          end: 0
+          loc: 
+            start: 
+              line: 1
+              column: 0
+            end: 
+              line: 1
+              column: 0
+          range: 
+            - 0
+            - 0
+          body: []
+          sourceType: "script"
+        comments: []
+        tokens: []
+      map: null

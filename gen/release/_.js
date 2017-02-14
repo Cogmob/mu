@@ -7,8 +7,8 @@ var promises = [
 // load jspm
 jspm.import('commander'),
 // other
-jspm.import('async-stacktrace'), jspm.import('word-wrap')];
-module.exports = q.all(promises).spread(function (module_commander, ERR, word_wrap) {
+jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+module.exports = q.all(promises).spread(function (module_commander, ERR, wordwrap) {
     var _ = function _(updatables, config) {
         updatables(commander, __dirname, config);
         module_commander.parse(process.argv);

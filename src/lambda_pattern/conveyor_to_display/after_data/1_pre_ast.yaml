@@ -1,9 +1,14 @@
-a.es6: |
+- path: a.es6
+  contents: |
     const a = (a, b) => {
         console.log(a);}
-b.es6: ''
-c.es6: ''
-not_code.abc: ''
-sub_folder:
-  d.es6: ''
-  e.es6: ''
+- path: b.es6
+  contents: ''
+- path: c.es6
+  contents: ''
+- path: not_code.abc
+  contents: ''
+- path: sub_folder/d.es6
+  contents: ''
+- path: sub_folder/e.es6
+  contents: ''
