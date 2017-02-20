@@ -55,13 +55,13 @@ module.exports =
 	__webpack_require__(1), __webpack_require__(2),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (local_include_build_all__commander, local_include_conveyor_to_display__, ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (local_include_build_all__commander, local_include_conveyor_to_display_, ERR, wordwrap) {
 	    var build_all = function build_all(commander, mu_src_path, config) {
 	        local_include_build_all__commander(commander, mu_src_path);
 	    };
 
 	    var functions = {
-	        conveyor_to_display: local_include_conveyor_to_display__ };
+	        conveyor_to_display: local_include_conveyor_to_display_ };
 
 	    module.exports = { build_all: build_all, functions: functions };
 	}).catch(function (err) {
