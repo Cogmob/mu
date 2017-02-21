@@ -1,7 +1,7 @@
 const cb = (err) => {console.log('error');};
 
-. conveyor_to_display/__test(cont(err));
-
+. commander_add/_test(cont(err));
+//. conveyor_to_display/__test(cont(err));
 //require('./set_up/__test');
 //require('./set_up/__test');
 //require('./set_lambda_state_version/__test');

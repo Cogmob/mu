@@ -2,7 +2,7 @@ let root = expand('%:p:h')
 nmap <leader>j :wall<CR> :call VimuxRunCommand(
 \    'cd ' . root . '/src/tools ; clear ; ./build.sh')<CR>
 nmap <leader>k :wall<CR> :call VimuxRunCommand(
-\    'cd ' . root . '/gen/dev/src/lambda_pattern ; clear ; node __test.js')<CR>
+\    'cd ' . root . '/gen/dev/src/lambda_pattern ; clear ; node _test.js')<CR>
 nmap <leader>l :wall<CR> :call VimuxRunCommand(
 \    'cd ' . root . '/gen/release ; clear ; rm -rf test ; '
 \    . 'time ./bin.js create test ; cd test ; ./_.js c display')<CR>
