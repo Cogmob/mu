@@ -1,3 +1,3 @@
 const _ = (updatables, config) => {
-    updatables(commander, __dirname, config);
+    . ../commander_add/_(.. commander, __dirname, cont(err));
     .. commander.parse(process.argv);}
