@@ -1,2 +1,6 @@
-//. create/__commander(.. commander, __dirname);
+//import modules from "./conveyor_to_display/*.js";
+const modules = ... 'conveyor_to_display/*.es6';
+console.log(modules);
+
+. create/_commander(.. commander, __dirname);
 .. commander.parse(process.argv);

@@ -70,7 +70,37 @@ const add_includes = (ret, map) => {
         for (var i in imports) {
             [ret, imports_code, assign_code, alias_code] = add_module(
                 ret, imports_code, assign_code, alias_code, imports[i])}}
-    return [ret, imports_code, assign_code, alias_code];}
+    return [ret, imports_code, assign_code, alias_code];};
+
+const add_regex_includes = (ret, map, imports_code, assign_code) => {
+    const re = /(^|[^a-zA-Z0-9])\.\.\. \'[^\']+\'/g;
+    var imports = [];
+    var module_bundle_code = '';
+    var m;
+    do {
+        m = re.exec(ret);
+        if (m) {
+            imports.push(m[0].substring(6, m[0].length - 1));}} while (m);
+    if (imports.length > 0) {
+        imports_code += '    /' + '/ load regex\n';
+        for (var i in imports) {
+            const files = .. glob.sync(imports[i], {
+                cwd: __dirname + '/..',
+                root: __dirname + '/..'});
+            const varname = 'regex_' + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
+            module_bundle_code = '    ' + varname + ' = {\n';
+            ret = ret.replace('... \'' + imports[i] + '\'', varname);
+            for (var f in files) {
+                const filename = files[f].replace('.es6', '.js');
+                const file_varname = filename.replace(/[^a-zA-Z0-9_]/g, '');
+                imports_code += '    ' + `require('./${filename}')` + ',\n';
+                assign_code += '    ' + varname + '__' + file_varname + ',\n';
+                module_bundle_code +=
+                    '        \'' + files[f].replace(__dirname, '')
+                    + '\': ' + file_varname + ',\n';}
+            module_bundle_code += '    };\n'}}
+    return [ret, imports_code, assign_code, module_bundle_code];
+};
 
 const add_local_includes = (ret, map, imports_code, assign_code) => {
     const re = /(^|[^a-zA-Z0-9])\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/]*/g;
@@ -96,7 +126,7 @@ const add_local_includes = (ret, map, imports_code, assign_code) => {
             if (!assign_code.includes(assign_string)) {
                 assign_code += '    ' + assign_string + ',\n';}}}
     return [ret, imports_code, assign_code];
-}
+};
 
 const es6_prefix = `const jspm = eval('require')(
     process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
@@ -172,16 +202,19 @@ gulp.task('es6', ()=>{
                 code += '\n    return _;';}
             code += '}).catch((err) => {console.log(err);});\n';
 
-            var imports_code, assign_code, alias_code;
+            var imports_code, assign_code, alias_code, module_bundle_code;
             [code, imports_code, assign_code, alias_code] = add_includes(
                 code, module_map);
             [code, imports_code, assign_code]  = add_local_includes(
                 code, module_map, imports_code, assign_code);
+            [code, imports_code, assign_code, module_bundle_code]  =
+                add_regex_includes(code, module_map, imports_code, assign_code);
             return es6_prefix
                 + imports_code
                 + jspm_promise_a
                 + assign_code
                 + jspm_promise_b
+                + module_bundle_code
                 + alias_code
                 + code;}))
         .pipe(vmap((code, filename) => {
@@ -234,10 +267,14 @@ gulp.task('build_updatables', () => {
         .pipe(webpack({
             externals: [node_externals()],
             module: {
-                loaders: [{
-                    test: /\.jsx?$/,
-                    exclude: /node_modules/,
-                    loader: 'shebang'}],},
+                preloaders: [{
+                        test: /\.js/,
+                        loader: 'import-glob'}],
+                loaders: [
+                    {
+                        test: /\.jsx?$/,
+                        exclude: /node_modules/,
+                        loader: 'shebang'}],},
             node: {
                 __filename: false,
                 __dirname: false},
@@ -252,16 +289,20 @@ gulp.task('build_updatables', () => {
 
 gulp.task('build_lambda_pattern_tool', () => {
     console.log(process.env['HOME']);
-    return gulp.src('[project_name]/bin.js')
+    return gulp.src('[project_name]/bin.es6')
         .pipe(webpack({
             externals: [node_externals()],
             //plugins: [
             //    new webpack.IgnorePlugin(/.*/)],
             module: {
-                loaders: [{
-                    test: /\.jsx?$/,
-                    exclude: /node_modules/,
-                    loader: 'shebang'}]},
+                preloaders: [{
+                        test: /\.js/,
+                        loader: 'import-glob'}],
+                loaders: [
+                    {
+                        test: /\.jsx?$/,
+                        exclude: /node_modules/,
+                        loader: 'shebang'}]},
             node: {
                 __filename: false,
                 __dirname: false},

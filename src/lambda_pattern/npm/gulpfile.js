@@ -6,9 +6,11 @@ var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_mo
 var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 var promises = [
+// load jspm
+jspm.import('glob'),
 // other
 jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-module.exports = q.all(promises).spread(function (ERR, wordwrap) {
+module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
     var webpack = require('webpack-stream');
     var node_externals = require('webpack-node-externals');
     var insert = require('gulp-insert');
@@ -101,6 +103,39 @@ module.exports = q.all(promises).spread(function (ERR, wordwrap) {
         return [ret, imports_code, assign_code, alias_code];
     };
 
+    var add_regex_includes = function add_regex_includes(ret, map, imports_code, assign_code) {
+        var re = /(^|[^a-zA-Z0-9])\.\.\. \'[^\']+\'/g;
+        var imports = [];
+        var module_bundle_code = '';
+        var m;
+        do {
+            m = re.exec(ret);
+            if (m) {
+                imports.push(m[0].substring(6, m[0].length - 1));
+            }
+        } while (m);
+        if (imports.length > 0) {
+            imports_code += '    /' + '/ load regex\n';
+            for (var i in imports) {
+                var files = module_glob.sync(imports[i], {
+                    cwd: __dirname + '/..',
+                    root: __dirname + '/..' });
+                var varname = 'regex_' + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
+                module_bundle_code = '    ' + varname + ' = {\n';
+                ret = ret.replace('... \'' + imports[i] + '\'', varname);
+                for (var f in files) {
+                    var filename = files[f].replace('.es6', '.js');
+                    var file_varname = filename.replace(/[^a-zA-Z0-9_]/g, '');
+                    imports_code += '    ' + ('require(\'./' + filename + '\')') + ',\n';
+                    assign_code += '    ' + varname + '__' + file_varname + ',\n';
+                    module_bundle_code += '        \'' + files[f].replace(__dirname, '') + '\': ' + file_varname + ',\n';
+                }
+                module_bundle_code += '    };\n';
+            }
+        }
+        return [ret, imports_code, assign_code, module_bundle_code];
+    };
+
     var add_local_includes = function add_local_includes(ret, map, imports_code, assign_code) {
         var re = /(^|[^a-zA-Z0-9])\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/]*/g;
         var imports = [];
@@ -164,7 +199,7 @@ module.exports = q.all(promises).spread(function (ERR, wordwrap) {
             }
             code += '}).catch((err) => {console.log(err);});\n';
 
-            var imports_code, assign_code, alias_code;
+            var imports_code, assign_code, alias_code, module_bundle_code;
 
             var _add_includes = add_includes(code, module_map);
 
@@ -183,7 +218,16 @@ module.exports = q.all(promises).spread(function (ERR, wordwrap) {
             imports_code = _add_local_includes2[1];
             assign_code = _add_local_includes2[2];
 
-            return es6_prefix + imports_code + jspm_promise_a + assign_code + jspm_promise_b + alias_code + code;
+            var _add_regex_includes = add_regex_includes(code, module_map, imports_code, assign_code);
+
+            var _add_regex_includes2 = _slicedToArray(_add_regex_includes, 4);
+
+            code = _add_regex_includes2[0];
+            imports_code = _add_regex_includes2[1];
+            assign_code = _add_regex_includes2[2];
+            module_bundle_code = _add_regex_includes2[3];
+
+            return es6_prefix + imports_code + jspm_promise_a + assign_code + jspm_promise_b + module_bundle_code + alias_code + code;
         })).pipe(vmap(function (code, filename) {
             return code.toString();
         })).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n            if (ERR(err, cb)) {\n                return;}\n                ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n        if (err) {\n            console.log(wordwrap(20, 81)(\n                err.stack.replace(/\\\\/g, \'\\\\ \').replace(/^/gm, \'.\'))\n            .split(\'\\n\').forEach((stack_line) => {\n                console.log(stack_line\n                    .replace(/\\\\ /g, \'\\\\\')\n                    .replace(/ at/g, \'\\nat\')\n                    .replace(/Error:/g, \'\\nError:\'));}));}\n        ')).pipe(gulp.dest('lambda_pattern')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('lambda_pattern'));
@@ -203,6 +247,9 @@ module.exports = q.all(promises).spread(function (ERR, wordwrap) {
         return gulp.src('lambda_pattern/updatables/_.js').pipe(webpack({
             externals: [node_externals()],
             module: {
+                preloaders: [{
+                    test: /\.js/,
+                    loader: 'import-glob' }],
                 loaders: [{
                     test: /\.jsx?$/,
                     exclude: /node_modules/,
@@ -221,10 +268,13 @@ module.exports = q.all(promises).spread(function (ERR, wordwrap) {
 
     gulp.task('build_lambda_pattern_tool', function () {
         console.log(process.env['HOME']);
-        return gulp.src('lambda_pattern/bin.js').pipe(webpack({
+        return gulp.src('lambda_pattern/bin.es6').pipe(webpack({
             externals: [node_externals()],
 
             module: {
+                preloaders: [{
+                    test: /\.js/,
+                    loader: 'import-glob' }],
                 loaders: [{
                     test: /\.jsx?$/,
                     exclude: /node_modules/,
