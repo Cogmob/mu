@@ -92,11 +92,12 @@ const add_regex_includes = (ret, map, imports_code, assign_code) => {
             ret = ret.replace('... \'' + imports[i] + '\'', varname);
             for (var f in files) {
                 const filename = files[f].replace('.es6', '.js');
+                const sections = filename.split('/');
                 const file_varname = filename.replace(/[^a-zA-Z0-9_]/g, '');
                 imports_code += '    ' + `require('./${filename}')` + ',\n';
                 assign_code += '    ' + varname + '__' + file_varname + ',\n';
                 module_bundle_code +=
-                    '        \'' + files[f].replace(__dirname, '')
+                    '        \'' + sections[sections.length - 1].split('.')[0]
                     + '\': ' + file_varname + ',\n';}
             module_bundle_code += '    };\n'}}
     return [ret, imports_code, assign_code, module_bundle_code];

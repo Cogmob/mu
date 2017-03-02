@@ -80,13 +80,13 @@
 	    ERR,
 	    wordwrap) => {
 	    regex_conveyor_to_displayes6 = {
-	        'conveyor_to_display/_.es6': conveyor_to_display_js,
-	        'conveyor_to_display/_test.es6': conveyor_to_display_testjs,
-	        'conveyor_to_display/1_pre_ast.es6': conveyor_to_display1_pre_astjs,
-	        'conveyor_to_display/2_ast.es6': conveyor_to_display2_astjs,
-	        'conveyor_to_display/3_ast_transformed.es6': conveyor_to_display3_ast_transformedjs,
-	        'conveyor_to_display/4_generated.es6': conveyor_to_display4_generatedjs,
-	        'conveyor_to_display/5_display.es6': conveyor_to_display5_displayjs,
+	        '_': conveyor_to_display_js,
+	        '_test': conveyor_to_display_testjs,
+	        '1_pre_ast': conveyor_to_display1_pre_astjs,
+	        '2_ast': conveyor_to_display2_astjs,
+	        '3_ast_transformed': conveyor_to_display3_ast_transformedjs,
+	        '4_generated': conveyor_to_display4_generatedjs,
+	        '5_display': conveyor_to_display5_displayjs,
 	    };
 
 	const modules = regex_conveyor_to_displayes6;
