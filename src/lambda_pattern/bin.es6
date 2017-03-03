@@ -4,3 +4,5 @@ console.log(modules);
 
 . create/_commander(.. commander, __dirname);
 .. commander.parse(process.argv);
+console.log('optional');
+console.log(.. optional('./whatever'));

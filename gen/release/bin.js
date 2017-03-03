@@ -54,6 +54,7 @@
 	const promises = [
 	    // load jspm
 	    jspm.import('commander'),
+	    jspm.import('optional'),
 	    // load local
 	    __webpack_require__(1),
 	    // load regex
@@ -69,6 +70,7 @@
 	    jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread((
 	    module_commander,
+	    module_optional,
 	    local_include_create_commander,
 	    regex_conveyor_to_displayes6__conveyor_to_display_js,
 	    regex_conveyor_to_displayes6__conveyor_to_display_testjs,
@@ -80,13 +82,13 @@
 	    ERR,
 	    wordwrap) => {
 	    regex_conveyor_to_displayes6 = {
-	        '_': conveyor_to_display_js,
-	        '_test': conveyor_to_display_testjs,
-	        '1_pre_ast': conveyor_to_display1_pre_astjs,
-	        '2_ast': conveyor_to_display2_astjs,
-	        '3_ast_transformed': conveyor_to_display3_ast_transformedjs,
-	        '4_generated': conveyor_to_display4_generatedjs,
-	        '5_display': conveyor_to_display5_displayjs,
+	        '_': regex_conveyor_to_displayes6__conveyor_to_display_js,
+	        '_test': regex_conveyor_to_displayes6__conveyor_to_display_testjs,
+	        '1_pre_ast': regex_conveyor_to_displayes6__conveyor_to_display1_pre_astjs,
+	        '2_ast': regex_conveyor_to_displayes6__conveyor_to_display2_astjs,
+	        '3_ast_transformed': regex_conveyor_to_displayes6__conveyor_to_display3_ast_transformedjs,
+	        '4_generated': regex_conveyor_to_displayes6__conveyor_to_display4_generatedjs,
+	        '5_display': regex_conveyor_to_displayes6__conveyor_to_display5_displayjs,
 	    };
 
 	const modules = regex_conveyor_to_displayes6;
@@ -94,6 +96,8 @@
 
 	local_include_create_commander(module_commander, __dirname);
 	module_commander.parse(process.argv);
+	console.log('optional');
+	console.log(module_optional('./whatever'));
 	}).catch((err) => {console.log(err);});
 
 

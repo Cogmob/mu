@@ -93,9 +93,10 @@ const add_regex_includes = (ret, map, imports_code, assign_code) => {
             for (var f in files) {
                 const filename = files[f].replace('.es6', '.js');
                 const sections = filename.split('/');
-                const file_varname = filename.replace(/[^a-zA-Z0-9_]/g, '');
+                const file_varname = 
+                    varname + '__' + filename.replace(/[^a-zA-Z0-9_]/g, '');
                 imports_code += '    ' + `require('./${filename}')` + ',\n';
-                assign_code += '    ' + varname + '__' + file_varname + ',\n';
+                assign_code += '    ' + file_varname + ',\n';
                 module_bundle_code +=
                     '        \'' + sections[sections.length - 1].split('.')[0]
                     + '\': ' + file_varname + ',\n';}
