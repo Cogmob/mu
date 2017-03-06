@@ -269,7 +269,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
 
     gulp.task('build_lambda_pattern_tool', function () {
         console.log(process.env['HOME']);
-        return gulp.src('lambda_pattern/bin.es6').pipe(webpack({
+        return gulp.src('lambda_pattern/_.es6').pipe(webpack({
             externals: [node_externals()],
 
             module: {
@@ -283,10 +283,13 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
             node: {
                 __filename: false,
                 __dirname: false },
-            output: { filename: 'bin.js' },
+            output: {
+                filename: '_.js',
+                libraryTarget: 'commonjs2',
+                library: true },
             resolve: {
                 root: global_node_dir },
-            target: 'node' })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(gulp.dest('../../release'));
+            target: 'node' })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(footer('\nif (!module.parent) {\n    module.exports.then(function(f) {f(function (er) {\n        if (er) {\n           console.log(er.toString());\n        }\n    });});\n}')).pipe(gulp.dest('../../release'));
     });
 
     gulp.task('copy_skel_to_parent', function () {
@@ -301,10 +304,6 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
         return gulp.src(['lambda_pattern/shared/default_package_values.yaml', 'lambda_pattern/shared/package_template.json']).pipe(gulp.dest('../../release/lambda_pattern/shared'));
     });
 
-    gulp.task('copy_main_to_release', function () {
-        return gulp.src(['lambda_pattern/_.js']).pipe(gulp.dest('../../release'));
-    });
-
     gulp.task('copy_ignore_to_release', function () {
         return gulp.src('lambda_pattern/.gitignore').pipe(gulp.dest('../../release'));
     });
@@ -313,7 +312,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
         return gulp.src('../../../src/**/*').pipe(gulp.dest('.'));
     });
 
-    gulp.task('build', sequence('copy_skel_to_parent', 'es6', 'tools_es6', 'main_file', 'backup_gulpfile', 'build_updatables', 'build_lambda_pattern_tool', 'copy_ignore_to_release', 'copy_main_to_release', 'copy_skel_to_release', 'copy_yaml_to_release'));
+    gulp.task('build', sequence('copy_skel_to_parent', 'es6', 'tools_es6', 'main_file', 'backup_gulpfile', 'build_updatables', 'build_lambda_pattern_tool', 'copy_ignore_to_release', 'copy_skel_to_release', 'copy_yaml_to_release'));
 
     gulp.start('build');
 }).catch(function (err) {

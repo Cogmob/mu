@@ -291,7 +291,7 @@ gulp.task('build_updatables', () => {
 
 gulp.task('build_lambda_pattern_tool', () => {
     console.log(process.env['HOME']);
-    return gulp.src('[project_name]/bin.es6')
+    return gulp.src('[project_name]/_.es6')
         .pipe(webpack({
             externals: [node_externals()],
             //plugins: [
@@ -308,11 +308,22 @@ gulp.task('build_lambda_pattern_tool', () => {
             node: {
                 __filename: false,
                 __dirname: false},
-            output: { filename: 'bin.js' },
+            output: {
+                filename: '_.js',
+                libraryTarget: 'commonjs2',
+                library: true},
             resolve: {
                 root: global_node_dir},
             target: 'node'}))
         .pipe(insert.prepend('#!/usr/bin/env node\n\n'))
+        .pipe(footer(`
+if (!module.parent) {
+    module.exports.then(function(f) {f(function (er) {
+        if (er) {
+           console.log(er.toString());
+        }
+    });});
+}`))
         .pipe(gulp.dest('../../release'));});
 
 gulp.task('copy_skel_to_parent', () => {
@@ -331,11 +342,6 @@ gulp.task('copy_yaml_to_release', () => {
             '[project_name]/shared/package_template.json'])
         .pipe(gulp.dest('../../release/[project_name]/shared'));});
 
-gulp.task('copy_main_to_release', () => {
-    return gulp.src([
-            '[project_name]/_.js'])
-        .pipe(gulp.dest('../../release'));});
-
 gulp.task('copy_ignore_to_release', () => {
     return gulp.src('[project_name]/.gitignore')
         .pipe(gulp.dest('../../release'));});
@@ -353,7 +359,6 @@ gulp.task('build', sequence(
     'build_updatables',
     'build_lambda_pattern_tool',
     'copy_ignore_to_release',
-    'copy_main_to_release',
     'copy_skel_to_release',
     'copy_yaml_to_release'));
 
