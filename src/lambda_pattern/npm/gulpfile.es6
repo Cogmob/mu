@@ -89,18 +89,28 @@ const add_regex_includes = (ret, map, imports_code, assign_code) => {
                 root: __dirname + '/..'});
             const varname = 'regex_' + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
             module_bundle_code = '    ' + varname + ' = {\n';
+            module_bundle_code += '        by_file: {},\n';
+            module_bundle_code += '        by_folder: {}};\n';
             ret = ret.replace('... \'' + imports[i] + '\'', varname);
             for (var f in files) {
                 const filename = files[f].replace('.es6', '.js');
+                var file_varname = varname + '__' + filename;
+                file_varname = file_varname.replace(/[^a-zA-Z0-9_]/g, '');
                 const sections = filename.split('/');
-                const file_varname = 
-                    varname + '__' + filename.replace(/[^a-zA-Z0-9_]/g, '');
+                const short_name = sections[sections.length - 1].split('.')[0];
+                const folder_name = sections[sections.length - 2];
+
                 imports_code += '    ' + `require('./${filename}')` + ',\n';
+
                 assign_code += '    ' + file_varname + ',\n';
-                module_bundle_code +=
-                    '        \'' + sections[sections.length - 1].split('.')[0]
-                    + '\': ' + file_varname + ',\n';}
-            module_bundle_code += '    };\n'}}
+
+                module_bundle_code += '    ' + varname + '.by_file[\'';
+                module_bundle_code += short_name;
+                module_bundle_code += '\'] = ' + file_varname + ';\n';
+
+                module_bundle_code += '    ' + varname + '.by_folder[\'';
+                module_bundle_code += folder_name;
+                module_bundle_code += '\'] = ' + file_varname + ';\n';}}}
     return [ret, imports_code, assign_code, module_bundle_code];
 };
 

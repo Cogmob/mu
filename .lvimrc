@@ -5,5 +5,5 @@ nmap <leader>k :wall<CR> :call VimuxRunCommand(
 \    'cd ' . root . '/gen/dev/src/lambda_pattern ; clear ; node _test.js')<CR>
 nmap <leader>l :wall<CR> :call VimuxRunCommand(
 \    'cd ' . root . '/gen/release ; clear ; rm -rf test ; '
-\    . 'time ./_.js create test')<CR>
+\    . './_.js create test')<CR>
 "; cd test ; ./_.js c display')<CR>
