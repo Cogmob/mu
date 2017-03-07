@@ -17,6 +17,6 @@ const _ = (commander, mu_src_path) => {
             . ../shared/get_metadata(gen_path, cont(err, info));
             . ../set_up/_(mu_src_path, gen_path, info, cont(err));
             cb(null, project_name);})
-            //console.log('+ 5');
-            //. ../build_tools/_(gen_path, cont(err));
+            console.log('+ 5');
+            . ../build_tools/_(gen_path, cont(err));
 }
