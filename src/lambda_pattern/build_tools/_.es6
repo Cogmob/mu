@@ -23,7 +23,7 @@ const _ = (root, cb) => {
         cont(err));
 
     . modify_es6(root + '/generated_local/tools', cont(err));
-    //convert_es6(root + '/generated_local/tools', cont(err));
+    convert_es6(root + '/generated_local/tools', cont(err));
     //console.log('webpack for tools start');
     //. webpack(root + '/generated_local/tools', cont(err));
     //console.log('webpack for tools finished');

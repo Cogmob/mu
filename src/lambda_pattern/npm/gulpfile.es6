@@ -312,6 +312,9 @@ gulp.task('build_lambda_pattern_tool', () => {
                         loader: 'import-glob'}],
                 loaders: [
                     {
+                        test: /\.txt$/,
+                        loader: 'raw-loader'},
+                    {
                         test: /\.jsx?$/,
                         exclude: /node_modules/,
                         loader: 'shebang'}]},

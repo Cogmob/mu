@@ -290,6 +290,8 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
                     test: /\.js/,
                     loader: 'import-glob' }],
                 loaders: [{
+                    test: /\.txt$/,
+                    loader: 'raw-loader' }, {
                     test: /\.jsx?$/,
                     exclude: /node_modules/,
                     loader: 'shebang' }] },
