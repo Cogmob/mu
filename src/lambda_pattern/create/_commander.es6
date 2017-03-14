@@ -16,6 +16,6 @@ const _ = (commander, mu_src_path) => {
             const gen_path = __dirname + '/' + project_name;
             . ../shared/get_metadata(gen_path, cont(err, info));
             . ../set_up/_(mu_src_path, gen_path, info, cont(err));
-            cb(null, project_name);
-            . ../build_tools/_(gen_path, cont(err));})
+            . ../build_tools/_(gen_path, cont(err));
+            cb(null, project_name);})
 }
