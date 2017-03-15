@@ -8,7 +8,6 @@ const _ = (root_path, cb) => {
         .pipe(.. map_stream((file, cb2) => {
             var contents = file.contents.toString();
             contents = . header.txt + contents
-                .replace(/\[project\_name\]/g, 'lambda_pattern')
                 .replace(/cont\(.*err.*\).*;/g, . error_handler.txt)
                 .replace(/const cb = \(err.*\) \=> \{/g, . cb_define.txt);
             contents = .. continuation.compile(contents);

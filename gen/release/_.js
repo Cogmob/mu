@@ -813,7 +813,7 @@ module.exports =
 	    var _ = function _(root_path, cb) {
 	        var data = module_vinylfs.src(['/**' + '/*.es6', '!*' + '*/expected/**', '!**' + '/node_modules/**', '!**' + '/*_data/**' + '/*'], { root: root_path }).pipe(module_mapstream(function (file, cb2) {
 	            var contents = file.contents.toString();
-	            contents = local_include_headertxt + contents.replace(/\[project\_name\]/g, 'lambda_pattern').replace(/cont\(.*err.*\).*;/g, local_include_error_handlertxt).replace(/const cb = \(err.*\) \=> \{/g, local_include_cb_definetxt);
+	            contents = local_include_headertxt + contents.replace(/cont\(.*err.*\).*;/g, local_include_error_handlertxt).replace(/const cb = \(err.*\) \=> \{/g, local_include_cb_definetxt);
 	            contents = module_continuation017.compile(contents);
 	            file.contents = new Buffer(contents);
 	            cb2(null, file);
@@ -882,6 +882,10 @@ module.exports =
 	            loader: 'es6-loader'
 	          }
 	        ]
+	      },
+	      node: {
+	        __filename: true,
+	        __dirname: true
 	      },
 	      output: {
 	        filename: output,
