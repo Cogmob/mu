@@ -1,20 +1,18 @@
 const _ = (root_path, entry, output, cb) => {
-    console.log('starting webpack');
-    .. webpack({
-        entry: root_path + entry,
+    console.log(root_path);
+    const compiler = .. webpack({
+        entry: entry,
         context: root_path,
         externals: [.. webpack_node_externals()],
         module: {
             loaders: [{
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'shebang'}]},
-        node: {
-            __filename: false,
-            __dirname: false},
-        output: { filename: root_path + output },
-        target: 'node'}, cont(err));
-        console.log('done');
-        cb();};
+                loader: 'shebang'}, {
+                test: /\.js$/,
+                loader: 'es6-loader'}]},
+        output: {filename: output, path: root_path},
+        target: 'node'}, cont(err, stats));
+    cb();};
 
     //.pipe(.. gulp_insert.prepend('#!/usr/bin/env node\n\n'))

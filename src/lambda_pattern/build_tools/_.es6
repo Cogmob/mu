@@ -25,8 +25,8 @@ const _ = (root, cb) => {
     . modify_es6(root + '/generated_local/tools', cont(err));
     //convert_es6(root + '/generated_local/tools', cont(err));
     . webpack(
-        root + '/generated_local/tools',
-        '/_.es6',
-        '/_built.es6',
+        .. path.join(root, 'generated_local', 'tools'),
+        './_.es6',
+        '_built.js',
         cont(err));
     cb(null);};

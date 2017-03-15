@@ -681,6 +681,7 @@ module.exports =
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	promises = [
 	  jspm.import('fs-extra@^1.0.0'),
+	  jspm.import('path'),
 	  __webpack_require__(8),
 	  __webpack_require__(12),
 	  __webpack_require__(13),
@@ -689,7 +690,7 @@ module.exports =
 	  jspm.import('async-stacktrace'),
 	  jspm.import('wordwrap')
 	];
-	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_sharedcopy_if_exists, local_include_sharedmove_if_exists, local_include_sharedconvert_es6, local_include_modify_es6, local_include_webpack, ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (module_fsextra100, module_path, local_include_sharedcopy_if_exists, local_include_sharedmove_if_exists, local_include_sharedconvert_es6, local_include_modify_es6, local_include_webpack, ERR, wordwrap) {
 	  var remove_file, copy_if_exists, move_if_exists, convert_es6, _;
 	  remove_file = module_fsextra100.remove;
 	  copy_if_exists = local_include_sharedcopy_if_exists;
@@ -722,7 +723,7 @@ module.exports =
 	              if (ERR(err, cb)) {
 	                return;
 	              }
-	              local_include_webpack(root + '/generated_local/tools', '/_.es6', '/_built.es6', function (arguments, _$param5) {
+	              local_include_webpack(module_path.join(root, 'generated_local', 'tools'), './_.es6', '_built.js', function (arguments, _$param5) {
 	                err = _$param5;
 	                if (ERR(err, cb)) {
 	                  return;
@@ -863,31 +864,36 @@ module.exports =
 	module.exports = q.all(promises).spread(function (module_webpack, module_webpacknodeexternals154, ERR, wordwrap) {
 	  var _;
 	  _ = function _(root_path, entry, output, cb) {
-	    var err;
-	    console.log('starting webpack');
-	    module_webpack({
-	      entry: root_path + entry,
+	    var err, stats, compiler;
+	    console.log(root_path);
+	    compiler = module_webpack({
+	      entry: entry,
 	      context: root_path,
 	      externals: [module_webpacknodeexternals154()],
 	      module: {
-	        loaders: [{
+	        loaders: [
+	          {
 	            test: /\.jsx?$/,
 	            exclude: /node_modules/,
 	            loader: 'shebang'
-	          }]
+	          },
+	          {
+	            test: /\.js$/,
+	            loader: 'es6-loader'
+	          }
+	        ]
 	      },
-	      node: {
-	        __filename: false,
-	        __dirname: false
+	      output: {
+	        filename: output,
+	        path: root_path
 	      },
-	      output: { filename: root_path + output },
 	      target: 'node'
-	    }, function (arguments, _$param0) {
+	    }, function (arguments, _$param0, _$param1) {
 	      err = _$param0;
+	      stats = _$param1;
 	      if (ERR(err, cb)) {
 	        return;
 	      }
-	      console.log('done');
 	      cb();
 	    }.bind(this, arguments));
 	  };
