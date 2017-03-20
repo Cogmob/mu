@@ -9,7 +9,7 @@ const _ = (root_path, entry, output, cb) => {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'shebang'}, {
-                test: /\.js$/,
+                test: /\.es6$/,
                 loader: 'es6-loader'}]},
         node: {
             __filename: true,

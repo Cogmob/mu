@@ -10,7 +10,7 @@ const _ = (root_path, cb) => {
             contents = . header.txt + contents
                 .replace(/cont\(.*err.*\).*;/g, . error_handler.txt)
                 .replace(/const cb = \(err.*\) \=> \{/g, . cb_define.txt);
-            contents = .. continuation.compile(contents);
+            //contents = .. continuation.compile(contents);
             file.contents = new Buffer(contents);
             cb2(null, file);}))
         .pipe(.. vinyl_fs.dest(root_path))

@@ -8,3 +8,5 @@ make_create_functionality
 make_create_test
 remove_root_param_if_not_used
 set_up_alternative_files_in_vim
+
+copy everything except a few folders into generated local
