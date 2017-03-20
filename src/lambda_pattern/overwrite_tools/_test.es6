@@ -11,11 +11,11 @@
     const metadata = {project_name: 'test_project'};
     . ../set_up/_(
         __dirname + '/../..', __dirname + '/test_project', metadata, cont(err));
-    . ../build_tools/_(__dirname + '/test_project', cont(err));
+    . ../build/_(__dirname + '/test_project', cont(err));
     . _(__dirname + '/test_project', cont(err));
-    . ../build_tools/_(__dirname + '/test_project', cont(err));
+    . ../build/_(__dirname + '/test_project', cont(err));
     . _(__dirname + '/test_project', cont(err));
-    . ../build_tools/_(__dirname + '/test_project', cont(err));
+    . ../build/_(__dirname + '/test_project', cont(err));
     . _(__dirname + '/test_project', cont(err));
     .. serialfs.obj(
         __dirname + '/test_project',

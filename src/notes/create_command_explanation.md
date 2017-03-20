@@ -10,7 +10,7 @@ The arguments given are recognised by the configuration from mu/src/create/\__co
     create
     get_metadata
     set_up
-    build_tools
+    build
     overwrite_tools
 
 All of the behaviour of this command is specified by the current global installation of mu.
