@@ -1,5 +1,5 @@
 const _ = (root_path, cb) => {
-    var data = .. vinyl_fs.src([
+    .. vinyl_fs.src([
                 '/**' + '/*.es6',
                 '!*' + '*/expected/**',
                 '!**' + '/node_modules/**',
