@@ -1,2 +1,2 @@
 const _ = (ast, cb) => {
-    return cb(null, .. astring(ast, {indent: '    ', lineEnd: '\n'}));}
+    return cb(null, .. astring.default(ast, {indent: '    ', lineEnd: '\n'}));}
