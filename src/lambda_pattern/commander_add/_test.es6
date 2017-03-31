@@ -6,17 +6,15 @@ const _ = (cb) => {
                     return {
                         action: (func) => {
                             return {
-                                call: (cb) => {
+                                call: () => {
                                     const result = func();
                                     if (result !== 'result') {
                                         return cb(
-                                            result
-                                            + ' + is not the string'
-                                            + '\'result\'');}
-                                    cb();}}}}}}}};
+                                            '\'' + result
+                                            + '\' is not the string'
+                                            + ' \'result\'');}}}}}}}}};
     . _(
         commander,
-        '../..',
-        __dirname.replace('\\', '/') + '/before_data',
+        './commander_add/before_data',
         cont(err));
-    cb()};
+    };
