@@ -72,7 +72,7 @@ const add_includes = (ret, map) => {
                 ret, imports_code, assign_code, alias_code, imports[i])}}
     return [ret, imports_code, assign_code, alias_code];};
 
-const add_regex_includes = (ret, map, imports_code, assign_code) => {
+const add_regex_includes = (ret, map, imports_code, assign_code, path) => {
     const re = /(^|[^a-zA-Z0-9])\.\.\. \'[^\']+\'/g;
     var imports = [];
     var module_bundle_code = '';
@@ -85,15 +85,16 @@ const add_regex_includes = (ret, map, imports_code, assign_code) => {
         imports_code += '    /' + '/ load regex\n';
         for (var i in imports) {
             const files = .. glob.sync(imports[i], {
-                cwd: __dirname + '/..',
-                root: __dirname + '/..'});
+                cwd: __dirname + '/../' + path,
+                root: __dirname + '/../' + path});
             const varname = 'regex_' + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
-            module_bundle_code = '    ' + varname + ' = {\n';
+            module_bundle_code = '    const ' + varname + ' = {\n';
             module_bundle_code += '        by_file: {},\n';
             module_bundle_code += '        by_folder: {}};\n';
             ret = ret.replace('... \'' + imports[i] + '\'', varname);
             for (var f in files) {
-                const filename = files[f].replace('.es6', '.js');
+                const filename =
+                    files[f].replace('.es6', '').split('\\').join('/');
                 var file_varname = varname + '__' + filename;
                 file_varname = file_varname.replace(/[^a-zA-Z0-9_]/g, '');
                 const sections = filename.split('/');
@@ -115,7 +116,7 @@ const add_regex_includes = (ret, map, imports_code, assign_code) => {
 };
 
 const add_local_includes = (ret, map, imports_code, assign_code) => {
-    const re = /(^|[^a-zA-Z0-9])\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/]*/g;
+    const re = /(^|[^a-zA-Z0-9])\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/!]*/g;
     var imports = [];
     var m;
     do {
@@ -220,7 +221,8 @@ gulp.task('es6', ()=>{
             [code, imports_code, assign_code]  = add_local_includes(
                 code, module_map, imports_code, assign_code);
             [code, imports_code, assign_code, module_bundle_code]  =
-                add_regex_includes(code, module_map, imports_code, assign_code);
+                add_regex_includes(
+                code, module_map, imports_code, assign_code, module);
             return es6_prefix
                 + imports_code
                 + jspm_promise_a
@@ -313,7 +315,7 @@ gulp.task('build_lambda_pattern_tool', () => {
                 loaders: [
                     {
                         test: /\.txt$/,
-                        loader: 'raw-loader'},
+                        use: 'raw-loader'},
                     {
                         test: /\.jsx?$/,
                         exclude: /node_modules/,

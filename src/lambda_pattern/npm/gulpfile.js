@@ -103,7 +103,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
         return [ret, imports_code, assign_code, alias_code];
     };
 
-    var add_regex_includes = function add_regex_includes(ret, map, imports_code, assign_code) {
+    var add_regex_includes = function add_regex_includes(ret, map, imports_code, assign_code, path) {
         var re = /(^|[^a-zA-Z0-9])\.\.\. \'[^\']+\'/g;
         var imports = [];
         var module_bundle_code = '';
@@ -118,15 +118,15 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
             imports_code += '    /' + '/ load regex\n';
             for (var i in imports) {
                 var files = module_glob.sync(imports[i], {
-                    cwd: __dirname + '/..',
-                    root: __dirname + '/..' });
+                    cwd: __dirname + '/../' + path,
+                    root: __dirname + '/../' + path });
                 var varname = 'regex_' + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
-                module_bundle_code = '    ' + varname + ' = {\n';
+                module_bundle_code = '    const ' + varname + ' = {\n';
                 module_bundle_code += '        by_file: {},\n';
                 module_bundle_code += '        by_folder: {}};\n';
                 ret = ret.replace('... \'' + imports[i] + '\'', varname);
                 for (var f in files) {
-                    var filename = files[f].replace('.es6', '.js');
+                    var filename = files[f].replace('.es6', '').split('\\').join('/');
                     var file_varname = varname + '__' + filename;
                     file_varname = file_varname.replace(/[^a-zA-Z0-9_]/g, '');
                     var sections = filename.split('/');
@@ -151,7 +151,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
     };
 
     var add_local_includes = function add_local_includes(ret, map, imports_code, assign_code) {
-        var re = /(^|[^a-zA-Z0-9])\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/]*/g;
+        var re = /(^|[^a-zA-Z0-9])\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/!]*/g;
         var imports = [];
         var m;
         do {
@@ -232,7 +232,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
             imports_code = _add_local_includes2[1];
             assign_code = _add_local_includes2[2];
 
-            var _add_regex_includes = add_regex_includes(code, module_map, imports_code, assign_code);
+            var _add_regex_includes = add_regex_includes(code, module_map, imports_code, assign_code, module);
 
             var _add_regex_includes2 = _slicedToArray(_add_regex_includes, 4);
 
@@ -291,7 +291,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
                     loader: 'import-glob' }],
                 loaders: [{
                     test: /\.txt$/,
-                    loader: 'raw-loader' }, {
+                    use: 'raw-loader' }, {
                     test: /\.jsx?$/,
                     exclude: /node_modules/,
                     loader: 'shebang' }] },
