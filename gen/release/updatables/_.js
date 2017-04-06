@@ -172,7 +172,7 @@ module.exports =
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (module_astring, ERR, wordwrap) {
 	    var _ = function _(ast, cb) {
-	        return cb(null, module_astring(ast, { indent: '    ', lineEnd: '\n' }));
+	        return cb(null, module_astring.default(ast, { indent: '    ', lineEnd: '\n' }));
 	    };
 
 	    return _;
