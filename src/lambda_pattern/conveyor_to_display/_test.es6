@@ -1,6 +1,7 @@
 const _ = (cb) => {
-    const stuff = ... '[0-99]**.es6';
-    console.log(stuff);
+    .. map_object(
+        (key, val) => console.log(key),
+        ... '[0-9]*'.by_file);
 //    const steps = . .. 
 
 
