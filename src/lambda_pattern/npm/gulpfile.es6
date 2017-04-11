@@ -88,7 +88,7 @@ const add_regex_includes = (ret, map, imports_code, assign_code, path) => {
                 cwd: __dirname + '/../' + path,
                 root: __dirname + '/../' + path});
             const varname = 'regex_' + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
-            module_bundle_code = '    const ' + varname + ' = {\n';
+            module_bundle_code += '    const ' + varname + ' = {\n';
             module_bundle_code += '        by_file: {},\n';
             module_bundle_code += '        by_folder: {}};\n';
             ret = ret.replace('... \'' + imports[i] + '\'', varname);
@@ -319,7 +319,10 @@ gulp.task('build_lambda_pattern_tool', () => {
                     {
                         test: /\.jsx?$/,
                         exclude: /node_modules/,
-                        loader: 'shebang'}]},
+                        loader: 'shebang'},
+                    {
+                        test: /\.yaml$/,
+                        loader: 'json-loader!yaml-include-loader'}]},
             node: {
                 __filename: false,
                 __dirname: false},
@@ -339,7 +342,8 @@ if (!module.parent) {
         }
     });});
 }`))
-        .pipe(gulp.dest('../../release'));});
+        .pipe(gulp.dest('../../release'))
+        .pipe(gulp.dest('[project_name]'));});
 
 gulp.task('copy_skel_to_parent', () => {
     return gulp.src(['[project_name]/skeleton_data/**/*',

@@ -1,7 +1,18 @@
 const _ = (cb) => {
+    const steps = {};
     .. map_object(
-        (key, val) => console.log(key),
+        (val, key) => {
+            steps[key] = {};
+            steps[key].func = val},
         ... '[0-9]*'.by_file);
+    .. map_object(
+        (val, key) => steps[key].expected_data = val,
+        ... 'after_data/[0-9]*.yaml'.by_file);
+
+    console.log(steps);
+
+    cb();}
+
 //    const steps = . .. 
 
 
@@ -59,5 +70,3 @@ const _ = (cb) => {
 //    d = .. diff(.. yaml_read(expected), files);
 //    if (d) {
 //        return cb(.. yaml_write(JSON.parse(JSON.stringify(d))));}
-
-    cb();}

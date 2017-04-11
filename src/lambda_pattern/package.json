@@ -20,8 +20,10 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "continuation": "^0.1.7",
+    "json-loader": "^0.5.4",
     "vargs-callback": "^0.2.4",
-    "vinyl-transform": "^1.0.0"
+    "vinyl-transform": "^1.0.0",
+    "yaml-include-loader": "^1.0.0"
   },
   "ava": {
     "files": [

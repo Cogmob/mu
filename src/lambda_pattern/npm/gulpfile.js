@@ -121,7 +121,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
                     cwd: __dirname + '/../' + path,
                     root: __dirname + '/../' + path });
                 var varname = 'regex_' + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
-                module_bundle_code = '    const ' + varname + ' = {\n';
+                module_bundle_code += '    const ' + varname + ' = {\n';
                 module_bundle_code += '        by_file: {},\n';
                 module_bundle_code += '        by_folder: {}};\n';
                 ret = ret.replace('... \'' + imports[i] + '\'', varname);
@@ -294,7 +294,9 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
                     use: 'raw-loader' }, {
                     test: /\.jsx?$/,
                     exclude: /node_modules/,
-                    loader: 'shebang' }] },
+                    loader: 'shebang' }, {
+                    test: /\.yaml$/,
+                    loader: 'json-loader!yaml-include-loader' }] },
             node: {
                 __filename: false,
                 __dirname: false },
@@ -304,7 +306,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
                 library: true },
             resolve: {
                 root: global_node_dir },
-            target: 'node' })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(footer('\nif (!module.parent) {\n    module.exports.then(function(f) {f(function (er) {\n        if (er) {\n           console.log(er.toString());\n        }\n    });});\n}')).pipe(gulp.dest('../../release'));
+            target: 'node' })).pipe(insert.prepend('#!/usr/bin/env node\n\n')).pipe(footer('\nif (!module.parent) {\n    module.exports.then(function(f) {f(function (er) {\n        if (er) {\n           console.log(er.toString());\n        }\n    });});\n}')).pipe(gulp.dest('../../release')).pipe(gulp.dest('lambda_pattern'));
     });
 
     gulp.task('copy_skel_to_parent', function () {
