@@ -11,5 +11,5 @@ const _ = () => {
     //require('./overwrite_tools/__test');
     //require('./set_updatables_version/__test');
 
-    //console.log('all tests finished');
+    console.log('all tests finished');
 }

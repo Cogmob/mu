@@ -1,17 +1,36 @@
-const _ = (cb) => {
-    const steps = {};
-    .. map_object(
-        (val, key) => {
-            steps[key] = {};
-            steps[key].func = val},
-        ... '[0-9]*'.by_file);
-    .. map_object(
-        (val, key) => steps[key].expected_data = val,
-        ... 'after_data/[0-9]*.yaml'.by_file);
+const _ = cb => {
+    const steps = . ../shared/join_tables([
+        ['func', ... '[0-2]*'.by_file],
+        ['expected', ... 'after_data/[0-2]*.yaml'.by_file]]);
 
-    console.log(steps);
+    var promise = Promise.resolve(
+        __dirname + '/conveyor_to_display/before_data');
 
-    cb();}
+    .. map_object((step, name) => {
+        promise = promise
+            .then(step.func)
+            .then(actual => {
+                    const d = .. diff(step.expected, actual);
+                    if (d) {
+                        console.log('actual data does not match expectation:');
+                        console.log(
+                            .. yaml_write(JSON.parse(JSON.stringify(d))));
+                        return Promise.reject();}
+                    return Promise.resolve(actual);});}, steps);
+
+    promise.then(() => {
+        cb();});};
+
+
+
+
+
+
+
+
+
+
+
 
 //    const steps = . .. 
 
