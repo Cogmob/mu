@@ -192,11 +192,11 @@ module.exports =
 	                        sourcetype: 'module' });
 	                } catch (err) {
 	                    console.log('error:');
-	                    console.log('path');
-	                    console.log(file['path']);
-	                    console.log('contents');
-	                    console.log(file['contents']);
 	                    console.log(err);
+	                    console.log('path:');
+	                    console.log(file['path']);
+	                    console.log('contents:');
+	                    console.log(file['contents']);
 	                    return Promise.reject(err);
 	                }
 	            }
@@ -239,8 +239,44 @@ module.exports =
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (module_astring, ERR, wordwrap) {
-	    var _ = function _(ast, cb) {
-	        return cb(null, module_astring.default(ast, { indent: '    ', lineEnd: '\n' }));
+	    var _ = function _(files) {
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
+	        try {
+	            for (var _iterator = files[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                var file = _step.value;
+
+	                try {
+	                    file['contents'] = module_astring.generate(file['contents'], {
+	                        indent: '    ', lineEnd: '\n' });
+	                } catch (err) {
+	                    console.log('error:');
+	                    console.log(err);
+	                    console.log('path:');
+	                    console.log(file['path']);
+	                    console.log('contents:');
+	                    console.log(file['contents']);
+	                    return Promise.reject(err);
+	                }
+	            }
+	        } catch (err) {
+	            _didIteratorError = true;
+	            _iteratorError = err;
+	        } finally {
+	            try {
+	                if (!_iteratorNormalCompletion && _iterator.return) {
+	                    _iterator.return();
+	                }
+	            } finally {
+	                if (_didIteratorError) {
+	                    throw _iteratorError;
+	                }
+	            }
+	        }
+
+	        return Promise.resolve(files);
 	    };
 
 	    return _;

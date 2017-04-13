@@ -8,10 +8,10 @@ const _ = (files) => {
                 sourcetype: 'module'});
         } catch(err) {
             console.log('error:');
-            console.log('path');
-            console.log(file['path']);
-            console.log('contents');
-            console.log(file['contents']);
             console.log(err);
+            console.log('path:');
+            console.log(file['path']);
+            console.log('contents:');
+            console.log(file['contents']);
             return Promise.reject(err);}}
     return Promise.resolve(files);};

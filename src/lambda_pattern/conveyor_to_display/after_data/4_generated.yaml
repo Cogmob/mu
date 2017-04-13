@@ -9,9 +9,6 @@
     path: "c.es6"
     contents: ""
   - 
-    path: "not_code.abc"
-    contents: ""
-  - 
     path: "sub_folder/d.es6"
     contents: ""
   - 
