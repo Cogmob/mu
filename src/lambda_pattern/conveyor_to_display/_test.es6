@@ -9,7 +9,7 @@
             return promise
                 .then(step.func)
                 .then(i => {
-                    const diff = . ../shared/diff(step.expected, i);
+                    const diff = . ../diff/_(step.expected, i);
                     if (diff) {
                         return Promise.reject(diff);}
                     return Promise.resolve(i);});},

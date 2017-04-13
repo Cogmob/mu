@@ -335,6 +335,8 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
 
         gulp.start('build');
     };
+
+    if (require.main === module) _();
 }).catch(function (err) {
     console.log(err);
 });

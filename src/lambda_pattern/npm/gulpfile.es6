@@ -385,3 +385,5 @@
         'copy_yaml_to_release'));
 
     gulp.start('build');}
+
+if (require.main === module) _();
