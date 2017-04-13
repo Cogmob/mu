@@ -1,4 +1,4 @@
-.. tape('[module]', t => {
+() => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};
@@ -42,4 +42,4 @@
     const expected = .. serialfs.obj(
         __dirname + '/expected_data', contents, true,
         cont(err, expected));
-    cb(null, generated, expected);});
+    cb(null, generated, expected);};

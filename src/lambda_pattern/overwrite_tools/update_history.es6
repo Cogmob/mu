@@ -1,4 +1,4 @@
-const _ = (root_path, history, updatables_version, cb) => {
+(root_path, history, updatables_version, cb) => {
     const state_version = history['newest_state_version'] + 1;
     history['current_state_version'] = state_version;
     history['newest_state_version'] = state_version;

@@ -1,4 +1,4 @@
-const _ = (key1, arr1, key2, arr2) => {
+(key1, arr1, key2, arr2) => {
     var ret = [];
     for (var i = 0; i < arr1.length; i++) {
         var item = {};

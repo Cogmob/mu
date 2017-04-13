@@ -1,2 +1,1 @@
-const _ = (files, name, prefix) => {
-}
+(files, name, prefix) => {}

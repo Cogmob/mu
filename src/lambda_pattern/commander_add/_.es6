@@ -1,4 +1,4 @@
-const _ = (commander, path, cb) => {
+(commander, path, cb) => {
     .. glob(
         '**/*_api.yaml',
         {root: path, cwd: path, absolute: false},

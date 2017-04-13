@@ -56,12 +56,14 @@ module.exports =
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (local_include_conveyor_to_display_, ERR, wordwrap) {
+	    var _ = { build_all: build_all, functions: functions };
+
 	    var build_all = function build_all(commander, mu_src_path, config) {};
 
 	    var functions = {
 	        conveyor_to_display: local_include_conveyor_to_display_ };
 
-	    module.exports = { build_all: build_all, functions: functions };
+	    return _;
 	}).catch(function (err) {
 	    console.log(err);
 	});

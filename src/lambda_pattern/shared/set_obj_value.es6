@@ -1,4 +1,4 @@
-const _ = (obj, keys, val) => {
+(obj, keys, val) => {
     var curr_obj = obj;
     const last_key = keys.pop();
 

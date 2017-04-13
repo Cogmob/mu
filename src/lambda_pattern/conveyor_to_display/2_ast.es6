@@ -1,4 +1,4 @@
-const _ = (files) => {
+files => {
     for (var file of files) {
         try {
             file['contents'] = .. acorn.parse(file['contents'], {

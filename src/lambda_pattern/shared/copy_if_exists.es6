@@ -1,4 +1,4 @@
-const _ = (from, to, cb) => {
+(from, to, cb) => {
     const handle_response = () => {
         cb();};
 

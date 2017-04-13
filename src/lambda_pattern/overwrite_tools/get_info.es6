@@ -1,4 +1,4 @@
-const _ = (root_path, cb) => {
+(root_path, cb) => {
     .. read_file(
         root_path + '/generated_local/lambda_updatables/version',
         'utf8',

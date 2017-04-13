@@ -58,7 +58,7 @@ module.exports =
 	    // load local
 	    __webpack_require__(2),
 	    __webpack_require__(16),
-	    __webpack_require__(29),
+	    __webpack_require__(33),
 	    // other
 	    jspm.import('async-stacktrace'),
 	    jspm.import('wordwrap')];
@@ -365,14 +365,14 @@ module.exports =
 	  jspm.import('wordwrap')
 	];
 	module.exports = q.all(promises).spread(function (module_fsextra100, module_gitarchive014, module_tarfs1150, local_include_sharedfind_project_root, ERR, wordwrap) {
-	  var import_make_dirmkdirp, import_remove_pathremove, import_move_pathmove, move, find_project_root, _;
+	  var import_make_dirmkdirp, import_remove_pathremove, import_move_pathmove, _;
 	  import_make_dirmkdirp = module_fsextra100.mkdirp;
 	  import_remove_pathremove = module_fsextra100.remove;
 	  import_move_pathmove = module_fsextra100.move;
-	  move = module_fsextra100.move;
-	  find_project_root = local_include_sharedfind_project_root;
 	  _ = function _(mu_src_path, root_path, version, cb) {
-	    var move_updatables, cleanup;
+	    var move, find_project_root, move_updatables, cleanup;
+	    move = module_fsextra100.move;
+	    find_project_root = local_include_sharedfind_project_root;
 	    (function () {
 	      var err, tool_root;
 	      import_make_dirmkdirp(root_path + '/generated_local', function (arguments, _$param0) {
@@ -498,13 +498,13 @@ module.exports =
 	  jspm.import('wordwrap')
 	];
 	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_sharedcopy_if_exists, local_include_set_updatables_version_, ERR, wordwrap) {
-	  var import_remove_pathremove, import_make_dirmkdirp, import_copy_pathcopy, copy_if_exists, _;
+	  var import_remove_pathremove, import_make_dirmkdirp, import_copy_pathcopy, _;
 	  import_remove_pathremove = module_fsextra100.remove;
 	  import_make_dirmkdirp = module_fsextra100.mkdirp;
 	  import_copy_pathcopy = module_fsextra100.copy;
-	  copy_if_exists = local_include_sharedcopy_if_exists;
 	  _ = function _(mu_src_path, root_path, metadata, cb) {
-	    var gen_path, err;
+	    var copy_if_exists, gen_path, err;
+	    copy_if_exists = local_include_sharedcopy_if_exists;
 	    gen_path = root_path + '/generated_local/project';
 	    import_remove_pathremove(gen_path, function (arguments, _$param0) {
 	      err = _$param0;
@@ -596,13 +596,13 @@ module.exports =
 	  jspm.import('wordwrap')
 	];
 	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_sharedcopy_if_exists, local_include_sharedmake_package_json, ERR, wordwrap) {
-	  var import_remove_pathremove, import_make_dirmkdirp, copy_if_exists, make_package_json, _;
+	  var import_remove_pathremove, import_make_dirmkdirp, _;
 	  import_remove_pathremove = module_fsextra100.remove;
 	  import_make_dirmkdirp = module_fsextra100.mkdirp;
-	  copy_if_exists = local_include_sharedcopy_if_exists;
-	  make_package_json = local_include_sharedmake_package_json;
 	  _ = function _(mu_src_path, root, metadata, cb) {
-	    var gen_path, err;
+	    var copy_if_exists, make_package_json, gen_path, err;
+	    copy_if_exists = local_include_sharedcopy_if_exists;
+	    make_package_json = local_include_sharedmake_package_json;
 	    gen_path = root + '/generated_local/tools';
 	    import_remove_pathremove(gen_path, function (arguments, _$param0) {
 	      err = _$param0;
@@ -712,12 +712,12 @@ module.exports =
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (local_include_sharedcopy_if_exists, local_include_sharedmove_if_exists, local_include_sharedremove_if_exists, local_include_sharedconvert_es6, ERR, wordwrap) {
-	    var copy_if_exists = local_include_sharedcopy_if_exists;
-	    var move_if_exists = local_include_sharedmove_if_exists;
-	    var remove_if_exists = local_include_sharedremove_if_exists;
-	    var convert_es6 = local_include_sharedconvert_es6;
-
 	    var _ = function _(root, cb) {
+	        var copy_if_exists = local_include_sharedcopy_if_exists;
+	        var move_if_exists = local_include_sharedmove_if_exists;
+	        var remove_if_exists = local_include_sharedremove_if_exists;
+	        var convert_es6 = local_include_sharedconvert_es6;
+
 	        console.log(root);
 
 	        cb(null);
@@ -820,12 +820,15 @@ module.exports =
 	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
+	// load jspm
+	jspm.import('marked'), jspm.import('marked-terminal'),
 	// load local
 	__webpack_require__(17),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (local_include_conveyor_to_display_test, ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (module_marked, module_markedterminal, local_include_conveyor_to_display_test, ERR, wordwrap) {
 	    var _ = function _() {
+	        module_marked.setOptions({ renderer: new module_markedterminal() });
 	        var cb = function cb(err) {
 	            if (err) {
 	                console.log(wordwrap(20, 81)(err.stack.replace(/\\/g, '\\ ').replace(/^/gm, '.')).split('\n').forEach(function (stack_line) {
@@ -837,6 +840,8 @@ module.exports =
 
 	        local_include_conveyor_to_display_test().then(function () {
 	            console.log('all tests finished');
+	        }).catch(function (e) {
+	            return console.log(e);
 	        });
 	    };
 
@@ -857,14 +862,14 @@ module.exports =
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
 	// load jspm
-	jspm.import('lodash'), jspm.import('smf-deep-diff'), jspm.import('js-yaml@3.8.1'),
+	jspm.import('lodash'),
 	// load local
-	__webpack_require__(18),
+	__webpack_require__(18), __webpack_require__(19), __webpack_require__(21),
 	// load regex
-	__webpack_require__(19), __webpack_require__(20), __webpack_require__(21), __webpack_require__(22), __webpack_require__(23), __webpack_require__(24), __webpack_require__(25), __webpack_require__(26), __webpack_require__(27), __webpack_require__(28),
+	__webpack_require__(22), __webpack_require__(24), __webpack_require__(25), __webpack_require__(26), __webpack_require__(27), __webpack_require__(28), __webpack_require__(29), __webpack_require__(30), __webpack_require__(31), __webpack_require__(32),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_lodash, module_smfdeepdiff, module_jsyaml381, local_include_sharedzip, regex_05__1_pre_ast, regex_05__2_ast, regex_05__3_ast_transformed, regex_05__4_generated, regex_05__5_display, regex_after_data05yaml__after_data1_pre_astyaml, regex_after_data05yaml__after_data2_astyaml, regex_after_data05yaml__after_data3_ast_transformedyaml, regex_after_data05yaml__after_data4_generatedyaml, regex_after_data05yaml__after_data5_displayyaml, ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (module_lodash, local_include_sharedtable_to_array, local_include_sharedjoin_tables, local_include_shareddiff, regex_05__1_pre_ast, regex_05__2_ast, regex_05__3_ast_transformed, regex_05__4_generated, regex_05__5_display, regex_after_data05yaml__after_data1_pre_astyaml, regex_after_data05yaml__after_data2_astyaml, regex_after_data05yaml__after_data3_ast_transformedyaml, regex_after_data05yaml__after_data4_generatedyaml, regex_after_data05yaml__after_data5_displayyaml, ERR, wordwrap) {
 	    var regex_05 = {
 	        by_file: {},
 	        by_folder: {} };
@@ -891,20 +896,15 @@ module.exports =
 	    regex_after_data05yaml.by_folder['after_data'] = regex_after_data05yaml__after_data4_generatedyaml;
 	    regex_after_data05yaml.by_file['5_display'] = regex_after_data05yaml__after_data5_displayyaml;
 	    regex_after_data05yaml.by_folder['after_data'] = regex_after_data05yaml__after_data5_displayyaml;
-	    var import_diffdiff = module_smfdeepdiff.diff;
-	    var import_yaml_writedump = module_jsyaml381.dump;
 	    var _ = function _() {
-	        var steps = local_include_sharedzip('func', regex_05.by_file, 'expected', regex_after_data05yaml.by_file);
 
-	        return module_lodash.reduce(steps, function (promise, step) {
-	            return promise.then(step.func).then(function (actual) {
-	                var d = import_diffdiff(step.expected, actual);
-	                if (d) {
-	                    console.log('actual does not match expectation:');
-	                    console.log(import_yaml_writedump(JSON.parse(JSON.stringify(d))));
-	                    return Promise.reject();
+	        return module_lodash.reduce(local_include_sharedtable_to_array('name', local_include_sharedjoin_tables([['func', regex_05.by_file], ['expected', regex_after_data05yaml.by_file]])), function (promise, step) {
+	            return promise.then(step.func).then(function (i) {
+	                var diff = local_include_shareddiff(step.expected, i);
+	                if (diff) {
+	                    return Promise.reject(diff);
 	                }
-	                return Promise.resolve(actual);
+	                return Promise.resolve(i);
 	            });
 	        }, Promise.resolve(__dirname + '/conveyor_to_display/before_data'));
 	    };
@@ -917,6 +917,194 @@ module.exports =
 
 /***/ },
 /* 18 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	var promises = [
+	// load jspm
+	jspm.import('lodash'),
+	// other
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (module_lodash, ERR, wordwrap) {
+	    var _ = function _(key_name, table) {
+	        return module_lodash.values(module_lodash.mapValues(table, function (val, key) {
+	            val[key_name] = key;
+	            return val;
+	        }));
+	    };
+
+	    return _;
+	}).catch(function (err) {
+	    console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	var promises = [
+	// load jspm
+	jspm.import('ramda'),
+	// load local
+	__webpack_require__(20),
+	// other
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (module_ramda, local_include_set_obj_value, ERR, wordwrap) {
+	    var import_map_objectmapObjIndexed = module_ramda.mapObjIndexed;
+	    var _ = function _(tables) {
+	        var ret = {};
+
+	        tables.forEach(function (table) {
+	            var _table = _slicedToArray(table, 2),
+	                new_key = _table[0],
+	                entries = _table[1];
+
+	            import_map_objectmapObjIndexed(function (val, key) {
+	                ret = local_include_set_obj_value(ret, [key, new_key], val);
+	            }, entries);
+	        });
+
+	        return ret;
+	    };
+
+	    return _;
+	}).catch(function (err) {
+	    console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	var promises = [
+	// other
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
+	    var _ = function _(obj, keys, val) {
+	        var curr_obj = obj;
+	        var last_key = keys.pop();
+
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
+	        try {
+	            for (var _iterator = keys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                var key = _step.value;
+
+	                if (!(key in curr_obj)) curr_obj[key] = {};
+	                curr_obj = curr_obj[key];
+	            }
+	        } catch (err) {
+	            _didIteratorError = true;
+	            _iteratorError = err;
+	        } finally {
+	            try {
+	                if (!_iteratorNormalCompletion && _iterator.return) {
+	                    _iterator.return();
+	                }
+	            } finally {
+	                if (_didIteratorError) {
+	                    throw _iteratorError;
+	                }
+	            }
+	        }
+
+	        curr_obj[last_key] = val;
+
+	        return obj;
+	    };
+
+	    return _;
+	}).catch(function (err) {
+	    console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	var promises = [
+	// load jspm
+	jspm.import('smf-deep-diff'), jspm.import('js-yaml@^3.7.0'),
+	// other
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (module_smfdeepdiff, module_jsyaml370, ERR, wordwrap) {
+	    var import_diffdiff = module_smfdeepdiff.diff;
+	    var _ = function _(a, b) {
+	        var diff = import_diffdiff(a, b);
+	        if (diff) return module_jsyaml370.dump(diff);
+	    };
+
+	    return _;
+	}).catch(function (err) {
+	    console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	var promises = [
+	// load jspm
+	jspm.import('glob-promise'), jspm.import('read-files-promise'),
+	// load local
+	__webpack_require__(23),
+	// other
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (module_globpromise, module_readfilespromise, local_include_sharedzip, ERR, wordwrap) {
+	    var _ = function _(path) {
+	        path = path.replace(/\\/g, '/');
+	        var paths;
+	        return module_globpromise(path + '/**/*.es6').then(function (filenames) {
+	            paths = filenames.map(function (filename) {
+	                return filename.replace(path + '/', '');
+	            });
+	            return module_readfilespromise(filenames, 'utf8');
+	        }).then(function (files) {
+	            files = local_include_sharedzip('path', paths, 'contents', files);
+	            return Promise.resolve(files);
+	        });
+	    };
+
+	    return _;
+	}).catch(function (err) {
+	    console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ },
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -946,44 +1134,7 @@ module.exports =
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
-	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// load jspm
-	jspm.import('glob-promise'), jspm.import('read-files-promise'),
-	// load local
-	__webpack_require__(18),
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_globpromise, module_readfilespromise, local_include_sharedzip, ERR, wordwrap) {
-	    var _ = function _(path) {
-	        path = path.replace(/\\/g, '/');
-	        var paths;
-	        return module_globpromise(path + '/**/*.es6').then(function (filenames) {
-	            paths = filenames.map(function (filename) {
-	                return filename.replace(path + '/', '');
-	            });
-	            return module_readfilespromise(filenames, 'utf8');
-	        }).then(function (files) {
-	            files = local_include_sharedzip('path', paths, 'contents', files);
-	            return Promise.resolve(files);
-	        });
-	    };
-
-	    return _;
-	}).catch(function (err) {
-	    console.log(err);
-	});
-	/* Generated by Continuation.js v0.1.7 */
-
-/***/ },
-/* 20 */
+/* 24 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1047,7 +1198,7 @@ module.exports =
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 21 */
+/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1070,7 +1221,7 @@ module.exports =
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1131,7 +1282,7 @@ module.exports =
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 23 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1154,351 +1305,13 @@ module.exports =
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 24 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"path": "a.es6",
-			"contents": "const a = (a, b) => {\n    console.log(a);\n};\n"
-		},
-		{
-			"path": "b.es6",
-			"contents": ""
-		},
-		{
-			"path": "c.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/d.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/e.es6",
-			"contents": ""
-		}
-	];
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"path": "a.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 45,
-				"body": [
-					{
-						"type": "VariableDeclaration",
-						"start": 0,
-						"end": 44,
-						"declarations": [
-							{
-								"type": "VariableDeclarator",
-								"start": 6,
-								"end": 43,
-								"id": {
-									"type": "Identifier",
-									"start": 6,
-									"end": 7,
-									"name": "a"
-								},
-								"init": {
-									"type": "ArrowFunctionExpression",
-									"start": 10,
-									"end": 43,
-									"id": null,
-									"generator": false,
-									"expression": false,
-									"params": [
-										{
-											"type": "Identifier",
-											"start": 11,
-											"end": 12,
-											"name": "a"
-										},
-										{
-											"type": "Identifier",
-											"start": 14,
-											"end": 15,
-											"name": "b"
-										}
-									],
-									"body": {
-										"type": "BlockStatement",
-										"start": 20,
-										"end": 43,
-										"body": [
-											{
-												"type": "ExpressionStatement",
-												"start": 26,
-												"end": 41,
-												"expression": {
-													"type": "CallExpression",
-													"start": 26,
-													"end": 40,
-													"callee": {
-														"type": "MemberExpression",
-														"start": 26,
-														"end": 37,
-														"object": {
-															"type": "Identifier",
-															"start": 26,
-															"end": 33,
-															"name": "console"
-														},
-														"property": {
-															"type": "Identifier",
-															"start": 34,
-															"end": 37,
-															"name": "log"
-														},
-														"computed": false
-													},
-													"arguments": [
-														{
-															"type": "Identifier",
-															"start": 38,
-															"end": 39,
-															"name": "a"
-														}
-													]
-												}
-											}
-										]
-									}
-								}
-							}
-						],
-						"kind": "const"
-					}
-				],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "b.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "c.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "sub_folder/d.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "sub_folder/e.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		}
-	];
-
-/***/ },
-/* 26 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"path": "a.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 45,
-				"body": [
-					{
-						"type": "VariableDeclaration",
-						"start": 0,
-						"end": 44,
-						"declarations": [
-							{
-								"type": "VariableDeclarator",
-								"start": 6,
-								"end": 43,
-								"id": {
-									"type": "Identifier",
-									"start": 6,
-									"end": 7,
-									"name": "a"
-								},
-								"init": {
-									"type": "ArrowFunctionExpression",
-									"start": 10,
-									"end": 43,
-									"id": null,
-									"generator": false,
-									"expression": false,
-									"params": [
-										{
-											"type": "Identifier",
-											"start": 11,
-											"end": 12,
-											"name": "a"
-										},
-										{
-											"type": "Identifier",
-											"start": 14,
-											"end": 15,
-											"name": "b"
-										}
-									],
-									"body": {
-										"type": "BlockStatement",
-										"start": 20,
-										"end": 43,
-										"body": [
-											{
-												"type": "ExpressionStatement",
-												"start": 26,
-												"end": 41,
-												"expression": {
-													"type": "CallExpression",
-													"start": 26,
-													"end": 40,
-													"callee": {
-														"type": "MemberExpression",
-														"start": 26,
-														"end": 37,
-														"object": {
-															"type": "Identifier",
-															"start": 26,
-															"end": 33,
-															"name": "console"
-														},
-														"property": {
-															"type": "Identifier",
-															"start": 34,
-															"end": 37,
-															"name": "log"
-														},
-														"computed": false
-													},
-													"arguments": [
-														{
-															"type": "Identifier",
-															"start": 38,
-															"end": 39,
-															"name": "a"
-														}
-													]
-												}
-											}
-										]
-									}
-								}
-							}
-						],
-						"kind": "const"
-					}
-				],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "b.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "c.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "sub_folder/d.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "sub_folder/e.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		}
-	];
-
-/***/ },
-/* 27 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"path": "a.es6",
-			"contents": "const a = (a, b) => {\n    console.log(a);\n};\n"
-		},
-		{
-			"path": "b.es6",
-			"contents": ""
-		},
-		{
-			"path": "c.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/d.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/e.es6",
-			"contents": ""
-		}
-	];
-
-/***/ },
 /* 28 */
 /***/ function(module, exports) {
 
 	module.exports = [
 		{
 			"path": "a.es6",
-			"contents": "const a = (a, b) => {\n    console.log(a);\n};\n"
+			"contents": "const a = (a, b) => {\n    console.log(a)\n}\n"
 		},
 		{
 			"path": "b.es6",
@@ -1520,6 +1333,344 @@ module.exports =
 
 /***/ },
 /* 29 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"path": "a.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 45,
+				"body": [
+					{
+						"type": "VariableDeclaration",
+						"start": 0,
+						"end": 44,
+						"declarations": [
+							{
+								"type": "VariableDeclarator",
+								"start": 6,
+								"end": 43,
+								"id": {
+									"type": "Identifier",
+									"start": 6,
+									"end": 7,
+									"name": "a"
+								},
+								"init": {
+									"type": "ArrowFunctionExpression",
+									"start": 10,
+									"end": 43,
+									"id": null,
+									"generator": false,
+									"expression": false,
+									"params": [
+										{
+											"type": "Identifier",
+											"start": 11,
+											"end": 12,
+											"name": "a"
+										},
+										{
+											"type": "Identifier",
+											"start": 14,
+											"end": 15,
+											"name": "b"
+										}
+									],
+									"body": {
+										"type": "BlockStatement",
+										"start": 20,
+										"end": 43,
+										"body": [
+											{
+												"type": "ExpressionStatement",
+												"start": 26,
+												"end": 41,
+												"expression": {
+													"type": "CallExpression",
+													"start": 26,
+													"end": 40,
+													"callee": {
+														"type": "MemberExpression",
+														"start": 26,
+														"end": 37,
+														"object": {
+															"type": "Identifier",
+															"start": 26,
+															"end": 33,
+															"name": "console"
+														},
+														"property": {
+															"type": "Identifier",
+															"start": 34,
+															"end": 37,
+															"name": "log"
+														},
+														"computed": false
+													},
+													"arguments": [
+														{
+															"type": "Identifier",
+															"start": 38,
+															"end": 39,
+															"name": "a"
+														}
+													]
+												}
+											}
+										]
+									}
+								}
+							}
+						],
+						"kind": "const"
+					}
+				],
+				"sourceType": "script"
+			}
+		},
+		{
+			"path": "b.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 0,
+				"body": [],
+				"sourceType": "script"
+			}
+		},
+		{
+			"path": "c.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 0,
+				"body": [],
+				"sourceType": "script"
+			}
+		},
+		{
+			"path": "sub_folder/d.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 0,
+				"body": [],
+				"sourceType": "script"
+			}
+		},
+		{
+			"path": "sub_folder/e.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 0,
+				"body": [],
+				"sourceType": "script"
+			}
+		}
+	];
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"path": "a.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 45,
+				"body": [
+					{
+						"type": "VariableDeclaration",
+						"start": 0,
+						"end": 44,
+						"declarations": [
+							{
+								"type": "VariableDeclarator",
+								"start": 6,
+								"end": 43,
+								"id": {
+									"type": "Identifier",
+									"start": 6,
+									"end": 7,
+									"name": "a"
+								},
+								"init": {
+									"type": "ArrowFunctionExpression",
+									"start": 10,
+									"end": 43,
+									"id": null,
+									"generator": false,
+									"expression": false,
+									"params": [
+										{
+											"type": "Identifier",
+											"start": 11,
+											"end": 12,
+											"name": "a"
+										},
+										{
+											"type": "Identifier",
+											"start": 14,
+											"end": 15,
+											"name": "b"
+										}
+									],
+									"body": {
+										"type": "BlockStatement",
+										"start": 20,
+										"end": 43,
+										"body": [
+											{
+												"type": "ExpressionStatement",
+												"start": 26,
+												"end": 41,
+												"expression": {
+													"type": "CallExpression",
+													"start": 26,
+													"end": 40,
+													"callee": {
+														"type": "MemberExpression",
+														"start": 26,
+														"end": 37,
+														"object": {
+															"type": "Identifier",
+															"start": 26,
+															"end": 33,
+															"name": "console"
+														},
+														"property": {
+															"type": "Identifier",
+															"start": 34,
+															"end": 37,
+															"name": "log"
+														},
+														"computed": false
+													},
+													"arguments": [
+														{
+															"type": "Identifier",
+															"start": 38,
+															"end": 39,
+															"name": "a"
+														}
+													]
+												}
+											}
+										]
+									}
+								}
+							}
+						],
+						"kind": "const"
+					}
+				],
+				"sourceType": "script"
+			}
+		},
+		{
+			"path": "b.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 0,
+				"body": [],
+				"sourceType": "script"
+			}
+		},
+		{
+			"path": "c.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 0,
+				"body": [],
+				"sourceType": "script"
+			}
+		},
+		{
+			"path": "sub_folder/d.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 0,
+				"body": [],
+				"sourceType": "script"
+			}
+		},
+		{
+			"path": "sub_folder/e.es6",
+			"contents": {
+				"type": "Program",
+				"start": 0,
+				"end": 0,
+				"body": [],
+				"sourceType": "script"
+			}
+		}
+	];
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"path": "a.es6",
+			"contents": "const a = (a, b) => {\n    console.log(a);\n};\n"
+		},
+		{
+			"path": "b.es6",
+			"contents": ""
+		},
+		{
+			"path": "c.es6",
+			"contents": ""
+		},
+		{
+			"path": "sub_folder/d.es6",
+			"contents": ""
+		},
+		{
+			"path": "sub_folder/e.es6",
+			"contents": ""
+		}
+	];
+
+/***/ },
+/* 32 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"path": "a.es6",
+			"contents": "const a = (a, b) => {\n    console.log(a);\n};\n"
+		},
+		{
+			"path": "b.es6",
+			"contents": ""
+		},
+		{
+			"path": "c.es6",
+			"contents": ""
+		},
+		{
+			"path": "sub_folder/d.es6",
+			"contents": ""
+		},
+		{
+			"path": "sub_folder/e.es6",
+			"contents": ""
+		}
+	];
+
+/***/ },
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jspm, q, promises;

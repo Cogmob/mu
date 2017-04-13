@@ -1,8 +1,8 @@
 - path: a.es6
   contents: |
     const a = (a, b) => {
-        console.log(a);
-    };
+        console.log(a)
+    }
 - path: b.es6
   contents: ''
 - path: c.es6

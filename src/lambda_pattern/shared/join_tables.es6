@@ -1,4 +1,4 @@
-const _ = (tables) => {
+(tables) => {
     var ret = {};
 
     tables.forEach((table) => {

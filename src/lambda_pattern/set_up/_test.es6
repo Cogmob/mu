@@ -1,6 +1,6 @@
-const get_metadata = . ../shared/get_metadata;
+() => {
+    const get_metadata = . ../shared/get_metadata;
 
-.. tape('[module]', {timeout: 90000}, t => {
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);
         t.end();};
@@ -25,4 +25,4 @@ const get_metadata = . ../shared/get_metadata;
     const expected = .. serialfs.obj(
         __dirname + '/expected_data', contents,
         cont(err, expected));
-    cb(null, generated, expected);});
+    cb(null, generated, expected);};

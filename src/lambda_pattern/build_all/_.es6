@@ -1,7 +1,7 @@
-const move_if_exists = . ../shared/move_if_exists;
-const copy_if_exists = . ../shared/copy_if_exists;
+(root_path, cb) => {
+    const move_if_exists = . ../shared/move_if_exists;
+    const copy_if_exists = . ../shared/copy_if_exists;
 
-const _ = (root_path, cb) => {
     // TODO: handle errors without leaving node_modules in wrong place
     // TODO: replace with config file for what will be saved as in spec
     

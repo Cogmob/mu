@@ -1,9 +1,9 @@
-const copy_if_exists = . ../shared/copy_if_exists;
-const move_if_exists = . ../shared/move_if_exists;
-const remove_if_exists = . ../shared/remove_if_exists;
-const convert_es6 = . ../shared/convert_es6
+(root, cb) => {
+    const copy_if_exists = . ../shared/copy_if_exists;
+    const move_if_exists = . ../shared/move_if_exists;
+    const remove_if_exists = . ../shared/remove_if_exists;
+    const convert_es6 = . ../shared/convert_es6
 
-const _ = (root, cb) => {
     console.log(root);
     //remove_if_exists(root + '/generated_local/_.es6', cont(err));
     //remove_if_exists(root + '/generated_local/submodules', cont(err));

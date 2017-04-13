@@ -1,4 +1,4 @@
-const _ = (commander) => {
+(commander) => {
     const success_message =
             'tests complete';
     commander

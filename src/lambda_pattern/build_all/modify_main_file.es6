@@ -1,4 +1,4 @@
-const _ = (root_path, cb) => {
+(root_path, cb) => {
     .. read_file(root_path + '/_.es6', cont(err, main_file));
     main_file = main_file + `
         if (!module.parent) {

@@ -1,4 +1,4 @@
-const _ = (path) => {
+path => {
     path = path.replace(/\\/g, '/');
     var paths;
     return .. glob-promise(path + '/**/*.es6')

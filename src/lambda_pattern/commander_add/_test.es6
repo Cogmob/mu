@@ -1,4 +1,4 @@
-const _ = (cb) => {
+(cb) => {
     const commander = {
         command: (str) => {
             return {
@@ -16,5 +16,4 @@ const _ = (cb) => {
     . _(
         commander,
         './commander_add/before_data',
-        cont(err));
-    };
+        cont(err));};

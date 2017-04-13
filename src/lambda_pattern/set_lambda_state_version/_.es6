@@ -1,4 +1,4 @@
-const _ = (mu_src_path, root_path, version_number, cb) => {
+(mu_src_path, root_path, version_number, cb) => {
     .. read_file(
         root_path + '/generated/lambda_state_history.yaml',
         'utf8',

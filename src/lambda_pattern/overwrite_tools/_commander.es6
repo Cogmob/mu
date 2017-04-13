@@ -1,4 +1,4 @@
-const _ = (commander, mu_src_path) => {
+(commander, mu_src_path) => {
     const success_message =
             'replaced the tools scripts';
     commander

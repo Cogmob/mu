@@ -1,2 +1,2 @@
-const _ = (data) => {
+data => {
     return Promise.resolve(data);}

@@ -1,4 +1,4 @@
-const _ = (root_path, cb) => {
+(root_path, cb) => {
     .. gulp.task('_', ()=>{
         return .. gulp.src([
                 root_path + '/**/*.es6',

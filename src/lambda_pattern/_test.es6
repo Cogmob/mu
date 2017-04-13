@@ -1,4 +1,5 @@
-const _ = () => {
+() => {
+    .. marked.setOptions({renderer: new .. marked-terminal()});
     const cb = (err) => {console.log('error');};
 
     //. commander_add/_test(cont(err));
@@ -11,4 +12,5 @@ const _ = () => {
     //require('./overwrite_tools/__test');
     //require('./set_updatables_version/__test');
 
-    .then(() => {console.log('all tests finished');});}
+    .then(() => {console.log('all tests finished');})
+    .catch(e => console.log(e));}

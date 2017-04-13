@@ -1,4 +1,4 @@
-const _ = (root_path, cb) => {
+(root_path, cb) => {
     .. vinyl_fs.src([
                 '/**' + '/*.es6',
                 '!*' + '*/expected/**',
@@ -14,5 +14,4 @@ const _ = (root_path, cb) => {
             file.contents = new Buffer(contents);
             cb2(null, file);}))
         .pipe(.. vinyl_fs.dest(root_path))
-        .on('finish', () => cb());
-};
+        .on('finish', () => cb());};

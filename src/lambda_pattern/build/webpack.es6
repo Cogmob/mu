@@ -1,4 +1,4 @@
-const _ = (root_path, entry, output, cb) => {
+(root_path, entry, output, cb) => {
     console.log(root_path);
     const compiler = .. webpack({
         entry: entry,

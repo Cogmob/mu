@@ -1,4 +1,4 @@
-const _ = (
+(
         mu_src_path,
         metadata,
         gen_path,

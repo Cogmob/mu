@@ -1,8 +1,8 @@
-const move = .. fs.move;
+(mu_src_path, root_path, version, cb) => {
+    const move = .. fs.move;
 
-const find_project_root = . ../shared/find_project_root;
+    const find_project_root = . ../shared/find_project_root;
 
-const _ = (mu_src_path, root_path, version, cb) => {
     (() => {
         .. make_dir(root_path + '/generated_local', cont(err));
         find_project_root(mu_src_path + '/mu_sub_repo', cont(err, tool_root));

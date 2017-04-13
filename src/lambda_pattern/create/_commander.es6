@@ -1,4 +1,4 @@
-const _ = (commander, mu_src_path) => {
+(commander, mu_src_path) => {
     const success_message =
             'created project \'{name}\' in your current directory';
     const cb = (e, project_name) => {
@@ -17,5 +17,4 @@ const _ = (commander, mu_src_path) => {
             . ../shared/get_metadata(gen_path, cont(err, info));
             . ../set_up/_(mu_src_path, gen_path, info, cont(err));
             . ../build/_(gen_path, cont(err));
-            cb(null, project_name);})
-}
+            cb(null, project_name);})}

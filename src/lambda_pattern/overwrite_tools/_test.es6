@@ -1,4 +1,4 @@
-.. tape('[module]', (t) => {
+() => {
     const cb = (err, generated, expected) => {
         t.deepEqual(expected, generated);
         t.end();}
@@ -27,4 +27,4 @@
         false,
         true,
         cont(err, expected));
-    cb(null, generated, expected);});
+    cb(null, generated, expected);};
