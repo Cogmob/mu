@@ -1,5 +1,4 @@
 () => {
-
     return .. lo.reduce(
         . ../shared/table_to_array('name', . ../shared/join_tables([[
             'func', ... '[0-5]*'.by_file], [

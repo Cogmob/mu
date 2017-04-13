@@ -1,0 +1,9 @@
+before:
+    'abc'
+after:
+    'abcd'
+diff: |
+    lhs:
+    .   <b>abc</b>
+    rhs:
+    .   <b>abcd</b>

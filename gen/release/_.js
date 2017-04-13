@@ -58,7 +58,7 @@ module.exports =
 	    // load local
 	    __webpack_require__(2),
 	    __webpack_require__(16),
-	    __webpack_require__(35),
+	    __webpack_require__(28),
 	    // other
 	        jspm.import('async-stacktrace'),
 	        jspm.import('wordwrap')];
@@ -826,7 +826,7 @@ module.exports =
 	__webpack_require__(17),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_marked, module_markedterminal, local_include_conveyor_to_display_test, ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (module_marked, module_markedterminal, local_include_diff_test, ERR, wordwrap) {
 	    var _ = function _() {
 	        module_marked.setOptions({ renderer: new module_markedterminal() });
 	        var cb = function cb(err) {
@@ -838,9 +838,7 @@ module.exports =
 	            console.log('error');
 	        };
 
-	        local_include_conveyor_to_display_test().then(function () {
-	            console.log('all tests finished');
-	        }).catch(function (e) {
+	        local_include_diff_test().catch(function (e) {
 	            return console.log(e);
 	        });
 	    };
@@ -864,49 +862,34 @@ module.exports =
 	// load jspm
 	jspm.import('lodash'),
 	// load local
-	__webpack_require__(18), __webpack_require__(19), __webpack_require__(21),
+	__webpack_require__(18), __webpack_require__(19), __webpack_require__(25),
 	// load regex
-	__webpack_require__(24), __webpack_require__(26), __webpack_require__(27), __webpack_require__(28), __webpack_require__(29), __webpack_require__(30), __webpack_require__(31), __webpack_require__(32), __webpack_require__(33), __webpack_require__(34),
+	__webpack_require__(26), __webpack_require__(27),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_lodash, local_include_sharedtable_to_array, local_include_sharedjoin_tables, local_include_diff_, regex_05__1_pre_ast, regex_05__2_ast, regex_05__3_ast_transformed, regex_05__4_generated, regex_05__5_display, regex_after_data05yaml__after_data1_pre_astyaml, regex_after_data05yaml__after_data2_astyaml, regex_after_data05yaml__after_data3_ast_transformedyaml, regex_after_data05yaml__after_data4_generatedyaml, regex_after_data05yaml__after_data5_displayyaml, ERR, wordwrap) {
-	    var regex_05 = {
+	module.exports = q.all(promises).spread(function (module_lodash, local_include_sharedtable_to_array_auto, local_include__, local_include_sharedtest_compare, regex_test_data09yaml__test_data1yaml, regex_test_data09yaml__test_data2yaml, ERR, wordwrap) {
+	    var regex_test_data09yaml = {
 	        by_file: {},
 	        by_folder: {} };
-	    regex_05.by_file['1_pre_ast'] = regex_05__1_pre_ast;
-	    regex_05.by_folder['undefined'] = regex_05__1_pre_ast;
-	    regex_05.by_file['2_ast'] = regex_05__2_ast;
-	    regex_05.by_folder['undefined'] = regex_05__2_ast;
-	    regex_05.by_file['3_ast_transformed'] = regex_05__3_ast_transformed;
-	    regex_05.by_folder['undefined'] = regex_05__3_ast_transformed;
-	    regex_05.by_file['4_generated'] = regex_05__4_generated;
-	    regex_05.by_folder['undefined'] = regex_05__4_generated;
-	    regex_05.by_file['5_display'] = regex_05__5_display;
-	    regex_05.by_folder['undefined'] = regex_05__5_display;
-	    var regex_after_data05yaml = {
-	        by_file: {},
-	        by_folder: {} };
-	    regex_after_data05yaml.by_file['1_pre_ast'] = regex_after_data05yaml__after_data1_pre_astyaml;
-	    regex_after_data05yaml.by_folder['after_data'] = regex_after_data05yaml__after_data1_pre_astyaml;
-	    regex_after_data05yaml.by_file['2_ast'] = regex_after_data05yaml__after_data2_astyaml;
-	    regex_after_data05yaml.by_folder['after_data'] = regex_after_data05yaml__after_data2_astyaml;
-	    regex_after_data05yaml.by_file['3_ast_transformed'] = regex_after_data05yaml__after_data3_ast_transformedyaml;
-	    regex_after_data05yaml.by_folder['after_data'] = regex_after_data05yaml__after_data3_ast_transformedyaml;
-	    regex_after_data05yaml.by_file['4_generated'] = regex_after_data05yaml__after_data4_generatedyaml;
-	    regex_after_data05yaml.by_folder['after_data'] = regex_after_data05yaml__after_data4_generatedyaml;
-	    regex_after_data05yaml.by_file['5_display'] = regex_after_data05yaml__after_data5_displayyaml;
-	    regex_after_data05yaml.by_folder['after_data'] = regex_after_data05yaml__after_data5_displayyaml;
+	    regex_test_data09yaml.by_file['1'] = regex_test_data09yaml__test_data1yaml;
+	    regex_test_data09yaml.by_folder['test_data'] = regex_test_data09yaml__test_data1yaml;
+	    regex_test_data09yaml.by_file['2'] = regex_test_data09yaml__test_data2yaml;
+	    regex_test_data09yaml.by_folder['test_data'] = regex_test_data09yaml__test_data2yaml;
 	    var _ = function _() {
-
-	        return module_lodash.reduce(local_include_sharedtable_to_array('name', local_include_sharedjoin_tables([['func', regex_05.by_file], ['expected', regex_after_data05yaml.by_file]])), function (promise, step) {
-	            return promise.then(step.func).then(function (i) {
-	                var diff = local_include_diff_(step.expected, i);
-	                if (diff) {
-	                    return Promise.reject(diff);
-	                }
-	                return Promise.resolve(i);
-	            });
-	        }, Promise.resolve(__dirname + '/conveyor_to_display/before_data'));
+	        module_lodash.forEach(local_include_sharedtable_to_array_auto(regex_test_data09yaml.by_file), function (data) {
+	            var diff = local_include__(data.val.before, data.val.after, {
+	                red: function red(i) {
+	                    return '<r>' + i + '</r>';
+	                },
+	                green: function green(i) {
+	                    return '<g>' + i + '</g>';
+	                },
+	                blue: function blue(i) {
+	                    return '<b>' + i + '</b>';
+	                } });
+	            local_include_sharedtest_compare(data.key, diff, data.val.diff);
+	        });
+	        return Promise.resolve();
 	    };
 
 	    return _;
@@ -930,10 +913,9 @@ module.exports =
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (module_lodash, ERR, wordwrap) {
-	    var _ = function _(key_name, table) {
+	    var _ = function _(table) {
 	        return module_lodash.values(module_lodash.mapValues(table, function (val, key) {
-	            val[key_name] = key;
-	            return val;
+	            return { key: key, val: val };
 	        }));
 	    };
 
@@ -949,34 +931,22 @@ module.exports =
 
 	'use strict';
 
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
 	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
 	// load jspm
-	jspm.import('ramda'),
+	jspm.import('smf-deep-diff'),
 	// load local
-	__webpack_require__(20),
+	__webpack_require__(20), __webpack_require__(21), __webpack_require__(22),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_ramda, local_include_set_obj_value, ERR, wordwrap) {
-	    var import_map_objectmapObjIndexed = module_ramda.mapObjIndexed;
-	    var _ = function _(tables) {
-	        var ret = {};
-
-	        tables.forEach(function (table) {
-	            var _table = _slicedToArray(table, 2),
-	                new_key = _table[0],
-	                entries = _table[1];
-
-	            import_map_objectmapObjIndexed(function (val, key) {
-	                ret = local_include_set_obj_value(ret, [key, new_key], val);
-	            }, entries);
-	        });
-
-	        return ret;
+	module.exports = q.all(promises).spread(function (module_smfdeepdiff, local_include_get_ffs, local_include_sharedwordwrap, local_include_dump, ERR, wordwrap) {
+	    var import_diffdiff = module_smfdeepdiff.diff;
+	    var _ = function _(a, b, ffs) {
+	        if (!ffs) ffs = local_include_get_ffs();
+	        var diff = import_diffdiff(a, b);
+	        if (diff) return 'lhs:\n' + local_include_sharedwordwrap('.   ', local_include_dump({ diff: diff, obj: a, lhs: true, format_funcs: ffs })) + '\nrhs:\n' + local_include_sharedwordwrap('.   ', local_include_dump({ diff: diff, obj: b, lhs: false, format_funcs: ffs }));
 	    };
 
 	    return _;
@@ -995,42 +965,16 @@ module.exports =
 	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
+	// load jspm
+	jspm.import('bash-color'),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
-	    var _ = function _(obj, keys, val) {
-	        var curr_obj = obj;
-	        var last_key = keys.pop();
-
-	        var _iteratorNormalCompletion = true;
-	        var _didIteratorError = false;
-	        var _iteratorError = undefined;
-
-	        try {
-	            for (var _iterator = keys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                var key = _step.value;
-
-	                if (!(key in curr_obj)) curr_obj[key] = {};
-	                curr_obj = curr_obj[key];
-	            }
-	        } catch (err) {
-	            _didIteratorError = true;
-	            _iteratorError = err;
-	        } finally {
-	            try {
-	                if (!_iteratorNormalCompletion && _iterator.return) {
-	                    _iterator.return();
-	                }
-	            } finally {
-	                if (_didIteratorError) {
-	                    throw _iteratorError;
-	                }
-	            }
-	        }
-
-	        curr_obj[last_key] = val;
-
-	        return obj;
+	module.exports = q.all(promises).spread(function (module_bashcolor, ERR, wordwrap) {
+	    var _ = function _() {
+	        return {
+	            red: module_bashcolor.blue,
+	            green: module_bashcolor.green,
+	            blue: module_bashcolor.blue };
 	    };
 
 	    return _;
@@ -1041,7 +985,7 @@ module.exports =
 
 /***/ },
 /* 21 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -1050,28 +994,15 @@ module.exports =
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
 	// load jspm
-	jspm.import('colors'), jspm.import('smf-deep-diff'),
-	// load local
-	__webpack_require__(22),
+	jspm.import('wordwrap'),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_colors, module_smfdeepdiff, local_include_dump, ERR, wordwrap) {
-	    var import_diffdiff = module_smfdeepdiff.diff;
-	    var _ = function _(a, b) {
-	        module_colors;
-
-	        a = {
-	            a: 1,
-	            b: 2,
-	            c: 3 };
-	        b = {
-	            a: 1,
-	            b: 1,
-	            d: 1 };
-	        var diff = import_diffdiff(a, b);
-	        console.log(module_colors.red('asdf'));
-
-	        if (diff) return local_include_dump(diff, a, true);
+	module.exports = q.all(promises).spread(function (module_wordwrap, ERR, wordwrap) {
+	    var _ = function _(indent, text) {
+	        if (!text) text = 'undefined';
+	        return module_wordwrap(0, 81)(text).split('\n').map(function (stack_line) {
+	            return indent + stack_line;
+	        }).join('\n');
 	    };
 
 	    return _;
@@ -1091,28 +1022,27 @@ module.exports =
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
 	// load jspm
-	jspm.import('colors'), jspm.import('lodash'), jspm.import('bash-color'),
+	jspm.import('lodash'),
 	// load local
-	__webpack_require__(23),
+	__webpack_require__(23), __webpack_require__(24),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_colors, module_lodash, module_bashcolor, local_include_dump_array, ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (module_lodash, local_include_dump_array, local_include_dump_val, ERR, wordwrap) {
 	    var _ = function _(i) {
-	        module_colors;
 	        if (!('format' in i)) i.format = function (a) {
 	            return a;
 	        };
 
-	        var current_diff = module_lodash.reduce(i.diff, function (acc, val) {
-	            if (val.path.length == 0) return val;
+	        i.current_diff = module_lodash.reduce(i.diff, function (acc, val) {
+	            if (!('path' in val) || val.path.length == 0) return val;
 	            return acc;
 	        }, null);
 
-	        if (module_lodash.isArray(i.o)) {
+	        if (module_lodash.isArray(i.obj)) {
 	            return local_include_dump_array(i);
 	        }
 
-	        return module_bashcolor.red('red');
+	        return local_include_dump_val(i);
 	    };
 
 	    return _;
@@ -1146,43 +1076,6 @@ module.exports =
 
 /***/ },
 /* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
-	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// load jspm
-	jspm.import('glob-promise'), jspm.import('read-files-promise'),
-	// load local
-	__webpack_require__(25),
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_globpromise, module_readfilespromise, local_include_sharedzip, ERR, wordwrap) {
-	    var _ = function _(path) {
-	        path = path.replace(/\\/g, '/');
-	        var paths;
-	        return module_globpromise(path + '/**/*.es6').then(function (filenames) {
-	            paths = filenames.map(function (filename) {
-	                return filename.replace(path + '/', '');
-	            });
-	            return module_readfilespromise(filenames, 'utf8');
-	        }).then(function (files) {
-	            files = local_include_sharedzip('path', paths, 'contents', files);
-	            return Promise.resolve(files);
-	        });
-	    };
-
-	    return _;
-	}).catch(function (err) {
-	    console.log(err);
-	});
-	/* Generated by Continuation.js v0.1.7 */
-
-/***/ },
-/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1194,15 +1087,40 @@ module.exports =
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
-	    var _ = function _(key1, arr1, key2, arr2) {
-	        var ret = [];
-	        for (var i = 0; i < arr1.length; i++) {
-	            var item = {};
-	            item[key1] = arr1[i];
-	            item[key2] = arr2[i];
-	            ret.push(item);
-	        };
-	        return ret;
+	    var _ = function _(i) {
+	        if (!i.current_diff) return i.format(i.obj);
+	        if (i.current_diff.kind === 'E') return i.format_funcs.blue(i.obj);
+	    };
+
+	    return _;
+	}).catch(function (err) {
+	    console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	var promises = [
+	// load jspm
+	jspm.import('bash-color'),
+	// load local
+	__webpack_require__(21),
+	// other
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (module_bashcolor, local_include_sharedwordwrap, ERR, wordwrap) {
+	    var _ = function _(test_name, generated, expected) {
+	        if (expected != generated && expected.replace(/\s/g, '') != generated.replace(/\s/g, '')) {
+	            console.log(module_bashcolor.red('test ' + test_name + ' failed') + '\n    generated:\n' + local_include_sharedwordwrap('        ', generated) + '\n    expected:\n' + local_include_sharedwordwrap('        ', expected) + '\n');
+	            return;
+	        }
+	        console.log(module_bashcolor.green('test ' + test_name + ' passed'));
 	    };
 
 	    return _;
@@ -1215,540 +1133,24 @@ module.exports =
 /* 26 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
-	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// load jspm
-	jspm.import('acorn'),
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_acorn, ERR, wordwrap) {
-	    var _ = function _(files) {
-	        var _iteratorNormalCompletion = true;
-	        var _didIteratorError = false;
-	        var _iteratorError = undefined;
-
-	        try {
-	            for (var _iterator = files[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                var file = _step.value;
-
-	                try {
-	                    file['contents'] = module_acorn.parse(file['contents'], {
-	                        range: true,
-	                        loc: true,
-	                        ecmaVersion: 6,
-	                        sourcetype: 'module' });
-	                } catch (err) {
-	                    console.log('error:');
-	                    console.log(err);
-	                    console.log('path:');
-	                    console.log(file['path']);
-	                    console.log('contents:');
-	                    console.log(file['contents']);
-	                    return Promise.reject(err);
-	                }
-	            }
-	        } catch (err) {
-	            _didIteratorError = true;
-	            _iteratorError = err;
-	        } finally {
-	            try {
-	                if (!_iteratorNormalCompletion && _iterator.return) {
-	                    _iterator.return();
-	                }
-	            } finally {
-	                if (_didIteratorError) {
-	                    throw _iteratorError;
-	                }
-	            }
-	        }
-
-	        return Promise.resolve(files);
-	    };
-
-	    return _;
-	}).catch(function (err) {
-	    console.log(err);
-	});
-	/* Generated by Continuation.js v0.1.7 */
+	module.exports = {
+		"before": "abc",
+		"after": "abc",
+		"diff": null
+	};
 
 /***/ },
 /* 27 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
-	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
-	    var _ = function _(data) {
-	        return Promise.resolve(data);
-	    };
-
-	    return _;
-	}).catch(function (err) {
-	    console.log(err);
-	});
-	/* Generated by Continuation.js v0.1.7 */
+	module.exports = {
+		"before": "abc",
+		"after": "abcd",
+		"diff": "lhs:\n.   <b>abc</b>\nrhs:\n.   <b>abcd</b>\n"
+	};
 
 /***/ },
 /* 28 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
-	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// load jspm
-	jspm.import('astring'),
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_astring, ERR, wordwrap) {
-	    var _ = function _(files) {
-	        var _iteratorNormalCompletion = true;
-	        var _didIteratorError = false;
-	        var _iteratorError = undefined;
-
-	        try {
-	            for (var _iterator = files[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                var file = _step.value;
-
-	                try {
-	                    file['contents'] = module_astring.generate(file['contents'], {
-	                        indent: '    ', lineEnd: '\n' });
-	                } catch (err) {
-	                    console.log('error:');
-	                    console.log(err);
-	                    console.log('path:');
-	                    console.log(file['path']);
-	                    console.log('contents:');
-	                    console.log(file['contents']);
-	                    return Promise.reject(err);
-	                }
-	            }
-	        } catch (err) {
-	            _didIteratorError = true;
-	            _iteratorError = err;
-	        } finally {
-	            try {
-	                if (!_iteratorNormalCompletion && _iterator.return) {
-	                    _iterator.return();
-	                }
-	            } finally {
-	                if (_didIteratorError) {
-	                    throw _iteratorError;
-	                }
-	            }
-	        }
-
-	        return Promise.resolve(files);
-	    };
-
-	    return _;
-	}).catch(function (err) {
-	    console.log(err);
-	});
-	/* Generated by Continuation.js v0.1.7 */
-
-/***/ },
-/* 29 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
-	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
-	    var _ = function _(data) {
-	        return Promise.resolve(data);
-	    };
-
-	    return _;
-	}).catch(function (err) {
-	    console.log(err);
-	});
-	/* Generated by Continuation.js v0.1.7 */
-
-/***/ },
-/* 30 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"path": "a.es6",
-			"contents": "const a = (a, b) => {\n    console.log(a)\n}\n"
-		},
-		{
-			"path": "b.es6",
-			"contents": ""
-		},
-		{
-			"path": "c.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/d.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/e.es6",
-			"contents": ""
-		}
-	];
-
-/***/ },
-/* 31 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"path": "a.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 45,
-				"body": [
-					{
-						"type": "VariableDeclaration",
-						"start": 0,
-						"end": 44,
-						"declarations": [
-							{
-								"type": "VariableDeclarator",
-								"start": 6,
-								"end": 43,
-								"id": {
-									"type": "Identifier",
-									"start": 6,
-									"end": 7,
-									"name": "a"
-								},
-								"init": {
-									"type": "ArrowFunctionExpression",
-									"start": 10,
-									"end": 43,
-									"id": null,
-									"generator": false,
-									"expression": false,
-									"params": [
-										{
-											"type": "Identifier",
-											"start": 11,
-											"end": 12,
-											"name": "a"
-										},
-										{
-											"type": "Identifier",
-											"start": 14,
-											"end": 15,
-											"name": "b"
-										}
-									],
-									"body": {
-										"type": "BlockStatement",
-										"start": 20,
-										"end": 43,
-										"body": [
-											{
-												"type": "ExpressionStatement",
-												"start": 26,
-												"end": 41,
-												"expression": {
-													"type": "CallExpression",
-													"start": 26,
-													"end": 40,
-													"callee": {
-														"type": "MemberExpression",
-														"start": 26,
-														"end": 37,
-														"object": {
-															"type": "Identifier",
-															"start": 26,
-															"end": 33,
-															"name": "console"
-														},
-														"property": {
-															"type": "Identifier",
-															"start": 34,
-															"end": 37,
-															"name": "log"
-														},
-														"computed": false
-													},
-													"arguments": [
-														{
-															"type": "Identifier",
-															"start": 38,
-															"end": 39,
-															"name": "a"
-														}
-													]
-												}
-											}
-										]
-									}
-								}
-							}
-						],
-						"kind": "const"
-					}
-				],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "b.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "c.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "sub_folder/d.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "sub_folder/e.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		}
-	];
-
-/***/ },
-/* 32 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"path": "a.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 45,
-				"body": [
-					{
-						"type": "VariableDeclaration",
-						"start": 0,
-						"end": 44,
-						"declarations": [
-							{
-								"type": "VariableDeclarator",
-								"start": 6,
-								"end": 43,
-								"id": {
-									"type": "Identifier",
-									"start": 6,
-									"end": 7,
-									"name": "a"
-								},
-								"init": {
-									"type": "ArrowFunctionExpression",
-									"start": 10,
-									"end": 43,
-									"id": null,
-									"generator": false,
-									"expression": false,
-									"params": [
-										{
-											"type": "Identifier",
-											"start": 11,
-											"end": 12,
-											"name": "a"
-										},
-										{
-											"type": "Identifier",
-											"start": 14,
-											"end": 15,
-											"name": "b"
-										}
-									],
-									"body": {
-										"type": "BlockStatement",
-										"start": 20,
-										"end": 43,
-										"body": [
-											{
-												"type": "ExpressionStatement",
-												"start": 26,
-												"end": 41,
-												"expression": {
-													"type": "CallExpression",
-													"start": 26,
-													"end": 40,
-													"callee": {
-														"type": "MemberExpression",
-														"start": 26,
-														"end": 37,
-														"object": {
-															"type": "Identifier",
-															"start": 26,
-															"end": 33,
-															"name": "console"
-														},
-														"property": {
-															"type": "Identifier",
-															"start": 34,
-															"end": 37,
-															"name": "log"
-														},
-														"computed": false
-													},
-													"arguments": [
-														{
-															"type": "Identifier",
-															"start": 38,
-															"end": 39,
-															"name": "a"
-														}
-													]
-												}
-											}
-										]
-									}
-								}
-							}
-						],
-						"kind": "const"
-					}
-				],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "b.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "c.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "sub_folder/d.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		},
-		{
-			"path": "sub_folder/e.es6",
-			"contents": {
-				"type": "Program",
-				"start": 0,
-				"end": 0,
-				"body": [],
-				"sourceType": "script"
-			}
-		}
-	];
-
-/***/ },
-/* 33 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"path": "a.es6",
-			"contents": "const a = (a, b) => {\n    console.log(a);\n};\n"
-		},
-		{
-			"path": "b.es6",
-			"contents": ""
-		},
-		{
-			"path": "c.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/d.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/e.es6",
-			"contents": ""
-		}
-	];
-
-/***/ },
-/* 34 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"path": "a.es6",
-			"contents": "const a = (a, b) => {\n    console.log(a);\n};\n"
-		},
-		{
-			"path": "b.es6",
-			"contents": ""
-		},
-		{
-			"path": "c.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/d.es6",
-			"contents": ""
-		},
-		{
-			"path": "sub_folder/e.es6",
-			"contents": ""
-		}
-	];
-
-/***/ },
-/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jspm, q, promises;
