@@ -8,9 +8,10 @@
             return promise
                 .then(step.func)
                 .then(i => {
-                    const diff = . ../diff/_(step.expected, i);
-                    if (diff) {
-                        return Promise.reject(diff);}
-                    return Promise.resolve(i);});},
+                    console.log(step);
+                    return . ../shared/test_compare(
+                        step.name,
+                        step.expected,
+                        i);});},
 
         Promise.resolve(__dirname + '/conveyor_to_display/before_data'));};
