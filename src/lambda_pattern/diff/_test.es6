@@ -5,7 +5,7 @@
             const diff = . _(data.val.before, data.val.after, {
                 red: i => {return '<r>' + i + '</r>';},
                 green: i => {return '<g>' + i + '</g>';},
+                none: i => {return i;},
                 blue: i => {return '<b>' + i + '</b>';}});
-            . ../shared/test_compare(data.key, diff, data.val.diff);
-        });
+            . ../shared/test_compare(data.key, diff, data.val.diff);});
     return Promise.resolve();};

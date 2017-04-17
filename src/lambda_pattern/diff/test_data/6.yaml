@@ -1,0 +1,11 @@
+before:
+    {a: {b: {c: {d: 1}}}, e: {f: {g: 2}}}
+after:
+    {a: {b: null}, e: {h: {i: 3}}}
+diff: |
+    lhs:
+    .   a: b: <b>c: d: 1</b>
+    .   e: f: <r>g: 2</r>
+    rhs:
+    .   a: b: <b>null</b>
+    .   e: h: <g>i: 3</g>

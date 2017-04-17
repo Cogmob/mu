@@ -1,6 +1,7 @@
 (test_name, generated, expected) => {
-    if (expected != generated &&
-            expected.replace(/\s/g, '') != generated.replace(/\s/g, '')) {
+    if (!generated) generated = '';
+    if (!expected) expected = '';
+    if (expected.replace(/\ |\n/g, '') != generated.replace(/\ |\n/g, '')) {
         console.log(
             .. bash-color.red('test ' + test_name + ' failed')
             + '\n    generated:\n'

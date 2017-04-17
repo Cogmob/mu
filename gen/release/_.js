@@ -58,7 +58,7 @@ module.exports =
 	    // load local
 	    __webpack_require__(2),
 	    __webpack_require__(16),
-	    __webpack_require__(28),
+	    __webpack_require__(34),
 	    // other
 	        jspm.import('async-stacktrace'),
 	        jspm.import('wordwrap')];
@@ -862,12 +862,12 @@ module.exports =
 	// load jspm
 	jspm.import('lodash'),
 	// load local
-	__webpack_require__(18), __webpack_require__(19), __webpack_require__(25),
+	__webpack_require__(18), __webpack_require__(19), __webpack_require__(27),
 	// load regex
-	__webpack_require__(26), __webpack_require__(27),
+	__webpack_require__(28), __webpack_require__(29), __webpack_require__(30), __webpack_require__(31), __webpack_require__(32), __webpack_require__(33),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_lodash, local_include_sharedtable_to_array_auto, local_include__, local_include_sharedtest_compare, regex_test_data09yaml__test_data1yaml, regex_test_data09yaml__test_data2yaml, ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (module_lodash, local_include_sharedtable_to_array_auto, local_include__, local_include_sharedtest_compare, regex_test_data09yaml__test_data1yaml, regex_test_data09yaml__test_data2yaml, regex_test_data09yaml__test_data3yaml, regex_test_data09yaml__test_data4yaml, regex_test_data09yaml__test_data5yaml, regex_test_data09yaml__test_data6yaml, ERR, wordwrap) {
 	    var regex_test_data09yaml = {
 	        by_file: {},
 	        by_folder: {} };
@@ -875,6 +875,14 @@ module.exports =
 	    regex_test_data09yaml.by_folder['test_data'] = regex_test_data09yaml__test_data1yaml;
 	    regex_test_data09yaml.by_file['2'] = regex_test_data09yaml__test_data2yaml;
 	    regex_test_data09yaml.by_folder['test_data'] = regex_test_data09yaml__test_data2yaml;
+	    regex_test_data09yaml.by_file['3'] = regex_test_data09yaml__test_data3yaml;
+	    regex_test_data09yaml.by_folder['test_data'] = regex_test_data09yaml__test_data3yaml;
+	    regex_test_data09yaml.by_file['4'] = regex_test_data09yaml__test_data4yaml;
+	    regex_test_data09yaml.by_folder['test_data'] = regex_test_data09yaml__test_data4yaml;
+	    regex_test_data09yaml.by_file['5'] = regex_test_data09yaml__test_data5yaml;
+	    regex_test_data09yaml.by_folder['test_data'] = regex_test_data09yaml__test_data5yaml;
+	    regex_test_data09yaml.by_file['6'] = regex_test_data09yaml__test_data6yaml;
+	    regex_test_data09yaml.by_folder['test_data'] = regex_test_data09yaml__test_data6yaml;
 	    var _ = function _() {
 	        module_lodash.forEach(local_include_sharedtable_to_array_auto(regex_test_data09yaml.by_file), function (data) {
 	            var diff = local_include__(data.val.before, data.val.after, {
@@ -883,6 +891,9 @@ module.exports =
 	                },
 	                green: function green(i) {
 	                    return '<g>' + i + '</g>';
+	                },
+	                none: function none(i) {
+	                    return i;
 	                },
 	                blue: function blue(i) {
 	                    return '<b>' + i + '</b>';
@@ -972,6 +983,9 @@ module.exports =
 	module.exports = q.all(promises).spread(function (module_bashcolor, ERR, wordwrap) {
 	    var _ = function _() {
 	        return {
+	            none: function none(i) {
+	                return i;
+	            },
 	            red: module_bashcolor.blue,
 	            green: module_bashcolor.green,
 	            blue: module_bashcolor.blue };
@@ -1024,25 +1038,29 @@ module.exports =
 	// load jspm
 	jspm.import('lodash'),
 	// load local
-	__webpack_require__(23), __webpack_require__(24),
+	__webpack_require__(23), __webpack_require__(24), __webpack_require__(25), __webpack_require__(26),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_lodash, local_include_dump_array, local_include_dump_val, ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (module_lodash, local_include_get_current_diff, local_include_dump_array, local_include_dump_table, local_include_dump_val, ERR, wordwrap) {
 	    var _ = function _(i) {
 	        if (!('format' in i)) i.format = function (a) {
 	            return a;
 	        };
+	        if (!('path' in i)) i.path = [];
 
-	        i.current_diff = module_lodash.reduce(i.diff, function (acc, val) {
-	            if (!('path' in val) || val.path.length == 0) return val;
-	            return acc;
-	        }, null);
-
-	        if (module_lodash.isArray(i.obj)) {
-	            return local_include_dump_array(i);
+	        i.current_diff = local_include_get_current_diff(i.diff, i.path);
+	        var ff = i.format_funcs.none;
+	        if (i.current_diff) {
+	            console.log(i.current_diff);
+	            var kind = i.current_diff.kind;
+	            if (kind === 'E') ff = i.format_funcs.blue;
+	            if (kind === 'N') ff = i.format_funcs.green;
+	            if (kind === 'D') ff = i.format_funcs.red;
 	        }
 
-	        return local_include_dump_val(i);
+	        if (module_lodash.isArray(i.obj)) return ff(local_include_dump_array(i, _));
+	        if (module_lodash.isPlainObject(i.obj)) return ff(local_include_dump_table(i, _));
+	        return ff(local_include_dump_val(i));
 	    };
 
 	    return _;
@@ -1061,11 +1079,17 @@ module.exports =
 	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
+	// load jspm
+	jspm.import('lodash'),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
-	    var _ = function _(i) {
-	        return 'done';
+	module.exports = q.all(promises).spread(function (module_lodash, ERR, wordwrap) {
+	    var _ = function _(diff, path) {
+	        return module_lodash.reduce(diff, function (acc, val) {
+	            if (acc) return acc;
+	            if (!('path' in val)) return val;
+	            if (module_lodash.isEqual(val.path, path)) return val;
+	        }, null);
 	    };
 
 	    return _;
@@ -1084,12 +1108,28 @@ module.exports =
 	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
+	// load jspm
+	jspm.import('lodash'),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
-	    var _ = function _(i) {
-	        if (!i.current_diff) return i.format(i.obj);
-	        if (i.current_diff.kind === 'E') return i.format_funcs.blue(i.obj);
+	module.exports = q.all(promises).spread(function (module_lodash, ERR, wordwrap) {
+	    var _ = function _(i, dump) {
+	        var arr = i.obj;
+	        var path = i.path;
+	        var current_diff_i = null;
+	        if (i.current_diff) current_diff_i = i.current_diff.index;
+	        i.current_diff = null;
+	        i.diff = [];
+	        return module_lodash.times(arr.length, function (n) {
+	            i.path = module_lodash.clone(path);
+	            i.path.push(n);
+	            i.obj = arr[n];
+	            var item_str = dump(i);
+	            if (n === current_diff_i) {
+	                item_str = i.format_funcs.blue(item_str);
+	            }
+	            return '- ' + item_str.replace(/\n/g, '\n  ');
+	        }).join('\n');
 	    };
 
 	    return _;
@@ -1100,6 +1140,67 @@ module.exports =
 
 /***/ },
 /* 25 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	var promises = [
+	// load jspm
+	jspm.import('lodash'),
+	// other
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (module_lodash, ERR, wordwrap) {
+	    var _ = function _(i, dump) {
+	        var path = i.path;
+	        var table = i.obj;
+	        var current_diff_i = null;
+	        if (i.current_diff) current_diff_i = i.current_diff.index;
+	        i.current_diff = null;
+	        var ret = module_lodash.values(module_lodash.mapValues(i.obj, function (val, key) {
+	            i.path = module_lodash.clone(path);
+	            i.path.push(key);
+	            i.obj = table[key];
+	            var item_str = dump(i);
+	            return key + ': ' + item_str.replace(/\n/g, '\n  ');
+	        })).join('\n');
+	        return ret;
+	    };
+
+	    return _;
+	}).catch(function (err) {
+	    console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	var promises = [
+	// other
+	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
+	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
+	    var _ = function _(i) {
+	        if (!i.obj) i.obj = 'null';
+	        return i.format(i.obj.toString());
+	    };
+
+	    return _;
+	}).catch(function (err) {
+	    console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ },
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1116,7 +1217,9 @@ module.exports =
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (module_bashcolor, local_include_sharedwordwrap, ERR, wordwrap) {
 	    var _ = function _(test_name, generated, expected) {
-	        if (expected != generated && expected.replace(/\s/g, '') != generated.replace(/\s/g, '')) {
+	        if (!generated) generated = '';
+	        if (!expected) expected = '';
+	        if (expected.replace(/\ |\n/g, '') != generated.replace(/\ |\n/g, '')) {
 	            console.log(module_bashcolor.red('test ' + test_name + ' failed') + '\n    generated:\n' + local_include_sharedwordwrap('        ', generated) + '\n    expected:\n' + local_include_sharedwordwrap('        ', expected) + '\n');
 	            return;
 	        }
@@ -1130,7 +1233,7 @@ module.exports =
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -1140,7 +1243,7 @@ module.exports =
 	};
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -1150,7 +1253,87 @@ module.exports =
 	};
 
 /***/ },
-/* 28 */
+/* 30 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"before": [
+			1,
+			2,
+			3
+		],
+		"after": [
+			1,
+			2
+		],
+		"diff": "lhs:\n.   - 1\n.   - 2\n.   - <b>3</b>\nrhs:\n.   - 1\n.   - 2\n"
+	};
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"before": {
+			"a": 1,
+			"b": 2
+		},
+		"after": {
+			"a": 1,
+			"b": 3
+		},
+		"diff": "lhs:\n.   a: 1\n.   b: <b>2</b>\nrhs:\n.   a: 1\n.   b: <b>3</b>\n"
+	};
+
+/***/ },
+/* 32 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"before": {
+			"a": 1,
+			"b": 2
+		},
+		"after": {
+			"a": 1
+		},
+		"diff": "lhs:\n.   a: 1\n.   b: <r>2</r>\nrhs:\n.   a: 1\n"
+	};
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"before": {
+			"a": {
+				"b": {
+					"c": {
+						"d": 1
+					}
+				}
+			},
+			"e": {
+				"f": {
+					"g": 2
+				}
+			}
+		},
+		"after": {
+			"a": {
+				"b": null
+			},
+			"e": {
+				"h": {
+					"i": 3
+				}
+			}
+		},
+		"diff": "lhs:\n.   a: b: <b>c: d: 1</b>\n.   e: f: <r>g: 2</r>\nrhs:\n.   a: b: <b>null</b>\n.   e: h: <g>i: 3</g>\n"
+	};
+
+/***/ },
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jspm, q, promises;
