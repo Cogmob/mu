@@ -5,7 +5,7 @@ path => {
         .then((filenames) => {
             paths = filenames.map(filename => {
                 return filename.replace(path + '/', '');});
-            return .. read-files-promise(filenames, 'utf8');})
+            return .. read-files-promise(filenames, 'utf8');}, .. reject)
         .then((files) => {
-            files = . ../shared/zip('path', paths, 'contents', files);
-            return Promise.resolve(files);});};
+            files = .. zip('path', paths, 'contents', files);
+            return .. bluebird.resolve(files);}, .. reject);};

@@ -1,5 +1,5 @@
 () => {
-    const get_metadata = . ../shared/get_metadata;
+    const get_metadata = .. get_metadata;
 
     const cb = (err, generated, expected) => {
         t.deepEqual(generated, expected);

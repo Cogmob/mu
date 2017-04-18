@@ -1,5 +1,5 @@
 (root_path, updatables_version, cb) => {
-    const move_if_exists = . ../shared/move_if_exists;
+    const move_if_exists = .. move_if_exists;
 
     .. fs.mkdirp(
         root_path + '/generated/tools/stored',

@@ -1,7 +1,7 @@
 (mu_src_path, root_path, version, cb) => {
     const move = .. fs.move;
 
-    const find_project_root = . ../shared/find_project_root;
+    const find_project_root = .. find_project_root;
 
     (() => {
         .. make_dir(root_path + '/generated_local', cont(err));

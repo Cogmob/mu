@@ -14,7 +14,7 @@
         .action((project_name) => {
             . _(mu_src_path, process.cwd(), project_name, 2000, cont(err));
             const gen_path = __dirname + '/' + project_name;
-            . ../shared/get_metadata(gen_path, cont(err, info));
+            .. get_metadata(gen_path, cont(err, info));
             . ../set_up/_(mu_src_path, gen_path, info, cont(err));
             . ../build/_(gen_path, cont(err));
             cb(null, project_name);})}

@@ -18,6 +18,28 @@
     var module_map = yaml(
         fs.readFileSync('lambda_pattern/module_map.yaml', 'utf8'));
 
+    const replace_shared = (code) => {
+        var imports = [];
+        var m;
+
+        var re = /^\.\. [-a-zA-Z0-9_]+/g;
+        while (m = re.exec(code)) imports.push(m[0].substring(3));
+        var re = /[^a-zA-Z0-9]\.\. [-a-zA-Z0-9_]+/g;
+        while (m = re.exec(code)) imports.push(m[0].substring(4));
+
+        for (var imp of imports) {
+            const files = .. glob.sync(imp + '.es6', {
+                cwd: __dirname + '/../shared',
+                root: __dirname + '/../shared'});
+            if (files.length > 0) {
+                code = code.replace('.. ' + imp, '. ' + '../shared/' + imp);}}
+        //var re = /(^|[^a-zA-Z0-9])\.\. [-a-zA-Z0-9_]+/g;
+        //var imports = [];
+        //var m;
+        //do {
+        //    m = re.exec(ret);
+        return code;};
+
     const add_module = (code, imports_code, assign_code, alias_code, key) => {
         var modname = key;
 
@@ -53,16 +75,14 @@
         return [code, imports_code, assign_code, alias_code];}
 
     const add_includes = (ret, map) => {
-        var re = /(^|[^a-zA-Z0-9])\.\. [-a-zA-Z0-9_]+/g;
         var imports = [];
         var m;
-        do {
-            m = re.exec(ret);
-            if (m) {
-                if (m[0][0] === '.') {
-                    imports.push(m[0].substring(3));
-                } else {
-                    imports.push(m[0].substring(4));}}} while (m);
+
+        var re = /^\.\. [-a-zA-Z0-9_]+/g;
+        while (m = re.exec(ret)) imports.push(m[0].substring(3));
+        var re = /[^a-zA-Z0-9]\.\. [-a-zA-Z0-9_]+/g;
+        while (m = re.exec(ret)) imports.push(m[0].substring(4));
+
         var imports_code = '';
         var assign_code = '';
         var alias_code = '';
@@ -74,14 +94,14 @@
         return [ret, imports_code, assign_code, alias_code];};
 
     const add_regex_includes = (ret, map, imports_code, assign_code, path) => {
-        const re = /(^|[^a-zA-Z0-9])\.\.\. \'[^\']+\'/g;
-        var imports = [];
         var module_bundle_code = '';
+        var imports = [];
         var m;
-        do {
-            m = re.exec(ret);
-            if (m) {
-                imports.push(m[0].substring(6, m[0].length - 1));}} while (m);
+
+        const re = /(^|[^a-zA-Z0-9])\.\.\. \'[^\']+\'/g;
+        while (m = re.exec(ret)) {
+            imports.push(m[0].substring(6, m[0].length - 1));}
+
         if (imports.length > 0) {
             imports_code += '    /' + '/ load regex\n';
             for (var i in imports) {
@@ -117,16 +137,14 @@
     };
 
     const add_local_includes = (ret, map, imports_code, assign_code) => {
-        const re = /(^|[^a-zA-Z0-9])\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/!]*/g;
         var imports = [];
         var m;
-        do {
-            m = re.exec(ret);
-            if (m) {
-                if (m[0][0] === '.') {
-                    imports.push(m[0].substring(2));
-                } else {
-                    imports.push(m[0].substring(3));}}} while (m);
+
+        var re = /^\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/!]*/g;
+        while (m = re.exec(ret)) imports.push(m[0].substring(2));
+        re = /[^a-zA-Z0-9]\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/!]*/g;
+        while (m = re.exec(ret)) imports.push(m[0].substring(3));
+
         if (imports.length > 0) {
             imports_code += '    /' + '/ load local\n';
             for (var i in imports) {
@@ -201,7 +219,7 @@
                     /^\s*\/\*[\s\S]*?\*\/|^\s*([^\\:]|^)\/\/.*$/gm, '$1');
             })).pipe(replace(/\[project\_name\]/g, 'lambda_pattern'))
             .pipe(vmap((code, filename) => {
-                var code = code.toString();
+                var code = replace_shared(code.toString());
                 if (code == '') code = 'null;';
                 filename = filename.split('.');
                 filename = filename[filename.length - 2];
@@ -225,7 +243,8 @@
                 [code, imports_code, assign_code, module_bundle_code]  =
                     add_regex_includes(
                     code, module_map, imports_code, assign_code, module);
-                return es6_prefix
+                return '// file: ' + module + '/' + name + '\n\n'
+                    + es6_prefix
                     + imports_code
                     + jspm_promise_a
                     + assign_code

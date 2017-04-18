@@ -6,12 +6,5 @@ files => {
                 loc: true,
                 ecmaVersion: 6,
                 sourcetype: 'module'});
-        } catch(err) {
-            console.log('error:');
-            console.log(err);
-            console.log('path:');
-            console.log(file['path']);
-            console.log('contents:');
-            console.log(file['contents']);
-            return Promise.reject(err);}}
-    return Promise.resolve(files);};
+        } catch(err) {return .. bluebird.reject(err);}}
+    return .. bluebird.resolve(files);};

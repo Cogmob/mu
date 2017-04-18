@@ -1,5 +1,5 @@
 (mu_src_path, root_path, metadata, cb) => {
-    const copy_if_exists = . ../shared/copy_if_exists;
+    const copy_if_exists = .. copy_if_exists;
 
     const gen_path = root_path + '/generated_local/project';
     .. remove_path(gen_path, cont(err));
@@ -13,7 +13,7 @@
     read_file(
         root_path + '/meta/npm_dev_dependencies.yaml', cont(err, dev_deps));
          * TODO: Copy behaviour from set_up/tools.es6
-    . ../shared/make_package_json(
+    .. make_package_json(
         mu_src_path,
         metadata,
         gen_path,

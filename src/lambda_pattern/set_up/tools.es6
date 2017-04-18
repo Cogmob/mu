@@ -1,6 +1,6 @@
 (mu_src_path, root, metadata, cb) => {
-    const copy_if_exists = . ../shared/copy_if_exists;
-    const make_package_json = . ../shared/make_package_json;
+    const copy_if_exists = .. copy_if_exists;
+    const make_package_json = .. make_package_json;
 
     const gen_path = root + '/generated_local/tools';
     .. remove_path(gen_path, cont(err));

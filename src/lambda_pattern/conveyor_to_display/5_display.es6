@@ -1,2 +1,2 @@
 data => {
-    return Promise.resolve(data);}
+    return .. bluebird.resolve(data);}

@@ -1,5 +1,5 @@
 (root_path, cb) => {
-    const lambda_state_history = require('../shared/lambda_state_history');
+    const lambda_state_history = require('..' + ' lambda_state_history');
     const yaml = require('js-yaml');
 
     . get_info(root_path, cont(err, updatables_version, history));

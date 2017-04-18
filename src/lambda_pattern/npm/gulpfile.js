@@ -2,6 +2,8 @@
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
+// file: npm/gulpfile
+
 var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
 var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
@@ -29,6 +31,49 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
         var strip = require('gulp-strip-comments');
 
         var module_map = yaml(fs.readFileSync('lambda_pattern/module_map.yaml', 'utf8'));
+
+        var replace_shared = function replace_shared(code) {
+            var imports = [];
+            var m;
+
+            var re = /^\.\. [-a-zA-Z0-9_]+/g;
+            while (m = re.exec(code)) {
+                imports.push(m[0].substring(3));
+            }var re = /[^a-zA-Z0-9]\.\. [-a-zA-Z0-9_]+/g;
+            while (m = re.exec(code)) {
+                imports.push(m[0].substring(4));
+            }var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = imports[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var imp = _step.value;
+
+                    var files = module_glob.sync(imp + '.es6', {
+                        cwd: __dirname + '/../shared',
+                        root: __dirname + '/../shared' });
+                    if (files.length > 0) {
+                        code = code.replace('.. ' + imp, '. ' + '../shared/' + imp);
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return code;
+        };
 
         var add_module = function add_module(code, imports_code, assign_code, alias_code, key) {
             var modname = key;
@@ -72,20 +117,16 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
         };
 
         var add_includes = function add_includes(ret, map) {
-            var re = /(^|[^a-zA-Z0-9])\.\. [-a-zA-Z0-9_]+/g;
             var imports = [];
             var m;
-            do {
-                m = re.exec(ret);
-                if (m) {
-                    if (m[0][0] === '.') {
-                        imports.push(m[0].substring(3));
-                    } else {
-                        imports.push(m[0].substring(4));
-                    }
-                }
-            } while (m);
-            var imports_code = '';
+
+            var re = /^\.\. [-a-zA-Z0-9_]+/g;
+            while (m = re.exec(ret)) {
+                imports.push(m[0].substring(3));
+            }var re = /[^a-zA-Z0-9]\.\. [-a-zA-Z0-9_]+/g;
+            while (m = re.exec(ret)) {
+                imports.push(m[0].substring(4));
+            }var imports_code = '';
             var assign_code = '';
             var alias_code = '';
             if (imports.length > 0) {
@@ -105,16 +146,15 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
         };
 
         var add_regex_includes = function add_regex_includes(ret, map, imports_code, assign_code, path) {
-            var re = /(^|[^a-zA-Z0-9])\.\.\. \'[^\']+\'/g;
-            var imports = [];
             var module_bundle_code = '';
+            var imports = [];
             var m;
-            do {
-                m = re.exec(ret);
-                if (m) {
-                    imports.push(m[0].substring(6, m[0].length - 1));
-                }
-            } while (m);
+
+            var re = /(^|[^a-zA-Z0-9])\.\.\. \'[^\']+\'/g;
+            while (m = re.exec(ret)) {
+                imports.push(m[0].substring(6, m[0].length - 1));
+            }
+
             if (imports.length > 0) {
                 imports_code += '    /' + '/ load regex\n';
                 for (var i in imports) {
@@ -152,20 +192,16 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
         };
 
         var add_local_includes = function add_local_includes(ret, map, imports_code, assign_code) {
-            var re = /(^|[^a-zA-Z0-9])\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/!]*/g;
             var imports = [];
             var m;
-            do {
-                m = re.exec(ret);
-                if (m) {
-                    if (m[0][0] === '.') {
-                        imports.push(m[0].substring(2));
-                    } else {
-                        imports.push(m[0].substring(3));
-                    }
-                }
-            } while (m);
-            if (imports.length > 0) {
+
+            var re = /^\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/!]*/g;
+            while (m = re.exec(ret)) {
+                imports.push(m[0].substring(2));
+            }re = /[^a-zA-Z0-9]\. [a-zA-Z0-9\.\_][-a-zA-Z0-9\.\_\/!]*/g;
+            while (m = re.exec(ret)) {
+                imports.push(m[0].substring(3));
+            }if (imports.length > 0) {
                 imports_code += '    /' + '/ load local\n';
                 for (var i in imports) {
                     var varname = 'local_include_' + imports[i].replace(/[^a-zA-Z0-9_]/g, '');
@@ -198,7 +234,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
                 var code = code.toString();
                 return code.replace(/^\s*\/\*[\s\S]*?\*\/|^\s*([^\\:]|^)\/\/.*$/gm, '$1');
             })).pipe(replace(/\[project\_name\]/g, 'lambda_pattern')).pipe(vmap(function (code, filename) {
-                var code = code.toString();
+                var code = replace_shared(code.toString());
                 if (code == '') code = 'null;';
                 filename = filename.split('.');
                 filename = filename[filename.length - 2];
@@ -243,7 +279,7 @@ module.exports = q.all(promises).spread(function (module_glob, ERR, wordwrap) {
                 assign_code = _add_regex_includes2[2];
                 module_bundle_code = _add_regex_includes2[3];
 
-                return es6_prefix + imports_code + jspm_promise_a + assign_code + jspm_promise_b + module_bundle_code + alias_code + 'const _ = ' + code;
+                return '// file: ' + module + '/' + name + '\n\n' + es6_prefix + imports_code + jspm_promise_a + assign_code + jspm_promise_b + module_bundle_code + alias_code + 'const _ = ' + code;
             })).pipe(vmap(function (code, filename) {
                 return code.toString();
             })).pipe(replace(/cont\(.*err.*\).*;/g, '$&\n                if (ERR(err, cb)) {\n                    return;}\n                    ')).pipe(replace(/const cb = \(err.*\) \=> \{/g, '$&\n            if (err) {\n                console.log(wordwrap(20, 81)(\n                    err.stack.replace(/\\\\/g, \'\\\\ \').replace(/^/gm, \'.\'))\n                .split(\'\\n\').forEach((stack_line) => {\n                    console.log(stack_line\n                        .replace(/\\\\ /g, \'\\\\\')\n                        .replace(/ at/g, \'\\nat\')\n                        .replace(/Error:/g, \'\\nError:\'));}));}\n            ')).pipe(gulp.dest('lambda_pattern')).pipe(babel({ presets: ['es2015'] })).pipe(continuation()).pipe(gulp.dest('lambda_pattern'));
