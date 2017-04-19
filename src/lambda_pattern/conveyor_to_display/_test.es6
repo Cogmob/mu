@@ -8,7 +8,6 @@
             return promise
                 .then(step.func, .. reject)
                 .then(i => {
-                    console.log('running ' + step.name);
                     return .. test_compare(
                         step.name,
                         step.expected,

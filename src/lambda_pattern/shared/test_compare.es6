@@ -4,7 +4,6 @@
         console.log(.. bash-color.green('test ' + test_name + ' passed'));
         return .. bluebird.resolve(generated);}
 
-    console.log(.. bash-color.red('test ' + test_name + ' failed'));
     return .. bluebird.reject(
-        .. bash-color.red('test ' + test_name + ' failed') + diff);};
+        .. bash-color.red('test ' + test_name + ' failed') + '\n\n' + diff);};
 

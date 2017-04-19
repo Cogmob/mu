@@ -11,5 +11,5 @@ i => {
         if (kind === 'D') ff = i.format_funcs.red;}
 
     if (.. lo.isArray(i.obj)) return ff(. dump_array(i, _));
-    if (.. lo.isPlainObject(i.obj)) return ff(. dump_table(i, _));
+    if (.. lo.isObject(i.obj)) return ff(. dump_table(i, _));
     return ff(. dump_val(i));};
