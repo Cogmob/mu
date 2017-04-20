@@ -2,9 +2,10 @@
     .. bluebird.config({warnings: false, longStackTraces: false});
     .. marked.setOptions({renderer: new .. marked-terminal()});
 
-    //. diff/_test()
-    //. commander_add/_test(cont(err));
-    . conveyor_to_display/_test()
+    .. bluebird.resolve()
+    .then(. diff/_test())
+    //.then(. commander_add/_test())
+    .then(. conveyor_to_display/_test())
     //require('./set_up/__test');
     //require('./set_up/__test');
     //require('./set_lambda_state_version/__test');

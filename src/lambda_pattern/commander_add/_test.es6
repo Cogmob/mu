@@ -1,4 +1,4 @@
-(cb) => {
+() => {
     const commander = {
         command: (str) => {
             return {
@@ -8,12 +8,10 @@
                             return {
                                 call: () => {
                                     const result = func();
-                                    if (result !== 'result') {
-                                        return cb(
-                                            '\'' + result
-                                            + '\' is not the string'
-                                            + ' \'result\'');}}}}}}}}};
-    . _(
-        commander,
-        './commander_add/before_data',
-        cont(err));};
+                                    if (result === 'result') {
+                                        return Promise.resolve();}
+                                    return Promise.reject(
+                                        '\'' + result
+                                        + '\' is not the string'
+                                        + ' \'result\'');}}}}}}}};
+    return . _(commander, './commander_add/before_data');};

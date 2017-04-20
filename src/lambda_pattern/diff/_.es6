@@ -1,7 +1,4 @@
 (expected, generated, ffs) => {
-    if (!ffs) ffs = . get_ffs();
-    if (!expected) expected = '';
-    if (!generated) generated = '';
     const diff = .. diff(expected, generated);
     if (diff) return 'expected:\n'
         + .. wordwrap('',

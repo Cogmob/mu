@@ -1,8 +1,8 @@
 i => {
-    if (!('format' in i)) i.format = a => {return a};
-    if (!('path' in i)) i.path = [];
-
+    i = . dump_set_up(i);
     i.current_diff = . get_current_diff(i.diff, i.path);
+
+    // is i.format_funcs null??
     var ff = i.format_funcs.none;
     if (i.current_diff) {
         const kind = i.current_diff.kind;
