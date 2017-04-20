@@ -156,7 +156,6 @@ module.exports =
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (module_bluebird, ERR, wordwrap) {
 	    var _ = function _(err) {
-	        console.log(1);
 	        return module_bluebird.reject(err);
 	    };
 

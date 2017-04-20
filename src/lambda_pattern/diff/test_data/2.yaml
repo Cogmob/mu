@@ -3,7 +3,7 @@ before:
 after:
     'abcd'
 diff: |
-    lhs:
+    expected:
     .   <b>abc</b>
-    rhs:
+    generated:
     .   <b>abcd</b>

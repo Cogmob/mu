@@ -971,7 +971,6 @@ module.exports =
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (module_bluebird, ERR, wordwrap) {
 	    var _ = function _(err) {
-	        console.log(1);
 	        return module_bluebird.reject(err);
 	    };
 
@@ -1038,8 +1037,10 @@ module.exports =
 	    var import_diffdiff = module_smfdeepdiff.diff;
 	    var _ = function _(expected, generated, ffs) {
 	        if (!ffs) ffs = local_include_get_ffs();
+	        if (!expected) expected = '';
+	        if (!generated) generated = '';
 	        var diff = import_diffdiff(expected, generated);
-	        if (diff) return 'expected:\n' + local_include_sharedwordwrap('', local_include_dump({ diff: diff, obj: expected, lhs: true, format_funcs: ffs })) + '\ngenerated:\n' + local_include_sharedwordwrap('', local_include_dump({ diff: diff, obj: generated, lhs: false, format_funcs: ffs }));
+	        if (diff) return 'expected:\n' + local_include_sharedwordwrap('', local_include_dump({ diff: diff, obj: expected, format_funcs: ffs })) + '\ngenerated:\n' + local_include_sharedwordwrap('', local_include_dump({ diff: diff, obj: generated, format_funcs: ffs })) + '\n';
 	    };
 
 	    return _;
@@ -1060,23 +1061,20 @@ module.exports =
 	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
+	// load jspm
+	jspm.import('bash-color'), jspm.import('chalk'),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (module_bashcolor, module_chalk, ERR, wordwrap) {
 	    var _ = function _() {
-
 	        return {
-	            red: function red(i) {
-	                return '<r>' + i + '</r>';
-	            },
-	            green: function green(i) {
-	                return '<g>' + i + '</g>';
-	            },
 	            none: function none(i) {
 	                return i;
 	            },
+	            red: module_bashcolor.blue,
+	            green: module_bashcolor.green,
 	            blue: function blue(i) {
-	                return '<b>' + i + '</b>';
+	                return module_chalk.styles.bold.open + i + module_chalk.styles.bold.close;
 	            } };
 	    };
 
@@ -1215,7 +1213,6 @@ module.exports =
 	        var current_diff_i = null;
 	        if (i.current_diff) current_diff_i = i.current_diff.index;
 	        i.current_diff = null;
-	        i.diff = [];
 	        return module_lodash.times(arr.length, function (n) {
 	            i.path = module_lodash.clone(path);
 	            i.path.push(n);
@@ -1578,17 +1575,17 @@ module.exports =
 			"contents": {
 				"type": "Program",
 				"start": 0,
-				"end": 45,
+				"end": 43,
 				"body": [
 					{
 						"type": "VariableDeclaration",
 						"start": 0,
-						"end": 44,
+						"end": 42,
 						"declarations": [
 							{
 								"type": "VariableDeclarator",
 								"start": 6,
-								"end": 43,
+								"end": 42,
 								"id": {
 									"type": "Identifier",
 									"start": 6,
@@ -1598,7 +1595,7 @@ module.exports =
 								"init": {
 									"type": "ArrowFunctionExpression",
 									"start": 10,
-									"end": 43,
+									"end": 42,
 									"id": null,
 									"generator": false,
 									"expression": false,
@@ -1619,12 +1616,12 @@ module.exports =
 									"body": {
 										"type": "BlockStatement",
 										"start": 20,
-										"end": 43,
+										"end": 42,
 										"body": [
 											{
 												"type": "ExpressionStatement",
 												"start": 26,
-												"end": 41,
+												"end": 40,
 												"expression": {
 													"type": "CallExpression",
 													"start": 26,
@@ -1720,17 +1717,17 @@ module.exports =
 			"contents": {
 				"type": "Program",
 				"start": 0,
-				"end": 45,
+				"end": 43,
 				"body": [
 					{
 						"type": "VariableDeclaration",
 						"start": 0,
-						"end": 44,
+						"end": 42,
 						"declarations": [
 							{
 								"type": "VariableDeclarator",
 								"start": 6,
-								"end": 43,
+								"end": 42,
 								"id": {
 									"type": "Identifier",
 									"start": 6,
@@ -1740,7 +1737,7 @@ module.exports =
 								"init": {
 									"type": "ArrowFunctionExpression",
 									"start": 10,
-									"end": 43,
+									"end": 42,
 									"id": null,
 									"generator": false,
 									"expression": false,
@@ -1761,12 +1758,12 @@ module.exports =
 									"body": {
 										"type": "BlockStatement",
 										"start": 20,
-										"end": 43,
+										"end": 42,
 										"body": [
 											{
 												"type": "ExpressionStatement",
 												"start": 26,
-												"end": 41,
+												"end": 40,
 												"expression": {
 													"type": "CallExpression",
 													"start": 26,

@@ -3,9 +3,9 @@ before:
 after:
     {a: 1, b: 3}
 diff: |
-    lhs:
+    expected:
     .   a: 1
     .   b: <b>2</b>
-    rhs:
+    generated:
     .   a: 1
     .   b: <b>3</b>

@@ -3,10 +3,10 @@ before:
 after:
     [1,2]
 diff: |
-    lhs:
+    expected:
     .   - 1
     .   - 2
     .   - <b>3</b>
-    rhs:
+    generated:
     .   - 1
     .   - 2

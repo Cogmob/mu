@@ -7,5 +7,5 @@
                 green: i => {return '<g>' + i + '</g>';},
                 none: i => {return i;},
                 blue: i => {return '<b>' + i + '</b>';}});
-            .. test_compare(data.key, diff, data.val.diff);});
+            .. test_compare(data.key, data.val.diff, diff);});
     return Promise.resolve();};

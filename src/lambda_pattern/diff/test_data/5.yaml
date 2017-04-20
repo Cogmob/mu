@@ -3,8 +3,8 @@ before:
 after:
     {a: 1}
 diff: |
-    lhs:
+    expected:
     .   a: 1
     .   b: <r>2</r>
-    rhs:
+    generated:
     .   a: 1
