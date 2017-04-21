@@ -1,5 +1,5 @@
 i => {
-    if (!('format_funcs' in i)) i.format_funcs = {
+    if (!('format_funcs' in i) || !i.format_funcs) i.format_funcs = {
         none: i => {return i},
         red: .. bash-color.blue,
         green: .. bash-color.green,

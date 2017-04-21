@@ -1,2 +1,2 @@
 data => {
-    return .. bluebird.resolve(data);};
+    return .. p.resolve(data);};

@@ -1,4 +1,5 @@
 () => {
+    console.log(.. bash-color.blue('\n[module] test\n'));
     const commander = {
         command: (str) => {
             return {
@@ -7,11 +8,6 @@
                         action: (func) => {
                             return {
                                 call: () => {
-                                    const result = func();
-                                    if (result === 'result') {
-                                        return Promise.resolve();}
-                                    return Promise.reject(
-                                        '\'' + result
-                                        + '\' is not the string'
-                                        + ' \'result\'');}}}}}}}};
+                                    return .. test_compare('result', func());
+    }}}}}}}};
     return . _(commander, './commander_add/before_data');};

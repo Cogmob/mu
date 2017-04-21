@@ -1,4 +1,5 @@
 (expected, generated, ffs) => {
+    if (!expected && !generated) return;
     const diff = .. diff(expected, generated);
     if (diff) return 'expected:\n'
         + .. wordwrap('',

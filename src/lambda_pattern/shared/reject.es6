@@ -1,2 +1,2 @@
 err => {
-    return .. bluebird.reject(err);};
+    return .. p.reject(err);};

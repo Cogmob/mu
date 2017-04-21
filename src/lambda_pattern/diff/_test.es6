@@ -5,14 +5,12 @@
         green: i => {return '<g>' + i + '</g>';},
         blue: i => {return '<b>' + i + '</b>';}};
 
-    return .. lo.reduce(
-        .. table_to_array_auto(... 'test_data/[0-9].yaml'.by_file),
+    return .. concat_promises('[module] test',
+        .. lo.map(
+            .. lo.toPairs(... 'test_data/[0-9].yaml'.by_file),
 
-        (promise, data) => {
-            return promise.then(
-                .. test_compare(
-                    data.key,
-                    data.val.diff, 
-                    . _(data.val.before, data.val.after, ffs)));},
-    
-        .. bluebird.resolve());};
+            data => {
+                    return .. test_compare(
+                        data[0],
+                        data[1].diff, 
+                        . _(data[1].before, data[1].after, ffs));}));};

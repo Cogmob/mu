@@ -8,4 +8,4 @@ path => {
             return .. read-files-promise(filenames, 'utf8');}, .. reject)
         .then((files) => {
             files = .. zip('path', paths, 'contents', files);
-            return .. bluebird.resolve(files);}, .. reject);};
+            return .. p.resolve(files);}, .. reject);};
