@@ -1,15 +1,13 @@
 () => {
-    const steps = ... '[1-5]*'.by_file;
-    const after = .. lo.values(... 'after_data/[1-5]*.yaml'.by_file);
-    console.log(.. lo.zip(.. lo.keys(steps), .. lo.values(steps), after));};
-
-    //(promise, step) => {
-    //    return promise
-    //        .then(step.func, .. reject)
-    //        .then(i => {
-    //            return .. test_compare(
-    //                step.name,
-    //                step.expected,
-    //                i);}, .. reject);},
-
-    //.. p.resolve(__dirname + '/conveyor_to_display/before_data'));};
+    const steps = ... '[2-4]*'.by_file;
+    const expected = .. lo.values(... 'after_data/[1-4]*.yaml'.by_file);
+    return .. concat_promises('[module] tests', .. lo.map(
+        .. lo.values(steps),
+        (promise, index) => {
+            return promise(expected[index]).then(
+                result => {
+                    return .. test_compare(
+                        .. lo.keys(steps)[index],
+                        expected[index + 1],
+                        result);},
+                .. reject);}));};

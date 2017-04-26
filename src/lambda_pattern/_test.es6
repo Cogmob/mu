@@ -15,4 +15,5 @@
         //require('./set_updatables_version/__test');
     ])
     .then(i => {console.log(i);})
-    .catch(i => {console.log(i);});}
+    .catch(i => {console.log(i);});
+};

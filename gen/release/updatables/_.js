@@ -305,6 +305,7 @@ module.exports =
 	            }
 	        }
 
+	        console.log(files);
 	        return module_bluebird.resolve(files);
 	    };
 
