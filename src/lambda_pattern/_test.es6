@@ -3,8 +3,8 @@
     .. marked.setOptions({renderer: new .. marked-terminal()});
 
     . shared/concat_promises('test results:', [
-        //. diff/_test(),
-        //. commander_add/_test(),
+        . diff/_test(),
+        . commander_add/_test(),
         . conveyor_to_display/_test(),
         //require('./set_up/__test');
         //require('./set_up/__test');

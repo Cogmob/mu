@@ -1,13 +1,14 @@
 () => {
-    const steps = ... '[2-4]*'.by_file;
-    const expected = .. lo.values(... 'after_data/[1-4]*.yaml'.by_file);
+    const steps = ... '[1-5]*'.by_file;
+    const expected = .. lo.values(... 'after_data/[0-5]*.yaml'.by_file);
     return .. concat_promises('[module] tests', .. lo.map(
         .. lo.values(steps),
         (promise, index) => {
             return promise(expected[index]).then(
                 result => {
-                    return .. test_compare(
+                    const ret = .. test_compare(
                         .. lo.keys(steps)[index],
                         expected[index + 1],
-                        result);},
+                        result);
+                    return ret;},
                 .. reject);}));};

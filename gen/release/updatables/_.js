@@ -215,6 +215,7 @@ module.exports =
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (module_acorn, module_bluebird, ERR, wordwrap) {
 	    var _ = function _(files) {
+	        var ret = [];
 	        var _iteratorNormalCompletion = true;
 	        var _didIteratorError = false;
 	        var _iteratorError = undefined;
@@ -224,11 +225,13 @@ module.exports =
 	                var file = _step.value;
 
 	                try {
-	                    file['contents'] = module_acorn.parse(file['contents'], {
-	                        range: true,
-	                        loc: true,
-	                        ecmaVersion: 6,
-	                        sourcetype: 'module' });
+	                    ret.push({
+	                        path: file['path'],
+	                        contents: module_acorn.parse(file['contents'], {
+	                            range: true,
+	                            loc: true,
+	                            ecmaVersion: 6,
+	                            sourcetype: 'module' }) });
 	                } catch (err) {
 	                    return module_bluebird.reject(err);
 	                }
@@ -248,7 +251,7 @@ module.exports =
 	            }
 	        }
 
-	        return module_bluebird.resolve(files);
+	        return module_bluebird.resolve(ret);
 	    };
 
 	    return _;
@@ -275,6 +278,7 @@ module.exports =
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
 	module.exports = q.all(promises).spread(function (module_astring, module_bluebird, ERR, wordwrap) {
 	    var _ = function _(files) {
+	        var ret = [];
 	        var _iteratorNormalCompletion = true;
 	        var _didIteratorError = false;
 	        var _iteratorError = undefined;
@@ -284,8 +288,10 @@ module.exports =
 	                var file = _step.value;
 
 	                try {
-	                    file['contents'] = module_astring.generate(file['contents'], {
-	                        indent: '    ', lineEnd: '\n' });
+	                    ret.push({
+	                        path: file['path'],
+	                        contents: module_astring.generate(file['contents'], {
+	                            indent: '    ', lineEnd: '\n' }) });
 	                } catch (err) {
 	                    return module_bluebird.reject(err);
 	                }
@@ -305,8 +311,7 @@ module.exports =
 	            }
 	        }
 
-	        console.log(files);
-	        return module_bluebird.resolve(files);
+	        return module_bluebird.resolve(ret);
 	    };
 
 	    return _;
