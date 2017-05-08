@@ -337,7 +337,7 @@
                     loaders: [
                         {
                             test: /\.txt$/,
-                            use: 'raw-loader'},
+                            loader: 'raw'},
                         {
                             test: /\.jsx?$/,
                             exclude: /node_modules/,

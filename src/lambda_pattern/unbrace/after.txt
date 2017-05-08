@@ -1,0 +1,29 @@
+. =>
+    line.of.code.
+    another.line.of.code.
+
+        arg1
+        arg2
+    > func_call.
+
+
+
+    arg1, arg2 > func_call_2 > var a
+
+        -   key: val
+            key2: val2
+        -   list_item_1
+            list_item_2
+    > func_call_3
+
+[1,2,3] > const list1
+    4
+    5
+    6
+> const list2
+
+if
+        a
+            || b
+    cmd.
+

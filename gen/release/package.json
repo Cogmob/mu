@@ -21,6 +21,7 @@
   "devDependencies": {
     "continuation": "^0.1.7",
     "json-loader": "^0.5.4",
+    "raw-text-loader": "^0.1.1",
     "vargs-callback": "^0.2.4",
     "vinyl-transform": "^1.0.0",
     "yaml-include-loader": "^1.0.0"

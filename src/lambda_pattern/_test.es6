@@ -3,8 +3,9 @@
     .. marked.setOptions({renderer: new .. marked-terminal()});
 
     . shared/concat_promises('test results:', [
-        . diff/_test(),
-        . conveyor_to_display/_test(),
+        //. diff/_test(),
+        //. conveyor_to_display/_test(),
+        . unbrace/_test(),
         //require('./set_up/__test');
         //require('./set_up/__test');
         //require('./set_lambda_state_version/__test');
