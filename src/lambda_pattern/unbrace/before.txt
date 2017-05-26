@@ -1,30 +1,13 @@
-() => {
-    line.of.code();
-    another.line.of.code();
+(symbols_to_remove,  i) => {
+    if  (i.err)  return  i;
+    return  .. lo.reduce(
+        symbols_to_remove,
+        (acc,  symbol) => {
+            if  (acc.err) {
+                return  acc;}
+            const  str  =  acc.line.trim();
+            if (symbol  !==  str.slice(-1)) {
+                return  {err:  true,  line:  str};}
+            return  {err:  false,  line:  str.slice(0,  -1)};},
+        i);};
 
-    func_call(
-        arg1,
-        arg2);
-
-
-
-    var a = func_call_2(arg1, arg2);
-
-    func_call_3(
-        {
-            key: val,
-            key2: val2},
-        [
-            list_item_1,
-            list_item_2]);};
-
-const list1 = [1,2,3];
-const list2 = [
-    4,
-    5,
-    6];
-
-if (
-        a
-            || b) {
-    cmd();}

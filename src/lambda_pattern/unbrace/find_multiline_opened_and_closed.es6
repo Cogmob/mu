@@ -1,17 +1,17 @@
 line => {
     return .. lo.reduce(
         line,
-        (ret, symbol) => {
-            if (!'(){}[]'.includes(symbol)) return ret;
+        (acc, symbol) => {
+            if (!'(){}[]'.includes(symbol)) return acc;
             if ('({['.includes(symbol)) {
-                ret.opened.unshift(symbol);
-                return ret;}
+                acc.opened.unshift(symbol);
+                return acc;}
             if (
-                    (ret.opened[0] === '(' && symbol === ')')
-                    || (ret.opened[0] === '{' && symbol === '}')
-                    || (ret.opened[0] === '[' && symbol === ']')) {
-                ret.opened.shift();
-                return ret;}
-            ret.closed.push(symbol);
-            return ret;},
+                    (acc.opened[0] === '(' && symbol === ')')
+                    || (acc.opened[0] === '{' && symbol === '}')
+                    || (acc.opened[0] === '[' && symbol === ']')) {
+                acc.opened.shift();
+                return acc;}
+            acc.closed.push(symbol);
+            return acc;},
         {opened: [], closed: []});};
