@@ -148,15 +148,15 @@ module.exports =
 	// load jspm
 	jspm.import('bluebird'), jspm.import('marked'), jspm.import('marked-terminal'),
 	// load local
-	__webpack_require__(4), __webpack_require__(5),
+	__webpack_require__(4),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_bluebird, module_marked, module_markedterminal, local_include_sharedconcat_promises, local_include_unbrace_test, ERR, wordwrap) {
+	module.exports = q.all(promises).spread(function (module_bluebird, module_marked, module_markedterminal, local_include_sharedconcat_promises, ERR, wordwrap) {
 	    var _ = function _() {
 	        module_bluebird.config({ warnings: false, longStackTraces: false });
 	        module_marked.setOptions({ renderer: new module_markedterminal() });
 
-	        local_include_sharedconcat_promises('test results:', [local_include_unbrace_test()]).then(function (i) {
+	        local_include_sharedconcat_promises('test results:', [__webpack_require__(5)]).then(function (i) {
 	            console.log(i);
 	        }).catch(function (i) {
 	            console.log(i);
@@ -218,30 +218,84 @@ module.exports =
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	var jspm, q, promises;
 	'use strict';
-
-	// file: unbrace/_test
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// load jspm
-	jspm.import('bluebird'),
-	// load local
-	__webpack_require__(6), __webpack_require__(7),
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_bluebird, local_include_beforetxt, local_include_unbrace, ERR, wordwrap) {
-	    var _ = function _() {
-	        var before = local_include_beforetxt;
-	        local_include_unbrace(before);
-	        return module_bluebird.resolve();
+	promises = [
+	  jspm.import('serialfs'),
+	  __webpack_require__(6),
+	  __webpack_require__(7),
+	  __webpack_require__(8),
+	  jspm.import('async-stacktrace'),
+	  jspm.import('wordwrap')
+	];
+	module.exports = q.all(promises).spread(function (module_serialfs, local_include_sharedget_metadata, local_include_create_, local_include__, ERR, wordwrap) {
+	  var _;
+	  _ = function _() {
+	    var get_metadata, cb, mu_src_path, err, info, contents, generated, expected;
+	    get_metadata = local_include_sharedget_metadata;
+	    cb = function cb(err, generated, expected) {
+	      if (err) {
+	        console.log(wordwrap(20, 81)(err.stack.replace(/\\/g, '\\ ').replace(/^/gm, '.')).split('\n').forEach(function (stack_line) {
+	          console.log(stack_line.replace(/\\ /g, '\\').replace(/ at/g, '\nat').replace(/Error:/g, '\nError:'));
+	        }));
+	      }
+	      t.deepEqual(generated, expected);
+	      t.end();
 	    };
-
-	    return _;
+	    mu_src_path = __dirname + '/../..';
+	    local_include_create_(mu_src_path, __dirname, 'test_project', 2000, function (arguments, _$param0) {
+	      err = _$param0;
+	      if (ERR(err, cb)) {
+	        return;
+	      }
+	      get_metadata(__dirname + '/test_project', function (arguments, _$param1, _$param2) {
+	        err = _$param1;
+	        info = _$param2;
+	        if (ERR(err, cb)) {
+	          return;
+	        }
+	        local_include__(mu_src_path, __dirname + '/test_project', info, function (arguments, _$param3) {
+	          err = _$param3;
+	          if (ERR(err, cb)) {
+	            return;
+	          }
+	          contents = {
+	            gen: {
+	              '.gitignore': true,
+	              dev: {
+	                lambda_updatables: {
+	                  example_version: true,
+	                  'LICENCE.md': true
+	                }
+	              },
+	              stored: { 'lambda_state_history.yaml': true }
+	            }
+	          };
+	          generated = module_serialfs.obj(__dirname + '/test_project', contents, function (arguments, _$param4, _$param5) {
+	            err = _$param4;
+	            generated = _$param5;
+	            if (ERR(err, cb)) {
+	              return;
+	            }
+	            expected = module_serialfs.obj(__dirname + '/expected_data', contents, function (arguments, _$param6, _$param7) {
+	              err = _$param6;
+	              expected = _$param7;
+	              if (ERR(err, cb)) {
+	                return;
+	              }
+	              cb(null, generated, expected);
+	            }.bind(this, arguments));
+	          }.bind(this, arguments));
+	        }.bind(this, arguments));
+	      }.bind(this, arguments));
+	    }.bind(this, arguments));
+	  };
+	  return _;
 	}).catch(function (err) {
-	    console.log(err);
+	  console.log(err);
 	});
 	/* Generated by Continuation.js v0.1.7 */
 
@@ -249,81 +303,181 @@ module.exports =
 /* 6 */
 /***/ (function(module, exports) {
 
-	module.exports = "(symbols_to_remove,  i) => {\n    if  (i.err)  return  i;\n    return  .. lo.reduce(\n        symbols_to_remove,\n        (acc,  symbol) => {\n            if  (acc.err) {\n                return  acc;}\n            const  str  =  acc.line.trim();\n            if (symbol  !==  str.slice(-1)) {\n                return  {err:  true,  line:  str};}\n            return  {err:  false,  line:  str.slice(0,  -1)};},\n        i);};\n\n"
+	var jspm, q, promises;
+	'use strict';
+	jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	promises = [
+	  jspm.import('fs-extra@^1.0.0'),
+	  jspm.import('js-yaml@^3.7.0'),
+	  jspm.import('async-stacktrace'),
+	  jspm.import('wordwrap')
+	];
+	module.exports = q.all(promises).spread(function (module_fsextra100, module_jsyaml370, ERR, wordwrap) {
+	  var import_read_filereadFile, _;
+	  import_read_filereadFile = module_fsextra100.readFile;
+	  _ = function _(root_path, cb) {
+	    var err, metadata;
+	    import_read_filereadFile(root_path + '/meta/data.yaml', 'utf8', function (arguments, _$param0, _$param1) {
+	      err = _$param0;
+	      metadata = _$param1;
+	      if (ERR(err, cb)) {
+	        return;
+	      }
+	      cb(null, module_jsyaml370.safeLoad(metadata), root_path);
+	    }.bind(this, arguments));
+	  };
+	  return _;
+	}).catch(function (err) {
+	  console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
+	var jspm, q, promises;
 	'use strict';
-
-	// file: unbrace/unbrace
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// load jspm
-	jspm.import('lodash'),
-	// load local
-	__webpack_require__(8), __webpack_require__(9), __webpack_require__(11),
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_lodash, local_include_find_multiline_opened_and_closed, local_include_clear_line_ends, local_include_discover_sections, ERR, wordwrap) {
-	    var _ = function _(d) {
-	        d = d.split('\n').map(function (line) {
-	            return {
-	                line: line,
-	                multiline_symbols: local_include_find_multiline_opened_and_closed(line) };
-	        }).map(local_include_clear_line_ends).reduce(local_include_discover_sections, null);
-	        module_lodash.map(d, function (i) {
-	            return console.log(i);
-	        });
-	        return d;
-	    };
-
-	    return _;
+	promises = [
+	  jspm.import('fs-extra@^1.0.0'),
+	  jspm.import('async-stacktrace'),
+	  jspm.import('wordwrap')
+	];
+	module.exports = q.all(promises).spread(function (module_fsextra100, ERR, wordwrap) {
+	  var import_copy_pathcopy, import_read_filereadFile, import_write_filewriteFile, _;
+	  import_copy_pathcopy = module_fsextra100.copy;
+	  import_read_filereadFile = module_fsextra100.readFile;
+	  import_write_filewriteFile = module_fsextra100.writeFile;
+	  _ = function _(mu_src_path, root_path, project_name, year, cb) {
+	    var skel_path, gen_path, err, readme, index, test_file, meta;
+	    skel_path = mu_src_path + '/skeleton_data';
+	    gen_path = root_path + '/' + project_name;
+	    import_copy_pathcopy(skel_path, gen_path, function (arguments, _$param0) {
+	      err = _$param0;
+	      if (ERR(err, cb)) {
+	        return;
+	      }
+	      import_read_filereadFile(gen_path + '/readme.md', 'utf8', function (arguments, _$param1, _$param2) {
+	        err = _$param1;
+	        readme = _$param2;
+	        if (ERR(err, cb)) {
+	          return;
+	        }
+	        readme = readme.replace(/\[\[project_name\]\]/g, project_name);
+	        import_write_filewriteFile(gen_path + '/readme.md', readme, function (arguments, _$param3) {
+	          err = _$param3;
+	          if (ERR(err, cb)) {
+	            return;
+	          }
+	          import_read_filereadFile(gen_path + '/_.es6', 'utf8', function (arguments, _$param4, _$param5) {
+	            err = _$param4;
+	            index = _$param5;
+	            if (ERR(err, cb)) {
+	              return;
+	            }
+	            index = index.replace(/\[\[project_name\]\]/g, project_name);
+	            import_write_filewriteFile(gen_path + '/_.es6', index, function (arguments, _$param6) {
+	              err = _$param6;
+	              if (ERR(err, cb)) {
+	                return;
+	              }
+	              import_read_filereadFile(gen_path + '/__test.es6', 'utf8', function (arguments, _$param7, _$param8) {
+	                err = _$param7;
+	                test_file = _$param8;
+	                if (ERR(err, cb)) {
+	                  return;
+	                }
+	                test_file = test_file.replace(/\[\[project_name\]\]/g, project_name);
+	                import_write_filewriteFile(gen_path + '/__test.es6', test_file, function (arguments, _$param9) {
+	                  err = _$param9;
+	                  if (ERR(err, cb)) {
+	                    return;
+	                  }
+	                  import_read_filereadFile(gen_path + '/meta/data.yaml', 'utf8', function (arguments, _$param10, _$param11) {
+	                    err = _$param10;
+	                    meta = _$param11;
+	                    if (ERR(err, cb)) {
+	                      return;
+	                    }
+	                    meta = meta.replace(/\[\[project_name\]\]/g, project_name);
+	                    import_write_filewriteFile(gen_path + '/meta/data.yaml', meta, function (arguments, _$param12) {
+	                      err = _$param12;
+	                      if (ERR(err, cb)) {
+	                        return;
+	                      }
+	                      cb(null);
+	                    }.bind(this, arguments));
+	                  }.bind(this, arguments));
+	                }.bind(this, arguments));
+	              }.bind(this, arguments));
+	            }.bind(this, arguments));
+	          }.bind(this, arguments));
+	        }.bind(this, arguments));
+	      }.bind(this, arguments));
+	    }.bind(this, arguments));
+	  };
+	  return _;
 	}).catch(function (err) {
-	    console.log(err);
+	  console.log(err);
 	});
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+	var jspm, q, promises;
 	'use strict';
-
-	// file: unbrace/find_multiline_opened_and_closed
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// load jspm
-	jspm.import('lodash'),
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_lodash, ERR, wordwrap) {
-	    var _ = function _(line) {
-	        return module_lodash.reduce(line, function (acc, symbol) {
-	            if (!'(){}[]'.includes(symbol)) return acc;
-	            if ('({['.includes(symbol)) {
-	                acc.opened.unshift(symbol);
-	                return acc;
+	promises = [
+	  jspm.import('fs-extra@^1.0.0'),
+	  __webpack_require__(9),
+	  __webpack_require__(11),
+	  __webpack_require__(13),
+	  jspm.import('async-stacktrace'),
+	  jspm.import('wordwrap')
+	];
+	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_set_updatables_version_, local_include_project, local_include_tools, ERR, wordwrap) {
+	  var import_make_dirmkdirp, _;
+	  import_make_dirmkdirp = module_fsextra100.mkdirp;
+	  _ = function _(mu_src_path, root_path, metadata, cb) {
+	    var err;
+	    import_make_dirmkdirp(root_path + '/generated_local', function (arguments, _$param0) {
+	      err = _$param0;
+	      if (ERR(err, cb)) {
+	        return;
+	      }
+	      local_include_set_updatables_version_(mu_src_path, root_path, 'HEAD', function (arguments, _$param1) {
+	        err = _$param1;
+	        if (ERR(err, cb)) {
+	          return;
+	        }
+	        local_include_project(mu_src_path, root_path, metadata, function (arguments, _$param2) {
+	          err = _$param2;
+	          if (ERR(err, cb)) {
+	            return;
+	          }
+	          local_include_tools(mu_src_path, root_path, metadata, function (arguments, _$param3) {
+	            err = _$param3;
+	            if (ERR(err, cb)) {
+	              return;
 	            }
-	            if (acc.opened[0] === '(' && symbol === ')' || acc.opened[0] === '{' && symbol === '}' || acc.opened[0] === '[' && symbol === ']') {
-	                acc.opened.shift();
-	                return acc;
-	            }
-	            acc.closed.push(symbol);
-	            return acc;
-	        }, { opened: [], closed: [] });
-	    };
-
-	    return _;
+	            cb();
+	          }.bind(this, arguments));
+	        }.bind(this, arguments));
+	      }.bind(this, arguments));
+	    }.bind(this, arguments));
+	  };
+	  return _;
 	}).catch(function (err) {
-	    console.log(err);
+	  console.log(err);
 	});
 	/* Generated by Continuation.js v0.1.7 */
 
@@ -331,29 +485,99 @@ module.exports =
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	var jspm, q, promises;
 	'use strict';
-
-	// file: unbrace/clear_line_ends
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// load local
-	__webpack_require__(10),
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (local_include_clear_line_end, ERR, wordwrap) {
-	    var _ = function _(i) {
-	        var res = local_include_clear_line_end(i.multiline_symbols.closes, local_include_clear_line_end(i.multiline_symbols.opened, { err: false, line: i.line }));
-	        if (res.err) return { line: i.line, multiline_symbols: [] };
-	        i.line = res.line;
-	        return i;
+	promises = [
+	  jspm.import('fs-extra@^1.0.0'),
+	  jspm.import('git-archive@^0.1.4'),
+	  jspm.import('tar-fs@^1.15.0'),
+	  __webpack_require__(10),
+	  jspm.import('async-stacktrace'),
+	  jspm.import('wordwrap')
+	];
+	module.exports = q.all(promises).spread(function (module_fsextra100, module_gitarchive014, module_tarfs1150, local_include_sharedfind_project_root, ERR, wordwrap) {
+	  var import_make_dirmkdirp, import_remove_pathremove, import_move_pathmove, _;
+	  import_make_dirmkdirp = module_fsextra100.mkdirp;
+	  import_remove_pathremove = module_fsextra100.remove;
+	  import_move_pathmove = module_fsextra100.move;
+	  _ = function _(mu_src_path, root_path, version, cb) {
+	    var move, find_project_root, move_updatables, cleanup;
+	    move = module_fsextra100.move;
+	    find_project_root = local_include_sharedfind_project_root;
+	    (function () {
+	      var err, tool_root;
+	      import_make_dirmkdirp(root_path + '/generated_local', function (arguments, _$param0) {
+	        err = _$param0;
+	        if (ERR(err, cb)) {
+	          return;
+	        }
+	        find_project_root(mu_src_path + '/mu_sub_repo', function (arguments, _$param1, _$param2) {
+	          err = _$param1;
+	          tool_root = _$param2;
+	          if (ERR(err, cb)) {
+	            return;
+	          }
+	          module_gitarchive014({
+	            repoPath: tool_root + '/.git',
+	            commit: version,
+	            outputPath: root_path + '/generated_local/updatables.tar'
+	          }, function (arguments, _$param3) {
+	            err = _$param3;
+	            if (ERR(err, cb)) {
+	              return;
+	            }
+	            move_updatables();
+	          }.bind(this, arguments));
+	        }.bind(this, arguments));
+	      }.bind(this, arguments));
+	    }());
+	    move_updatables = function move_updatables() {
+	      var err;
+	      import_make_dirmkdirp(root_path + '/generated_local/updatables', function (arguments, _$param4) {
+	        err = _$param4;
+	        if (ERR(err, cb)) {
+	          return;
+	        }
+	        module_fsextra100.createReadStream(root_path + '/generated_local/updatables.tar').pipe(module_tarfs1150.extract(root_path + '/generated_local/updatables')).on('finish', cleanup).on('error', function (er) {
+	          return ERR(er, cb);
+	        });
+	      }.bind(this, arguments));
 	    };
-
-	    return _;
+	    cleanup = function cleanup() {
+	      var err;
+	      import_remove_pathremove(root_path + '/generated_local/lambda_updatables', function (arguments, _$param5) {
+	        err = _$param5;
+	        if (ERR(err, cb)) {
+	          return;
+	        }
+	        import_move_pathmove(root_path + '/generated_local/updatables/gen/release/updatables', root_path + '/generated_local/lambda_updatables', function (arguments, _$param6) {
+	          err = _$param6;
+	          if (ERR(err, cb)) {
+	            return;
+	          }
+	          import_remove_pathremove(root_path + '/generated_local/updatables.tar', function (arguments, _$param7) {
+	            err = _$param7;
+	            if (ERR(err, cb)) {
+	              return;
+	            }
+	            import_remove_pathremove(root_path + '/generated_local/updatables', function (arguments, _$param8) {
+	              err = _$param8;
+	              if (ERR(err, cb)) {
+	                return;
+	              }
+	              cb();
+	            }.bind(this, arguments));
+	          }.bind(this, arguments));
+	        }.bind(this, arguments));
+	      }.bind(this, arguments));
+	    };
+	  };
+	  return _;
 	}).catch(function (err) {
-	    console.log(err);
+	  console.log(err);
 	});
 	/* Generated by Continuation.js v0.1.7 */
 
@@ -361,31 +585,128 @@ module.exports =
 /* 10 */
 /***/ (function(module, exports) {
 
+	var jspm, q, promises;
+	'use strict';
+	jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	promises = [
+	  jspm.import('fs-extra@^1.0.0'),
+	  jspm.import('async-stacktrace'),
+	  jspm.import('wordwrap')
+	];
+	module.exports = q.all(promises).spread(function (module_fsextra100, ERR, wordwrap) {
+	  var import_file_existsstat, _;
+	  import_file_existsstat = module_fsextra100.stat;
+	  _ = function _(curr_path, cb) {
+	    var err, exists;
+	    import_file_existsstat(curr_path + '/.git', function (arguments, _$param0, _$param1) {
+	      err = _$param0;
+	      exists = _$param1;
+	      if (exists) {
+	        return cb(null, curr_path);
+	      }
+	      _(curr_path + '/..', cb);
+	    }.bind(this, arguments));
+	  };
+	  return _;
+	}).catch(function (err) {
+	  console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var jspm, q, promises;
+	'use strict';
+	jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	promises = [
+	  jspm.import('fs-extra@^1.0.0'),
+	  __webpack_require__(12),
+	  __webpack_require__(9),
+	  jspm.import('async-stacktrace'),
+	  jspm.import('wordwrap')
+	];
+	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_sharedcopy_if_exists, local_include_set_updatables_version_, ERR, wordwrap) {
+	  var import_remove_pathremove, import_make_dirmkdirp, import_copy_pathcopy, _;
+	  import_remove_pathremove = module_fsextra100.remove;
+	  import_make_dirmkdirp = module_fsextra100.mkdirp;
+	  import_copy_pathcopy = module_fsextra100.copy;
+	  _ = function _(mu_src_path, root_path, metadata, cb) {
+	    var copy_if_exists, gen_path, err;
+	    copy_if_exists = local_include_sharedcopy_if_exists;
+	    gen_path = root_path + '/generated_local/project';
+	    import_remove_pathremove(gen_path, function (arguments, _$param0) {
+	      err = _$param0;
+	      if (ERR(err, cb)) {
+	        return;
+	      }
+	      import_make_dirmkdirp(gen_path, function (arguments, _$param1) {
+	        err = _$param1;
+	        if (ERR(err, cb)) {
+	          return;
+	        }
+	        copy_if_exists(root_path + '/submodules', gen_path, function (arguments, _$param2) {
+	          err = _$param2;
+	          if (ERR(err, cb)) {
+	            return;
+	          }
+	          import_copy_pathcopy(root_path + '/_.es6', gen_path + '/_.es6', function (arguments, _$param3) {
+	            err = _$param3;
+	            if (ERR(err, cb)) {
+	              return;
+	            }
+	            import_copy_pathcopy(root_path + '/__test.es6', gen_path + '/__test.es6', function (arguments, _$param4) {
+	              err = _$param4;
+	              if (ERR(err, cb)) {
+	                return;
+	              }
+	              local_include_set_updatables_version_(mu_src_path, root_path, 'HEAD', function (arguments, _$param5) {
+	                err = _$param5;
+	                if (ERR(err, cb)) {
+	                  return;
+	                }
+	                cb();
+	              }.bind(this, arguments));
+	            }.bind(this, arguments));
+	          }.bind(this, arguments));
+	        }.bind(this, arguments));
+	      }.bind(this, arguments));
+	    }.bind(this, arguments));
+	  };
+	  return _;
+	}).catch(function (err) {
+	  console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
 	'use strict';
 
-	// file: unbrace/clear_line_end
+	// file: shared/copy_if_exists
 
 	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
 	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
 	var promises = [
 	// load jspm
-	jspm.import('lodash'),
+	jspm.import('fs-extra@^1.0.0'),
 	// other
 	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (module_lodash, ERR, wordwrap) {
-	    var _ = function _(symbols_to_remove, i) {
-	        if (i.err) return i;
-	        return module_lodash.reduce(symbols_to_remove, function (acc, symbol) {
-	            if (acc.err) {
-	                return acc;
-	            }
-	            var str = acc.line.trim();
-	            if (symbol !== str.slice(-1)) {
-	                return { err: true, line: str };
-	            }
-	            return { err: false, line: str.slice(0, -1) };
-	        }, i);
+	module.exports = q.all(promises).spread(function (module_fsextra100, ERR, wordwrap) {
+	    var _ = function _(from, to, cb) {
+	        var handle_response = function handle_response() {
+	            cb();
+	        };
+
+	        module_fsextra100.copy(from, to, handle_response);
 	    };
 
 	    return _;
@@ -395,39 +716,120 @@ module.exports =
 	/* Generated by Continuation.js v0.1.7 */
 
 /***/ }),
-/* 11 */
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var jspm, q, promises;
+	'use strict';
+	jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
+	promises = [
+	  jspm.import('fs-extra@^1.0.0'),
+	  __webpack_require__(12),
+	  __webpack_require__(14),
+	  jspm.import('async-stacktrace'),
+	  jspm.import('wordwrap')
+	];
+	module.exports = q.all(promises).spread(function (module_fsextra100, local_include_sharedcopy_if_exists, local_include_sharedmake_package_json, ERR, wordwrap) {
+	  var import_remove_pathremove, import_make_dirmkdirp, _;
+	  import_remove_pathremove = module_fsextra100.remove;
+	  import_make_dirmkdirp = module_fsextra100.mkdirp;
+	  _ = function _(mu_src_path, root, metadata, cb) {
+	    var copy_if_exists, make_package_json, gen_path, err;
+	    copy_if_exists = local_include_sharedcopy_if_exists;
+	    make_package_json = local_include_sharedmake_package_json;
+	    gen_path = root + '/generated_local/tools';
+	    import_remove_pathremove(gen_path, function (arguments, _$param0) {
+	      err = _$param0;
+	      if (ERR(err, cb)) {
+	        return;
+	      }
+	      import_make_dirmkdirp(gen_path, function (arguments, _$param1) {
+	        err = _$param1;
+	        if (ERR(err, cb)) {
+	          return;
+	        }
+	        copy_if_exists(root + '/tools', gen_path, function (arguments, _$param2) {
+	          err = _$param2;
+	          if (ERR(err, cb)) {
+	            return;
+	          }
+	          import_make_dirmkdirp(root + '/generated/tools', function (arguments, _$param3) {
+	            err = _$param3;
+	            if (ERR(err, cb)) {
+	              return;
+	            }
+	            cb();
+	          }.bind(this, arguments));
+	        }.bind(this, arguments));
+	      }.bind(this, arguments));
+	    }.bind(this, arguments));
+	  };
+	  return _;
+	}).catch(function (err) {
+	  console.log(err);
+	});
+	/* Generated by Continuation.js v0.1.7 */
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports) {
 
+	var jspm, q, promises;
 	'use strict';
-
-	// file: unbrace/discover_sections
-
-	var jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
-	var q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
+	jspm = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/jspm/api.js');
+	q = eval('require')(process.env['HOME'] + '/.jspm_global_packages/node_modules/q/q.js');
 	jspm.setPackagePath(process.env['HOME'] + '/.jspm_global_packages');
-	var promises = [
-	// other
-	jspm.import('async-stacktrace'), jspm.import('wordwrap')];
-	module.exports = q.all(promises).spread(function (ERR, wordwrap) {
-	    var _ = function _(acc, line) {
-	        if (!acc) {
-	            acc = { stack: [], ret: [] };
-	        }
-
-	        line.multiline_symbols.closed.map(function () {
-	            return acc.stack.shift();
-	        });
-	        line.multiline_symbols.opened.map(function (i) {
-	            return acc.stack.push(i);
-	        });
-	        console.log(acc.stack);
-	        acc.ret.push([line.line, acc.stack]);
-	        return acc;
+	promises = [
+	  jspm.import('ramda'),
+	  jspm.import('fs-extra@^1.0.0'),
+	  jspm.import('js-yaml@^3.7.0'),
+	  jspm.import('object-merge-override@^0.1.0'),
+	  jspm.import('string-template@^1.0.0'),
+	  jspm.import('async-stacktrace'),
+	  jspm.import('wordwrap')
+	];
+	module.exports = q.all(promises).spread(function (module_ramda, module_fsextra100, module_jsyaml370, module_objectmergeoverride010, module_stringtemplate100, ERR, wordwrap) {
+	  var import_read_filereadFile, import_write_filewriteFile, _;
+	  import_read_filereadFile = module_fsextra100.readFile;
+	  import_write_filewriteFile = module_fsextra100.writeFile;
+	  _ = function _(mu_src_path, metadata, gen_path, deps, dev_deps, cb) {
+	    var map_to_str, err, def_vals_yaml, def_vals, template, replace, s;
+	    map_to_str = function map_to_str(i) {
+	      var ret;
+	      ret = module_ramda.map(function (pair) {
+	        return '"' + pair[0] + '": "' + pair[1] + '"';
+	      }, module_ramda.toPairs(i));
+	      return ret.join(',\n    ');
 	    };
-
-	    return _;
+	    import_read_filereadFile(mu_src_path + '/lambda_pattern/shared/default_package_values.yaml', 'utf8', function (arguments, _$param0, _$param1) {
+	      err = _$param0;
+	      def_vals_yaml = _$param1;
+	      if (ERR(err, cb)) {
+	        return;
+	      }
+	      def_vals = module_jsyaml370.safeLoad(def_vals_yaml);
+	      import_read_filereadFile(mu_src_path + '/lambda_pattern/shared/package_template.json', 'utf8', function (arguments, _$param2, _$param3) {
+	        err = _$param2;
+	        template = _$param3;
+	        if (ERR(err, cb)) {
+	          return;
+	        }
+	        replace = module_objectmergeoverride010([
+	          metadata,
+	          def_vals
+	        ]);
+	        replace.dependencies = map_to_str(deps);
+	        replace.dev_dependencies = map_to_str(dev_deps);
+	        s = module_stringtemplate100(template, replace);
+	        import_write_filewriteFile(gen_path + '/package.json', s, cb);
+	      }.bind(this, arguments));
+	    }.bind(this, arguments));
+	  };
+	  return _;
 	}).catch(function (err) {
-	    console.log(err);
+	  console.log(err);
 	});
 	/* Generated by Continuation.js v0.1.7 */
 
