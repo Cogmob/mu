@@ -1,14 +1,8 @@
 () => {
-    const get_metadata = .. get_metadata;
-
-    const cb = (err, generated, expected) => {
-        t.deepEqual(generated, expected);
-        t.end();};
-
     const mu_src_path = __dirname + '/../..';
 
     . ../create/_(mu_src_path, __dirname, 'test_project', 2000, cont(err));
-    get_metadata(__dirname + '/test_project', cont(err, info));
+    .. get_metadata(__dirname + '/test_project', cont(err, info));
     . _(mu_src_path, __dirname + '/test_project', info, cont(err));
 
     const contents = {
@@ -25,4 +19,5 @@
     const expected = .. serialfs.obj(
         __dirname + '/expected_data', contents,
         cont(err, expected));
-    cb(null, generated, expected);};
+
+    return t.deepEqual(generated, expected);};

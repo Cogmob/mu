@@ -2,7 +2,7 @@
     .. p.config({warnings: false, longStackTraces: false});
     .. marked.setOptions({renderer: new .. marked-terminal()});
 
-    . shared/concat_promises('test results:', [
+    .. concat_promises('test results:', [
         //. diff/_test(),
         //. conveyor_to_display/_test(),
         //. unbrace/_test(),
