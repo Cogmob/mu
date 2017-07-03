@@ -1,0 +1,22 @@
+{
+  "name": "{project_name}",
+  "version": "{version}",
+  "description": "{description}",
+  "main": "index.js",
+  "scripts": {
+    "test": "lambda test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "@gitrepo"
+  },
+  "keywords": [{keywords}],
+  "author": "{author}",
+  "license": "{licence}",
+  "dependencies": {
+    {dependencies}
+  },
+  "devDependencies": {
+    {dev_dependencies}
+  }
+}

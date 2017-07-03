@@ -1,0 +1,28 @@
+state_version_order:
+  - 1
+  - 2
+  - 3
+states:
+  '1':
+    name: state
+    state_version: d
+    dev_built: false
+    dev_tests_passed: false
+    release_built: false
+    release_tests_passed: false
+  '2':
+    name: state
+    state_version: d
+    dev_built: false
+    dev_tests_passed: false
+    release_built: false
+    release_tests_passed: false
+  '3':
+    name: state
+    state_version: d
+    dev_built: false
+    dev_tests_passed: false
+    release_built: false
+    release_tests_passed: false
+current_state_version: 3
+newest_state_version: 3

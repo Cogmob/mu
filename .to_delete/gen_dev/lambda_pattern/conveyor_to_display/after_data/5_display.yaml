@@ -1,0 +1,16 @@
+---
+  - 
+    path: "a.es6"
+    contents: "const a = (a, b) => {\n    console.log(a);\n};\n"
+  - 
+    path: "b.es6"
+    contents: ""
+  - 
+    path: "c.es6"
+    contents: ""
+  - 
+    path: "sub_folder/d.es6"
+    contents: ""
+  - 
+    path: "sub_folder/e.es6"
+    contents: ""

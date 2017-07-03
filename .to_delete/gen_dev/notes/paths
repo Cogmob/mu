@@ -1,0 +1,5 @@
+* Lambda tool path
+tool_root + 'module/subfolder/file.ext')
+
+* Lambda project path
+root + 'gen/dev/src/[project_name]/module/subfolder/file.ext'

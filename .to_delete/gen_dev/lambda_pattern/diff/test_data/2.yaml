@@ -1,0 +1,9 @@
+before:
+    'abc'
+after:
+    'abcd'
+diff: |
+    expected:
+    .   <b>abc</b>
+    generated:
+    .   <b>abcd</b>

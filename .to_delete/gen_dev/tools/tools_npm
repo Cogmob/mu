@@ -1,0 +1,5 @@
+#!/bin/bash
+cd ../../gen/dev/src
+npm $1 $2 $3 $4 $5
+cp package.json ../../../src
+cp package.json ../../release

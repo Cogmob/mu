@@ -1,0 +1,12 @@
+before:
+    [1,2,3]
+after:
+    [1,2]
+diff: |
+    expected:
+    .   - 1
+    .   - 2
+    .   - <b>3</b>
+    generated:
+    .   - 1
+    .   - 2

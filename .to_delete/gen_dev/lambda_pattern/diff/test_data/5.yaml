@@ -1,0 +1,10 @@
+before:
+    {a: 1, b: 2}
+after:
+    {a: 1}
+diff: |
+    expected:
+    .   a: 1
+    .   b: <r>2</r>
+    generated:
+    .   a: 1
