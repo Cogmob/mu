@@ -1,0 +1,63 @@
+SystemJS.config({
+  paths: {
+    "npm:": "jspm_packages/npm/",
+    "app/": "src/"
+  },
+  browserConfig: {
+    "baseURL": "/"
+  },
+  devConfig: {
+    "map": {
+      "plugin-babel": "npm:systemjs-plugin-babel@0.0.25"
+    }
+  },
+  transpiler: "plugin-babel",
+  packages: {
+    "app": {
+      "main": "app.js",
+      "format": "esm",
+      "meta": {
+        "*.js": {
+          "loader": "plugin-babel"
+        }
+      }
+    }
+  }
+});
+
+SystemJS.config({
+  packageConfigPaths: [
+    "npm:@*/*.json",
+    "npm:*.json"
+  ],
+  map: {
+    "bash-color": "npm:bash-color@0.0.4",
+    "color": "npm:color@2.0.0",
+    "colors": "npm:colors@1.1.2",
+    "process": "npm:jspm-nodelibs-process@0.2.1"
+  },
+  packages: {
+    "npm:color@2.0.0": {
+      "map": {
+        "color-convert": "npm:color-convert@1.9.0",
+        "color-string": "npm:color-string@1.5.2"
+      }
+    },
+    "npm:color-convert@1.9.0": {
+      "map": {
+        "color-name": "npm:color-name@1.1.2"
+      }
+    },
+    "npm:color-string@1.5.2": {
+      "map": {
+        "color-name": "npm:color-name@1.1.2",
+        "simple-swizzle": "npm:simple-swizzle@0.2.2"
+      }
+    },
+    "npm:simple-swizzle@0.2.2": {
+      "map": {
+        "is-arrayish": "npm:is-arrayish@0.3.1"
+      }
+    }
+  }
+});

@@ -1,0 +1,54 @@
+{
+  "npm:systemjs-plugin-babel@0.0.25": {
+    "deps": {},
+    "peerDeps": {}
+  },
+  "npm:color@2.0.0": {
+    "deps": {
+      "color-convert": "npm:color-convert@^1.8.2",
+      "color-string": "npm:color-string@^1.4.0"
+    },
+    "peerDeps": {}
+  },
+  "npm:color-convert@1.9.0": {
+    "deps": {
+      "color-name": "npm:color-name@^1.1.1"
+    },
+    "peerDeps": {}
+  },
+  "npm:color-string@1.5.2": {
+    "deps": {
+      "color-name": "npm:color-name@^1.0.0",
+      "simple-swizzle": "npm:simple-swizzle@^0.2.2"
+    },
+    "peerDeps": {}
+  },
+  "npm:color-name@1.1.2": {
+    "deps": {},
+    "peerDeps": {}
+  },
+  "npm:simple-swizzle@0.2.2": {
+    "deps": {
+      "is-arrayish": "npm:is-arrayish@^0.3.1"
+    },
+    "peerDeps": {}
+  },
+  "npm:is-arrayish@0.3.1": {
+    "deps": {},
+    "peerDeps": {}
+  },
+  "npm:colors@1.1.2": {
+    "deps": {},
+    "peerDeps": {
+      "process": "npm:jspm-nodelibs-process@^0.2.0"
+    }
+  },
+  "npm:jspm-nodelibs-process@0.2.1": {
+    "deps": {},
+    "peerDeps": {}
+  },
+  "npm:bash-color@0.0.4": {
+    "deps": {},
+    "peerDeps": {}
+  }
+}

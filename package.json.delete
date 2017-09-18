@@ -1,0 +1,17 @@
+{
+  "jspm": {
+    "name": "app",
+    "main": "app.js",
+    "dependencies": {
+      "bash-color": "npm:bash-color@^0.0.4",
+      "color": "npm:color@^2.0.0",
+      "colors": "npm:colors@^1.1.2"
+    },
+    "devDependencies": {
+      "plugin-babel": "npm:systemjs-plugin-babel@^0.0.25"
+    },
+    "peerDependencies": {
+      "process": "npm:jspm-nodelibs-process@^0.2.0"
+    }
+  }
+}
